@@ -15,6 +15,8 @@
 		1D2C16FD2BE532B800C04508 /* HomeCafeRecipesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2C16FC2BE532B800C04508 /* HomeCafeRecipesTests.swift */; };
 		1D2C17072BE532B800C04508 /* HomeCafeRecipesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2C17062BE532B800C04508 /* HomeCafeRecipesUITests.swift */; };
 		1D2C17092BE532B800C04508 /* HomeCafeRecipesUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2C17082BE532B800C04508 /* HomeCafeRecipesUITestsLaunchTests.swift */; };
+		1D2E033E2BE913E500294417 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1D2E033D2BE913E500294417 /* FirebaseAnalytics */; };
+		1DCB3D302BE9126E0036D305 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DCB3D2F2BE9126E0036D305 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,7 @@
 		1D2C17022BE532B800C04508 /* HomeCafeRecipesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HomeCafeRecipesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D2C17062BE532B800C04508 /* HomeCafeRecipesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCafeRecipesUITests.swift; sourceTree = "<group>"; };
 		1D2C17082BE532B800C04508 /* HomeCafeRecipesUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCafeRecipesUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		1DCB3D2F2BE9126E0036D305 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D2E033E2BE913E500294417 /* FirebaseAnalytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,6 +101,7 @@
 		1D2C16E42BE532B700C04508 /* HomeCafeRecipes */ = {
 			isa = PBXGroup;
 			children = (
+				1DCB3D2F2BE9126E0036D305 /* GoogleService-Info.plist */,
 				1D2C16E52BE532B700C04508 /* AppDelegate.swift */,
 				1D2C16E72BE532B700C04508 /* SceneDelegate.swift */,
 				1D2C16E92BE532B700C04508 /* ViewController.swift */,
@@ -140,6 +145,9 @@
 			dependencies = (
 			);
 			name = HomeCafeRecipes;
+			packageProductDependencies = (
+				1D2E033D2BE913E500294417 /* FirebaseAnalytics */,
+			);
 			productName = HomeCafeRecipes;
 			productReference = 1D2C16E22BE532B700C04508 /* HomeCafeRecipes.app */;
 			productType = "com.apple.product-type.application";
@@ -212,6 +220,9 @@
 				Base,
 			);
 			mainGroup = 1D2C16D92BE532B700C04508;
+			packageReferences = (
+				1DCB3D312BE913880036D305 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 1D2C16E32BE532B700C04508 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -229,6 +240,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D2C16F22BE532B800C04508 /* LaunchScreen.storyboard in Resources */,
+				1DCB3D302BE9126E0036D305 /* GoogleService-Info.plist in Resources */,
 				1D2C16EF2BE532B800C04508 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -593,6 +605,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1DCB3D312BE913880036D305 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.25.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1D2E033D2BE913E500294417 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1DCB3D312BE913880036D305 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1D2C16DA2BE532B700C04508 /* Project object */;
 }

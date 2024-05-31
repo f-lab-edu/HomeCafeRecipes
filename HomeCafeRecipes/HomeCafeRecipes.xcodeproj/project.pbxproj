@@ -9,14 +9,20 @@
 /* Begin PBXBuildFile section */
 		1D2C16E62BE532B700C04508 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2C16E52BE532B700C04508 /* AppDelegate.swift */; };
 		1D2C16E82BE532B700C04508 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2C16E72BE532B700C04508 /* SceneDelegate.swift */; };
-		1D2C16EA2BE532B700C04508 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2C16E92BE532B700C04508 /* ViewController.swift */; };
 		1D2C16EF2BE532B800C04508 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D2C16EE2BE532B800C04508 /* Assets.xcassets */; };
 		1D2C16F22BE532B800C04508 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D2C16F02BE532B800C04508 /* LaunchScreen.storyboard */; };
 		1D2C16FD2BE532B800C04508 /* HomeCafeRecipesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2C16FC2BE532B800C04508 /* HomeCafeRecipesTests.swift */; };
 		1D2C17072BE532B800C04508 /* HomeCafeRecipesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2C17062BE532B800C04508 /* HomeCafeRecipesUITests.swift */; };
 		1D2C17092BE532B800C04508 /* HomeCafeRecipesUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2C17082BE532B800C04508 /* HomeCafeRecipesUITestsLaunchTests.swift */; };
 		1D2E033E2BE913E500294417 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1D2E033D2BE913E500294417 /* FirebaseAnalytics */; };
-		1DCB3D302BE9126E0036D305 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DCB3D2F2BE9126E0036D305 /* GoogleService-Info.plist */; };
+		1D8262362C08A227000E981A /* FetchFeedListUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8262352C08A227000E981A /* FetchFeedListUsecase.swift */; };
+		1D8262382C08A233000E981A /* SearchFeedListUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8262372C08A233000E981A /* SearchFeedListUsecase.swift */; };
+		1D82623A2C08A266000E981A /* FeedListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8262392C08A266000E981A /* FeedListViewController.swift */; };
+		1D82623C2C08BB10000E981A /* FeedListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D82623B2C08BB10000E981A /* FeedListRepository.swift */; };
+		1D82623E2C08BBB2000E981A /* FirebaseRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D82623D2C08BBB2000E981A /* FirebaseRemoteDataSource.swift */; };
+		1DBBFB752BF510D400524549 /* FeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBBFB742BF510D400524549 /* FeedItem.swift */; };
+		1DE852962BEF83DA0023AA96 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DE852952BEF83DA0023AA96 /* GoogleService-Info.plist */; };
+		1DE8529E2BEFAB270023AA96 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 1DE8529D2BEFAB270023AA96 /* FirebaseFirestore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,16 +46,20 @@
 		1D2C16E22BE532B700C04508 /* HomeCafeRecipes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeCafeRecipes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D2C16E52BE532B700C04508 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1D2C16E72BE532B700C04508 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		1D2C16E92BE532B700C04508 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		1D2C16EE2BE532B800C04508 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1D2C16F12BE532B800C04508 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		1D2C16F32BE532B800C04508 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1D2C16F82BE532B800C04508 /* HomeCafeRecipesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HomeCafeRecipesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D2C16FC2BE532B800C04508 /* HomeCafeRecipesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCafeRecipesTests.swift; sourceTree = "<group>"; };
 		1D2C17022BE532B800C04508 /* HomeCafeRecipesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HomeCafeRecipesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D2C17062BE532B800C04508 /* HomeCafeRecipesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCafeRecipesUITests.swift; sourceTree = "<group>"; };
 		1D2C17082BE532B800C04508 /* HomeCafeRecipesUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCafeRecipesUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		1DCB3D2F2BE9126E0036D305 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1D8262352C08A227000E981A /* FetchFeedListUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchFeedListUsecase.swift; sourceTree = "<group>"; };
+		1D8262372C08A233000E981A /* SearchFeedListUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFeedListUsecase.swift; sourceTree = "<group>"; };
+		1D8262392C08A266000E981A /* FeedListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListViewController.swift; sourceTree = "<group>"; };
+		1D82623B2C08BB10000E981A /* FeedListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListRepository.swift; sourceTree = "<group>"; };
+		1D82623D2C08BBB2000E981A /* FirebaseRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseRemoteDataSource.swift; sourceTree = "<group>"; };
+		1DBBFB742BF510D400524549 /* FeedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItem.swift; sourceTree = "<group>"; };
+		1DE852952BEF83DA0023AA96 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +68,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D2E033E2BE913E500294417 /* FirebaseAnalytics in Frameworks */,
+				1DE8529E2BEFAB270023AA96 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +96,7 @@
 				1D2C16FB2BE532B800C04508 /* HomeCafeRecipesTests */,
 				1D2C17052BE532B800C04508 /* HomeCafeRecipesUITests */,
 				1D2C16E32BE532B700C04508 /* Products */,
+				1DE8529C2BEFAB270023AA96 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,13 +113,14 @@
 		1D2C16E42BE532B700C04508 /* HomeCafeRecipes */ = {
 			isa = PBXGroup;
 			children = (
-				1DCB3D2F2BE9126E0036D305 /* GoogleService-Info.plist */,
+				1D82622C2C0857BF000E981A /* Presentation */,
+				1D82622D2C0857CE000E981A /* Domain */,
+				1D82622E2C0857E1000E981A /* Data */,
+				1DE852952BEF83DA0023AA96 /* GoogleService-Info.plist */,
 				1D2C16E52BE532B700C04508 /* AppDelegate.swift */,
 				1D2C16E72BE532B700C04508 /* SceneDelegate.swift */,
-				1D2C16E92BE532B700C04508 /* ViewController.swift */,
 				1D2C16EE2BE532B800C04508 /* Assets.xcassets */,
 				1D2C16F02BE532B800C04508 /* LaunchScreen.storyboard */,
-				1D2C16F32BE532B800C04508 /* Info.plist */,
 			);
 			path = HomeCafeRecipes;
 			sourceTree = "<group>";
@@ -129,6 +142,80 @@
 			path = HomeCafeRecipesUITests;
 			sourceTree = "<group>";
 		};
+		1D82622C2C0857BF000E981A /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				1DE852972BEF83E50023AA96 /* FeedList */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		1D82622D2C0857CE000E981A /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				1D8262322C08A1D1000E981A /* UseCase */,
+				1D8262312C08A1C4000E981A /* Entities */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		1D82622E2C0857E1000E981A /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				1D82623B2C08BB10000E981A /* FeedListRepository.swift */,
+				1D82623D2C08BBB2000E981A /* FirebaseRemoteDataSource.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		1D82622F2C08586F000E981A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1D8262392C08A266000E981A /* FeedListViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1D8262302C085874000E981A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		1D8262312C08A1C4000E981A /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				1DBBFB742BF510D400524549 /* FeedItem.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		1D8262322C08A1D1000E981A /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				1D8262372C08A233000E981A /* SearchFeedListUsecase.swift */,
+				1D8262352C08A227000E981A /* FetchFeedListUsecase.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		1DE852972BEF83E50023AA96 /* FeedList */ = {
+			isa = PBXGroup;
+			children = (
+				1D8262302C085874000E981A /* ViewModel */,
+				1D82622F2C08586F000E981A /* View */,
+			);
+			path = FeedList;
+			sourceTree = "<group>";
+		};
+		1DE8529C2BEFAB270023AA96 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -147,6 +234,7 @@
 			name = HomeCafeRecipes;
 			packageProductDependencies = (
 				1D2E033D2BE913E500294417 /* FirebaseAnalytics */,
+				1DE8529D2BEFAB270023AA96 /* FirebaseFirestore */,
 			);
 			productName = HomeCafeRecipes;
 			productReference = 1D2C16E22BE532B700C04508 /* HomeCafeRecipes.app */;
@@ -240,7 +328,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D2C16F22BE532B800C04508 /* LaunchScreen.storyboard in Resources */,
-				1DCB3D302BE9126E0036D305 /* GoogleService-Info.plist in Resources */,
+				1DE852962BEF83DA0023AA96 /* GoogleService-Info.plist in Resources */,
 				1D2C16EF2BE532B800C04508 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -266,9 +354,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D2C16EA2BE532B700C04508 /* ViewController.swift in Sources */,
+				1D82623C2C08BB10000E981A /* FeedListRepository.swift in Sources */,
+				1D82623E2C08BBB2000E981A /* FirebaseRemoteDataSource.swift in Sources */,
 				1D2C16E62BE532B700C04508 /* AppDelegate.swift in Sources */,
 				1D2C16E82BE532B700C04508 /* SceneDelegate.swift in Sources */,
+				1D8262382C08A233000E981A /* SearchFeedListUsecase.swift in Sources */,
+				1D8262362C08A227000E981A /* FetchFeedListUsecase.swift in Sources */,
+				1D82623A2C08A266000E981A /* FeedListViewController.swift in Sources */,
+				1DBBFB752BF510D400524549 /* FeedItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -454,6 +547,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "-Wl,-ld_classic";
 				PRODUCT_BUNDLE_IDENTIFIER = GeonH0.HomeCafeRecipes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -481,6 +575,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "-Wl,-ld_classic";
 				PRODUCT_BUNDLE_IDENTIFIER = GeonH0.HomeCafeRecipes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -622,6 +717,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1DCB3D312BE913880036D305 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalytics;
+		};
+		1DE8529D2BEFAB270023AA96 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1DCB3D312BE913880036D305 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

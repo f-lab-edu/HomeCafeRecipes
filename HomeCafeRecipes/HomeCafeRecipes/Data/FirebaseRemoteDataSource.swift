@@ -34,29 +34,28 @@ class FirebaseRemoteDataSource {
     }
     
     func searchFeedItems(title: String, completion: @escaping (Result<[FeedItem], Error>) -> Void) {
-        db.collection("feedItems")
-            .whereField("title", isGreaterThanOrEqualTo: title)
-            .whereField("title", isLessThanOrEqualTo: "\(title)\u{f8ff}")
-            .getDocuments { (querySnapshot, error) in
-                if let error = error {
-                    completion(.failure(error))
-                    return
-                }
-                guard let documents = querySnapshot?.documents else {
-                    completion(.success([]))
-                    return
-                }
-                let feedItems = documents.compactMap { doc -> FeedItem? in
-                    let data = doc.data()
-                    guard
-                        let title = data["title"] as? String,
-                        let imageURL = data["imageURL"] as? [String] else {
-                        return nil
-                    }
-                    return FeedItem(id: doc.documentID, title: title, imageURL: imageURL)
-                }
-                completion(.success(feedItems))
+        db.collection("feedItems").getDocuments { (querySnapshot, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
             }
+            guard let documents = querySnapshot?.documents else {
+                completion(.success([]))
+                return
+            }
+            let feedItems = documents.compactMap { doc -> FeedItem? in
+                let data = doc.data()
+                guard
+                    let title = data["title"] as? String,
+                    let imageURL = data["imageURL"] as? [String],
+                    title.contains(title) else {
+                    return nil
+                }
+                return FeedItem(id: doc.documentID, title: title, imageURL: imageURL)
+            }
+            completion(.success(feedItems))
+        }
     }
-
 }
+
+

@@ -8,10 +8,10 @@
 import FirebaseFirestore
 
 class FirebaseRemoteDataSource {
-    private let db = Firestore.firestore()
+    private let firebasedb = Firestore.firestore()
     
     func fetchFeedItems(completion: @escaping (Result<[FeedItem], Error>) -> Void) {
-        db.collection("feedItems").getDocuments { (querySnapshot, error) in
+        firebasedb.collection("feedItems").getDocuments { (querySnapshot, error) in
             if let error = error {
                 completion(.failure(error))
                 return
@@ -23,18 +23,20 @@ class FirebaseRemoteDataSource {
             let feedItems = documents.compactMap { doc -> FeedItem? in
                 let data = doc.data()
                 guard
+                    let id = data["id"] as? String,
                     let title = data["title"] as? String,
-                    let imageURL = data["imageURL"] as? [String] else {
+                    let imageURLs = data["imageURLs"] as? [String] else {
                     return nil
                 }
-                return FeedItem(id: doc.documentID, title: title, imageURL: imageURL)
+                return FeedItem(id: id, title: title, imageURLs: imageURLs)
+                
             }
             completion(.success(feedItems))
         }
     }
-    
+
     func searchFeedItems(title: String, completion: @escaping (Result<[FeedItem], Error>) -> Void) {
-        db.collection("feedItems").getDocuments { (querySnapshot, error) in
+        firebasedb.collection("feedItems").getDocuments { (querySnapshot, error) in
             if let error = error {
                 completion(.failure(error))
                 return
@@ -46,12 +48,13 @@ class FirebaseRemoteDataSource {
             let feedItems = documents.compactMap { doc -> FeedItem? in
                 let data = doc.data()
                 guard
+                    let id = data["id"] as? String,
                     let title = data["title"] as? String,
-                    let imageURL = data["imageURL"] as? [String],
+                    let imageURLs = data["imageURLs"] as? [String],
                     title.contains(title) else {
                     return nil
                 }
-                return FeedItem(id: doc.documentID, title: title, imageURL: imageURL)
+                return FeedItem(id: id, title: title, imageURLs: imageURLs)
             }
             completion(.success(feedItems))
         }

@@ -14,7 +14,11 @@
 		1D2C16FD2BE532B800C04508 /* HomeCafeRecipesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2C16FC2BE532B800C04508 /* HomeCafeRecipesTests.swift */; };
 		1D2C17072BE532B800C04508 /* HomeCafeRecipesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2C17062BE532B800C04508 /* HomeCafeRecipesUITests.swift */; };
 		1D2C17092BE532B800C04508 /* HomeCafeRecipesUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2C17082BE532B800C04508 /* HomeCafeRecipesUITestsLaunchTests.swift */; };
-		1D2E033E2BE913E500294417 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1D2E033D2BE913E500294417 /* FirebaseAnalytics */; };
+		1D50F0ED2C0D896C005A071B /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D50F0EC2C0D896C005A071B /* FeedCell.swift */; };
+		1D50F0F12C0D8C88005A071B /* FeedListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D50F0F02C0D8C88005A071B /* FeedListCollectionView.swift */; };
+		1D6B8D412C0DB82B0039758A /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1D6B8D402C0DB82B0039758A /* FirebaseAnalytics */; };
+		1D6B8D432C0DB82F0039758A /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 1D6B8D422C0DB82F0039758A /* FirebaseFirestore */; };
+		1D6B8D452C0DB8890039758A /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1D6B8D442C0DB8890039758A /* FirebaseFirestoreSwift */; };
 		1D8262362C08A227000E981A /* FetchFeedListUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8262352C08A227000E981A /* FetchFeedListUsecase.swift */; };
 		1D8262382C08A233000E981A /* SearchFeedListUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8262372C08A233000E981A /* SearchFeedListUsecase.swift */; };
 		1D82623A2C08A266000E981A /* FeedListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8262392C08A266000E981A /* FeedListViewController.swift */; };
@@ -22,7 +26,8 @@
 		1D82623E2C08BBB2000E981A /* FirebaseRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D82623D2C08BBB2000E981A /* FirebaseRemoteDataSource.swift */; };
 		1DBBFB752BF510D400524549 /* FeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBBFB742BF510D400524549 /* FeedItem.swift */; };
 		1DE852962BEF83DA0023AA96 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DE852952BEF83DA0023AA96 /* GoogleService-Info.plist */; };
-		1DE8529E2BEFAB270023AA96 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 1DE8529D2BEFAB270023AA96 /* FirebaseFirestore */; };
+		1DEEE4F32C09637C000E1F39 /* FeedListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DEEE4F22C09637C000E1F39 /* FeedListViewModel.swift */; };
+		1DEEE4F72C0AEF93000E1F39 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DEEE4F62C0AEF93000E1F39 /* Observable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +58,8 @@
 		1D2C17022BE532B800C04508 /* HomeCafeRecipesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HomeCafeRecipesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D2C17062BE532B800C04508 /* HomeCafeRecipesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCafeRecipesUITests.swift; sourceTree = "<group>"; };
 		1D2C17082BE532B800C04508 /* HomeCafeRecipesUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCafeRecipesUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		1D50F0EC2C0D896C005A071B /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
+		1D50F0F02C0D8C88005A071B /* FeedListCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListCollectionView.swift; sourceTree = "<group>"; };
 		1D8262352C08A227000E981A /* FetchFeedListUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchFeedListUsecase.swift; sourceTree = "<group>"; };
 		1D8262372C08A233000E981A /* SearchFeedListUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFeedListUsecase.swift; sourceTree = "<group>"; };
 		1D8262392C08A266000E981A /* FeedListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListViewController.swift; sourceTree = "<group>"; };
@@ -60,6 +67,8 @@
 		1D82623D2C08BBB2000E981A /* FirebaseRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseRemoteDataSource.swift; sourceTree = "<group>"; };
 		1DBBFB742BF510D400524549 /* FeedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItem.swift; sourceTree = "<group>"; };
 		1DE852952BEF83DA0023AA96 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1DEEE4F22C09637C000E1F39 /* FeedListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FeedListViewModel.swift; path = HomeCafeRecipes/Domain/ViewModel/FeedListViewModel.swift; sourceTree = SOURCE_ROOT; };
+		1DEEE4F62C0AEF93000E1F39 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,8 +76,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D2E033E2BE913E500294417 /* FirebaseAnalytics in Frameworks */,
-				1DE8529E2BEFAB270023AA96 /* FirebaseFirestore in Frameworks */,
+				1D6B8D412C0DB82B0039758A /* FirebaseAnalytics in Frameworks */,
+				1D6B8D432C0DB82F0039758A /* FirebaseFirestore in Frameworks */,
+				1D6B8D452C0DB8890039758A /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,6 +155,7 @@
 		1D82622C2C0857BF000E981A /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				1DEEE4F52C0AEF67000E1F39 /* Utils */,
 				1DE852972BEF83E50023AA96 /* FeedList */,
 			);
 			path = Presentation;
@@ -153,6 +164,7 @@
 		1D82622D2C0857CE000E981A /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				1DEEE4F42C096389000E1F39 /* ViewModel */,
 				1D8262322C08A1D1000E981A /* UseCase */,
 				1D8262312C08A1C4000E981A /* Entities */,
 			);
@@ -172,15 +184,10 @@
 			isa = PBXGroup;
 			children = (
 				1D8262392C08A266000E981A /* FeedListViewController.swift */,
+				1D50F0F02C0D8C88005A071B /* FeedListCollectionView.swift */,
+				1D50F0EC2C0D896C005A071B /* FeedCell.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		1D8262302C085874000E981A /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		1D8262312C08A1C4000E981A /* Entities */ = {
@@ -203,7 +210,6 @@
 		1DE852972BEF83E50023AA96 /* FeedList */ = {
 			isa = PBXGroup;
 			children = (
-				1D8262302C085874000E981A /* ViewModel */,
 				1D82622F2C08586F000E981A /* View */,
 			);
 			path = FeedList;
@@ -214,6 +220,22 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1DEEE4F42C096389000E1F39 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				1DEEE4F22C09637C000E1F39 /* FeedListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		1DEEE4F52C0AEF67000E1F39 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				1DEEE4F62C0AEF93000E1F39 /* Observable.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,8 +255,9 @@
 			);
 			name = HomeCafeRecipes;
 			packageProductDependencies = (
-				1D2E033D2BE913E500294417 /* FirebaseAnalytics */,
-				1DE8529D2BEFAB270023AA96 /* FirebaseFirestore */,
+				1D6B8D402C0DB82B0039758A /* FirebaseAnalytics */,
+				1D6B8D422C0DB82F0039758A /* FirebaseFirestore */,
+				1D6B8D442C0DB8890039758A /* FirebaseFirestoreSwift */,
 			);
 			productName = HomeCafeRecipes;
 			productReference = 1D2C16E22BE532B700C04508 /* HomeCafeRecipes.app */;
@@ -355,10 +378,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D82623C2C08BB10000E981A /* FeedListRepository.swift in Sources */,
+				1DEEE4F32C09637C000E1F39 /* FeedListViewModel.swift in Sources */,
+				1D50F0F12C0D8C88005A071B /* FeedListCollectionView.swift in Sources */,
 				1D82623E2C08BBB2000E981A /* FirebaseRemoteDataSource.swift in Sources */,
 				1D2C16E62BE532B700C04508 /* AppDelegate.swift in Sources */,
+				1D50F0ED2C0D896C005A071B /* FeedCell.swift in Sources */,
 				1D2C16E82BE532B700C04508 /* SceneDelegate.swift in Sources */,
 				1D8262382C08A233000E981A /* SearchFeedListUsecase.swift in Sources */,
+				1DEEE4F72C0AEF93000E1F39 /* Observable.swift in Sources */,
 				1D8262362C08A227000E981A /* FetchFeedListUsecase.swift in Sources */,
 				1D82623A2C08A266000E981A /* FeedListViewController.swift in Sources */,
 				1DBBFB752BF510D400524549 /* FeedItem.swift in Sources */,
@@ -542,6 +569,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -570,6 +598,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -713,15 +742,20 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		1D2E033D2BE913E500294417 /* FirebaseAnalytics */ = {
+		1D6B8D402C0DB82B0039758A /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 1DCB3D312BE913880036D305 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalytics;
 		};
-		1DE8529D2BEFAB270023AA96 /* FirebaseFirestore */ = {
+		1D6B8D422C0DB82F0039758A /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 1DCB3D312BE913880036D305 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
+		};
+		1D6B8D442C0DB8890039758A /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1DCB3D312BE913880036D305 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

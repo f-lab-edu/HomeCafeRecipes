@@ -8,5 +8,5 @@
 struct FeedItem {
     let id: String
     let title : String
-    let imageURL : [String]
+    let imageURLs : [String]
 }

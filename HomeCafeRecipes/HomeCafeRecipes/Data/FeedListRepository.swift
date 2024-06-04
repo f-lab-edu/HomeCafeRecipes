@@ -11,13 +11,14 @@ protocol FeedListRepository {
     func fetchFeedItems(completion: @escaping (Result<[FeedItem], Error>) -> Void)
     func searchFeedItems(title: String, completion: @escaping (Result<[FeedItem], Error>) -> Void)
 }
-class FeedListRepositoryImpl: FeedListRepository {
-    private let remoteDataSource: FirebaseRemoteDataSource
 
+final class FeedListRepositoryImpl: FeedListRepository {
+    private let remoteDataSource: FirebaseRemoteDataSource
+    
     init(remoteDataSource: FirebaseRemoteDataSource) {
         self.remoteDataSource = remoteDataSource
     }
-
+    
     func fetchFeedItems(completion: @escaping (Result<[FeedItem], Error>) -> Void) {
         remoteDataSource.fetchFeedItems(completion: completion)
     }
@@ -25,6 +26,4 @@ class FeedListRepositoryImpl: FeedListRepository {
     func searchFeedItems(title : String, completion: @escaping (Result<[FeedItem], Error>) -> Void){
         remoteDataSource.searchFeedItems(title: title, completion: completion)
     }
-
-
 }

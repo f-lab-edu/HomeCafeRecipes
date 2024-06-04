@@ -20,17 +20,7 @@ class FirebaseRemoteDataSource {
                 completion(.success([]))
                 return
             }
-            let feedItems = documents.compactMap { doc -> FeedItem? in
-                let data = doc.data()
-                guard
-                    let id = data["id"] as? String,
-                    let title = data["title"] as? String,
-                    let imageURLs = data["imageURLs"] as? [String] else {
-                    return nil
-                }
-                return FeedItem(id: id, title: title, imageURLs: imageURLs)
-                
-            }
+            let feedItems = self.convertToFeedItems(documents)
             completion(.success(feedItems))
         }
     }
@@ -48,18 +38,23 @@ class FirebaseRemoteDataSource {
                     completion(.success([]))
                     return
                 }
-                let feedItems = documents.compactMap { doc -> FeedItem? in
-                    let data = doc.data()
-                    guard
-                        let id = data["id"] as? String,
-                        let title = data["title"] as? String,
-                        let imageURLs = data["imageURLs"] as? [String] else {
-                        return nil
-                    }
-                    return FeedItem(id: id, title: title, imageURLs: imageURLs)
-                }
+                
+                let feedItems = self.convertToFeedItems(documents)
                 completion(.success(feedItems))
             }
+    }
+    
+    private func convertToFeedItems(_ documents: [QueryDocumentSnapshot]) -> [FeedItem] {
+        return documents.compactMap { doc -> FeedItem? in
+            let data = doc.data()
+            guard
+                let id = data["id"] as? String,
+                let title = data["title"] as? String,
+                let imageURLs = data["imageURLs"] as? [String] else {
+                return nil
+            }
+            return FeedItem(id: id, title: title, imageURLs: imageURLs)
+        }
     }
 
 }

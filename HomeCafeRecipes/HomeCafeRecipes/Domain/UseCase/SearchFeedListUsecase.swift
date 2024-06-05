@@ -19,7 +19,12 @@ class DefaultSearchFeedListUseCase: SearchFeedListUseCase {
 
     func execute(title: String, completion: @escaping (Result<[FeedItem], Error>) -> Void) {
         repository.searchFeedItems(title: title) { result in
-            completion(result)
+            switch result {
+            case .success(let feedItems):
+                completion(.success(feedItems))
+            case .failure(let error):
+                completion(.failure(error))
+            }
         }
     }
 }

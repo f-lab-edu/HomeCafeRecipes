@@ -19,7 +19,12 @@ class DefaultFetchFeedListUseCase: FetchFeedListUseCase {
 
     func execute(completion: @escaping (Result<[FeedItem], Error>) -> Void) {
         repository.fetchFeedItems { result in
-            completion(result)
+            switch result {
+            case .success(let feedItems):
+                completion(.success(feedItems))
+            case .failure(let error):
+                completion(.failure(error))
+            }
         }
     }
 }

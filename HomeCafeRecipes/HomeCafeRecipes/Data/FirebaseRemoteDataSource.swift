@@ -8,10 +8,10 @@
 import FirebaseFirestore
 
 class FirebaseRemoteDataSource {
-    private let firebasedb = Firestore.firestore()
+    private let firebaseDB = Firestore.firestore()
     
     func fetchFeedItems(completion: @escaping (Result<[FeedItem], Error>) -> Void) {
-        firebasedb.collection("feedItems").getDocuments { (querySnapshot, error) in
+        firebaseDB.collection("feedItems").getDocuments { (querySnapshot, error) in
             if let error = error {
                 completion(.failure(error))
                 return
@@ -26,7 +26,7 @@ class FirebaseRemoteDataSource {
     }
 
     func searchFeedItems(title: String, completion: @escaping (Result<[FeedItem], Error>) -> Void) {
-        firebasedb.collection("feedItems")
+        firebaseDB.collection("feedItems")
             .whereField("title", isGreaterThanOrEqualTo: title)
             .whereField("title", isLessThanOrEqualTo: "\(title)\u{f8ff}")
             .getDocuments { (querySnapshot, error) in

@@ -19,12 +19,16 @@
 		1D6B8D412C0DB82B0039758A /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1D6B8D402C0DB82B0039758A /* FirebaseAnalytics */; };
 		1D6B8D432C0DB82F0039758A /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 1D6B8D422C0DB82F0039758A /* FirebaseFirestore */; };
 		1D6B8D452C0DB8890039758A /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1D6B8D442C0DB8890039758A /* FirebaseFirestoreSwift */; };
+		1D6FD14D2C1362CD00F47AFE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6FD14C2C1362CD00F47AFE /* User.swift */; };
+		1D6FD14F2C13630F00F47AFE /* RecipeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6FD14E2C13630F00F47AFE /* RecipeType.swift */; };
+		1D6FD1512C13633500F47AFE /* Like.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6FD1502C13633500F47AFE /* Like.swift */; };
+		1D6FD1532C13634C00F47AFE /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6FD1522C13634C00F47AFE /* Comment.swift */; };
 		1D8262362C08A227000E981A /* FetchFeedListUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8262352C08A227000E981A /* FetchFeedListUsecase.swift */; };
 		1D8262382C08A233000E981A /* SearchFeedListUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8262372C08A233000E981A /* SearchFeedListUsecase.swift */; };
 		1D82623A2C08A266000E981A /* FeedListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8262392C08A266000E981A /* FeedListViewController.swift */; };
 		1D82623C2C08BB10000E981A /* FeedListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D82623B2C08BB10000E981A /* FeedListRepository.swift */; };
 		1D82623E2C08BBB2000E981A /* FirebaseRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D82623D2C08BBB2000E981A /* FirebaseRemoteDataSource.swift */; };
-		1DBBFB752BF510D400524549 /* FeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBBFB742BF510D400524549 /* FeedItem.swift */; };
+		1DBBFB752BF510D400524549 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBBFB742BF510D400524549 /* Recipe.swift */; };
 		1DE852962BEF83DA0023AA96 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DE852952BEF83DA0023AA96 /* GoogleService-Info.plist */; };
 		1DEEE4F32C09637C000E1F39 /* FeedListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DEEE4F22C09637C000E1F39 /* FeedListViewModel.swift */; };
 		1DEEE4F72C0AEF93000E1F39 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DEEE4F62C0AEF93000E1F39 /* Observable.swift */; };
@@ -60,12 +64,16 @@
 		1D2C17082BE532B800C04508 /* HomeCafeRecipesUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCafeRecipesUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		1D50F0EC2C0D896C005A071B /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		1D50F0F02C0D8C88005A071B /* FeedListCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListCollectionView.swift; sourceTree = "<group>"; };
+		1D6FD14C2C1362CD00F47AFE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		1D6FD14E2C13630F00F47AFE /* RecipeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeType.swift; sourceTree = "<group>"; };
+		1D6FD1502C13633500F47AFE /* Like.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Like.swift; sourceTree = "<group>"; };
+		1D6FD1522C13634C00F47AFE /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		1D8262352C08A227000E981A /* FetchFeedListUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchFeedListUsecase.swift; sourceTree = "<group>"; };
 		1D8262372C08A233000E981A /* SearchFeedListUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFeedListUsecase.swift; sourceTree = "<group>"; };
 		1D8262392C08A266000E981A /* FeedListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListViewController.swift; sourceTree = "<group>"; };
 		1D82623B2C08BB10000E981A /* FeedListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListRepository.swift; sourceTree = "<group>"; };
 		1D82623D2C08BBB2000E981A /* FirebaseRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseRemoteDataSource.swift; sourceTree = "<group>"; };
-		1DBBFB742BF510D400524549 /* FeedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItem.swift; sourceTree = "<group>"; };
+		1DBBFB742BF510D400524549 /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		1DE852952BEF83DA0023AA96 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1DEEE4F22C09637C000E1F39 /* FeedListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FeedListViewModel.swift; path = HomeCafeRecipes/Domain/ViewModel/FeedListViewModel.swift; sourceTree = SOURCE_ROOT; };
 		1DEEE4F62C0AEF93000E1F39 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
@@ -155,8 +163,8 @@
 		1D82622C2C0857BF000E981A /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				1DEEE4F52C0AEF67000E1F39 /* Utils */,
 				1DE852972BEF83E50023AA96 /* FeedList */,
+				1DEEE4F52C0AEF67000E1F39 /* Utils */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -193,7 +201,11 @@
 		1D8262312C08A1C4000E981A /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				1DBBFB742BF510D400524549 /* FeedItem.swift */,
+				1DBBFB742BF510D400524549 /* Recipe.swift */,
+				1D6FD14C2C1362CD00F47AFE /* User.swift */,
+				1D6FD14E2C13630F00F47AFE /* RecipeType.swift */,
+				1D6FD1502C13633500F47AFE /* Like.swift */,
+				1D6FD1522C13634C00F47AFE /* Comment.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -377,18 +389,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D6FD14D2C1362CD00F47AFE /* User.swift in Sources */,
 				1D82623C2C08BB10000E981A /* FeedListRepository.swift in Sources */,
 				1DEEE4F32C09637C000E1F39 /* FeedListViewModel.swift in Sources */,
 				1D50F0F12C0D8C88005A071B /* FeedListCollectionView.swift in Sources */,
 				1D82623E2C08BBB2000E981A /* FirebaseRemoteDataSource.swift in Sources */,
+				1D6FD14F2C13630F00F47AFE /* RecipeType.swift in Sources */,
 				1D2C16E62BE532B700C04508 /* AppDelegate.swift in Sources */,
 				1D50F0ED2C0D896C005A071B /* FeedCell.swift in Sources */,
 				1D2C16E82BE532B700C04508 /* SceneDelegate.swift in Sources */,
+				1D6FD1512C13633500F47AFE /* Like.swift in Sources */,
 				1D8262382C08A233000E981A /* SearchFeedListUsecase.swift in Sources */,
+				1D6FD1532C13634C00F47AFE /* Comment.swift in Sources */,
 				1DEEE4F72C0AEF93000E1F39 /* Observable.swift in Sources */,
 				1D8262362C08A227000E981A /* FetchFeedListUsecase.swift in Sources */,
 				1D82623A2C08A266000E981A /* FeedListViewController.swift in Sources */,
-				1DBBFB752BF510D400524549 /* FeedItem.swift in Sources */,
+				1DBBFB752BF510D400524549 /* Recipe.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

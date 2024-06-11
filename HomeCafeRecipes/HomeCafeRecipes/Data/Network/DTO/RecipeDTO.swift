@@ -39,7 +39,7 @@ extension RecipeDTO {
             description: description,
             writer: writer.toDomain(),
             imageUrls: imageUrls.map { $0.recipeImageUrl },
-            isLiked: false,
+            hasBeenLiked: false,
             likeCount: likesCount,
             createdAt: DateFormatter.iso8601.date(from: createdAt) ?? Date()
         )

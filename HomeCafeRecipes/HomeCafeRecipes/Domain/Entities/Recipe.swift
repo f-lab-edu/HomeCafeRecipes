@@ -14,7 +14,7 @@ struct Recipe {
     let description: String
     let writer: User
     let imageUrls: [String]
-    let isLiked: Bool
+    let hasBeenLiked: Bool
     let likeCount: Int
     let createdAt: Date
 }

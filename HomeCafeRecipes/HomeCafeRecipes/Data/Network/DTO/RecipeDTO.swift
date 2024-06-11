@@ -7,42 +7,41 @@
 
 import Foundation
 
-struct RecipesResponseDTO: Decodable {
-    let statusCode: Int
-    let message: String
-    let data: [RecipeDTO]
-}
-
 struct RecipeDTO: Decodable {
-    let recipeId: Int
-    let recipeType: String
-    let recipeName: String
-    let recipeDescription: String
-    let recipeLikesCnt: Int
+    
+    let ID: Int
+    let type: String
+    let name: String
+    let description: String
+    let likesCount: Int
     let createdAt: String
     let writer: UserDTO
-    let recipeImgUrls: [RecipeImageDTO]
-}
-
-struct RecipeImageDTO: Decodable {
-    let recipeImgId: Int
-    let recipeImgUrl: String
+    let imageUrls: [RecipeImageDTO]
+        
+    enum CodingKeys: String, CodingKey {
+        case ID = "recipeId"
+        case type = "recipeType"
+        case name = "recipeName"
+        case description = "recipeDescription"
+        case likesCount = "recipeLikesCnt"
+        case createdAt = "createdAt"
+        case writer = "writer"
+        case imageUrls = "recipeImgUrls"
+    }
 }
 
 extension RecipeDTO {
     func toDomain() -> Recipe {
         return Recipe(
-            id: recipeId,
-            type: RecipeType(rawValue: recipeType) ?? .dessert,
-            name: recipeName,
-            description: recipeDescription,
+            id: ID,
+            type: RecipeType(rawValue: type) ?? .coffee,
+            name: name,
+            description: description,
             writer: writer.toDomain(),
-            imageUrls: recipeImgUrls.map { $0.recipeImgUrl },
+            imageUrls: imageUrls.map { $0.recipeImgUrl },
             isLiked: false,
-            likeCount: recipeLikesCnt,
+            likeCount: likesCount,
             createdAt: DateFormatter.iso8601.date(from: createdAt) ?? Date()
         )
     }
 }
-
-

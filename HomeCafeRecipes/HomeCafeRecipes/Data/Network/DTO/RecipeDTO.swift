@@ -9,7 +9,7 @@ import Foundation
 
 struct RecipeDTO: Decodable {
     
-    let ID: Int
+    let id: Int
     let type: String
     let name: String
     let description: String
@@ -19,7 +19,7 @@ struct RecipeDTO: Decodable {
     let imageUrls: [RecipeImageDTO]
         
     enum CodingKeys: String, CodingKey {
-        case ID = "recipeId"
+        case id = "recipeId"
         case type = "recipeType"
         case name = "recipeName"
         case description = "recipeDescription"
@@ -33,12 +33,12 @@ struct RecipeDTO: Decodable {
 extension RecipeDTO {
     func toDomain() -> Recipe {
         return Recipe(
-            id: ID,
+            id: id,
             type: RecipeType(rawValue: type) ?? .coffee,
             name: name,
             description: description,
             writer: writer.toDomain(),
-            imageUrls: imageUrls.map { $0.recipeImgUrl },
+            imageUrls: imageUrls.map { $0.recipeImageUrl },
             isLiked: false,
             likeCount: likesCount,
             createdAt: DateFormatter.iso8601.date(from: createdAt) ?? Date()

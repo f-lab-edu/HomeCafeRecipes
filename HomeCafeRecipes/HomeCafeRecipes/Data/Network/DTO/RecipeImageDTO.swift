@@ -8,6 +8,6 @@
 import Foundation
 
 struct RecipeImageDTO: Decodable {
-    let recipeImgId: Int
-    let recipeImgUrl: String
+    let recipeImageID: Int
+    let recipeImageUrl: String
 }

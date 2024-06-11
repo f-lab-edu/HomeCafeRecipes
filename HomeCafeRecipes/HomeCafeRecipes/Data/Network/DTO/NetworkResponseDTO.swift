@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ResponseDTO: Decodable {
+struct NetworkResponseDTO: Decodable {
     let statusCode: Int
     let message: String
     let data: [RecipeDTO]

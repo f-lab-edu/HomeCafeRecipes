@@ -8,7 +8,7 @@
 import RxSwift
 
 protocol SearchFeedListUseCase {
-    func execute(title: String) -> Observable<Result<[Recipe], Error>>
+    func execute(title: String) -> Single<Result<[Recipe], Error>>
 }
 
 class DefaultSearchFeedListUseCase: SearchFeedListUseCase {
@@ -18,7 +18,7 @@ class DefaultSearchFeedListUseCase: SearchFeedListUseCase {
         self.repository = repository
     }
 
-    func execute(title: String) -> Observable<Result<[Recipe], Error>> {
+    func execute(title: String) -> Single<Result<[Recipe], Error>> {
         return repository.searchRecipes(title: title)
             .map { recipes in
                 return .success(recipes)

@@ -8,7 +8,7 @@
 import RxSwift
 
 protocol FeedListRepository {
-    func fetchRecipes() -> Observable<[Recipe]>
+    func fetchRecipes() -> Single<[Recipe]>
 }
 
 class DefaultFeedListRepository: FeedListRepository {
@@ -18,7 +18,7 @@ class DefaultFeedListRepository: FeedListRepository {
         self.networkService = networkService
     }
 
-    func fetchRecipes() -> Observable<[Recipe]> {
+    func fetchRecipes() -> Single<[Recipe]> {
         return networkService.fetchRecipes()
     }
 }

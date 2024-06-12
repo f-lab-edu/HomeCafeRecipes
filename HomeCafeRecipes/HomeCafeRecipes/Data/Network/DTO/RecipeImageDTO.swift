@@ -10,4 +10,9 @@ import Foundation
 struct RecipeImageDTO: Decodable {
     let recipeImageID: Int
     let recipeImageUrl: String
+    
+    private enum CodingKeys: String, CodingKey {
+        case recipeImageID = "recipeImgId"
+        case recipeImageUrl = "recipeImgUrl"
+    }
 }

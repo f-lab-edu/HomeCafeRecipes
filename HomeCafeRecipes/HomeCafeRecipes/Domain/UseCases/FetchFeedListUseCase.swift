@@ -8,7 +8,7 @@
 import RxSwift
 
 protocol FetchFeedListUseCase {
-    func execute() -> Single<Result<[Recipe], Error>>
+    func execute(pageNumber: Int) -> Single<Result<[Recipe], Error>>
 }
 
 class DefaultFetchFeedListUseCase: FetchFeedListUseCase {
@@ -18,9 +18,9 @@ class DefaultFetchFeedListUseCase: FetchFeedListUseCase {
         self.repository = repository
     }
     
-    func execute() -> Single<Result<[Recipe], Error>> {
-        return repository.fetchRecipes()
-            .map { recipes in
+    func execute(pageNumber: Int) -> Single<Result<[Recipe], Error>> {
+        return repository.fetchRecipes(pageNumber: pageNumber)
+            .map { recipes in                
                 return .success(recipes)
             }
             .catch { error in

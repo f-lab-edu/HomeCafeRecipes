@@ -17,6 +17,7 @@ struct RecipeDTO: Decodable {
     let createdAt: String
     let writer: UserDTO
     let imageUrls: [RecipeImageDTO]
+    let isLikedByCurrentUser: Bool
         
     enum CodingKeys: String, CodingKey {
         case id = "recipeId"
@@ -27,6 +28,7 @@ struct RecipeDTO: Decodable {
         case createdAt = "createdAt"
         case writer = "writer"
         case imageUrls = "recipeImgUrls"
+        case isLikedByCurrentUser = "isLiked"
     }
 }
 
@@ -39,7 +41,7 @@ extension RecipeDTO {
             description: description,
             writer: writer.toDomain(),
             imageUrls: imageUrls.map { $0.recipeImageUrl },
-            hasBeenLiked: false,
+            isLikedByCurrentUser: isLikedByCurrentUser,
             likeCount: likesCount,
             createdAt: DateFormatter.iso8601.date(from: createdAt) ?? Date()
         )

@@ -8,7 +8,7 @@
 import RxSwift
 
 protocol SearchFeedListRepository {
-    func searchRecipes(title: String) -> Single<[Recipe]>
+    func searchRecipes(title: String, pageNumber: Int) -> Single<[Recipe]>
 }
 
 class DefaultSearchFeedRepository: SearchFeedListRepository {
@@ -19,7 +19,7 @@ class DefaultSearchFeedRepository: SearchFeedListRepository {
         self.networkService = networkService
     }
     
-    func searchRecipes(title: String) -> Single<[Recipe]> {
-        return networkService.searchRecipes(title: title)
+    func searchRecipes(title: String,pageNumber: Int) -> Single<[Recipe]> {
+        return networkService.searchRecipes(title: title, pageNumber: pageNumber)
     }
 }

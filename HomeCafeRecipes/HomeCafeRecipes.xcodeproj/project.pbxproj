@@ -32,6 +32,7 @@
 		1D2C16FD2BE532B800C04508 /* HomeCafeRecipesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2C16FC2BE532B800C04508 /* HomeCafeRecipesTests.swift */; };
 		1D2C17072BE532B800C04508 /* HomeCafeRecipesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2C17062BE532B800C04508 /* HomeCafeRecipesUITests.swift */; };
 		1D2C17092BE532B800C04508 /* HomeCafeRecipesUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2C17082BE532B800C04508 /* HomeCafeRecipesUITestsLaunchTests.swift */; };
+		1D6C5ACF2C1A8C580052A36C /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 1D6C5ACE2C1A8C580052A36C /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -342,6 +343,7 @@
 			mainGroup = 1D2C16D92BE532B700C04508;
 			packageReferences = (
 				1D740B3F2C15E1EC0001B704 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				1D6C5ACD2C1A8C580052A36C /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 1D2C16E32BE532B700C04508 /* Products */;
 			projectDirPath = "";
@@ -739,6 +741,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1D6C5ACD2C1A8C580052A36C /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.12.0;
+			};
+		};
 		1D740B3F2C15E1EC0001B704 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift";

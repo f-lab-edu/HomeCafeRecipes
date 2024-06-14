@@ -16,8 +16,9 @@ protocol RecipeListViewModelDelegate: AnyObject {
 protocol InputRecipeListViewModel {
     func viewDidLoad()
     func fetchNextPage()
-    func didSelectItem(id: Int)
+    func didSelectItem(id: Int) -> RecipeItemViewModel?
     func searchRecipes(with query: String)
+    func resetSearch()
 }
 
 protocol OutputRecipeListViewModel {
@@ -26,7 +27,7 @@ protocol OutputRecipeListViewModel {
 }
 
 class RecipeListViewModel: InputRecipeListViewModel, OutputRecipeListViewModel {
-    
+            
     private let disposeBag = DisposeBag()
     private let fetchFeedListUseCase: FetchFeedListUseCase
     private let searchFeedListUseCase: SearchFeedListUseCase
@@ -36,7 +37,8 @@ class RecipeListViewModel: InputRecipeListViewModel, OutputRecipeListViewModel {
     private var isFetching = false
     private var isSearching = false
     private var currentSearchQuery: String?
-    
+    private var allRecipes: [Recipe] = []
+
     private let recipesSubject = BehaviorSubject<[RecipeListItemViewModel]>(value: [])
     private let errorSubject = BehaviorSubject<Error?>(value: nil)
 
@@ -82,8 +84,19 @@ class RecipeListViewModel: InputRecipeListViewModel, OutputRecipeListViewModel {
         fetchRecipes()
     }
 
-    func didSelectItem(id: Int) {
-        print(id)
+    func didSelectItem(id: Int) -> RecipeItemViewModel? {
+        guard let recipe = allRecipes.first(where: { $0.id == id }) else {
+            return nil
+        }
+        return RecipeMapper.mapToRecipeItemViewModel(from: recipe)
+    }
+    
+    func resetSearch() {
+        isSearching = false
+        currentSearchQuery = nil
+        currentPage = 1
+        recipesSubject.onNext([])
+        fetchRecipes()
     }
 
     func searchRecipes(with title: String) {
@@ -92,7 +105,6 @@ class RecipeListViewModel: InputRecipeListViewModel, OutputRecipeListViewModel {
         currentSearchQuery = title
         isSearching = true
         currentPage = 1
-
         searchFeedListUseCase.execute(title: title, pageNumber: currentPage)
             .subscribe(onSuccess: handleSuccess, onFailure: handleError)
             .disposed(by: disposeBag)
@@ -101,7 +113,6 @@ class RecipeListViewModel: InputRecipeListViewModel, OutputRecipeListViewModel {
     private func fetchRecipes() {
         guard !isFetching else { return }
         isFetching = true
-
         fetchFeedListUseCase.execute(pageNumber: currentPage)
             .subscribe(onSuccess: handleSuccess, onFailure: handleError)
             .disposed(by: disposeBag)
@@ -111,7 +122,12 @@ class RecipeListViewModel: InputRecipeListViewModel, OutputRecipeListViewModel {
         isFetching = false
         switch result {
         case .success(let recipes):
-            let recipeViewModels = recipes.map { RecipeListItemViewModel(recipe: $0) }
+            if currentPage == 1 {
+                allRecipes = recipes
+            } else {
+                allRecipes.append(contentsOf: recipes)
+            }
+            let recipeViewModels = RecipeMapper.mapToRecipeListItemViewModels(from: recipes)
             var currentRecipes = try! recipesSubject.value()
             if isSearching {
                 currentRecipes = recipeViewModels

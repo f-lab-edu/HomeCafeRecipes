@@ -79,9 +79,9 @@ class RecipeListViewModel: InputRecipeListViewModel, OutputRecipeListViewModel {
     func viewDidLoad() {
         fetchRecipes()
     }
-
+    
     func fetchNextPage() {
-        fetchRecipes()
+        fetchNextRecipes(nextPage: currentPage)
     }
 
     func didSelectItem(id: Int) -> RecipeItemViewModel? {
@@ -117,11 +117,22 @@ class RecipeListViewModel: InputRecipeListViewModel, OutputRecipeListViewModel {
             .subscribe(onSuccess: handleSuccess, onFailure: handleError)
             .disposed(by: disposeBag)
     }
+    
+    private func fetchNextRecipes(nextPage: Int){
+        guard !isFetching else { return }
+        isFetching = true
+        fetchFeedListUseCase.execute(pageNumber: nextPage)
+            .subscribe(onSuccess: handleSuccess, onFailure: handleError)
+            .disposed(by: disposeBag)
+    }
 
     private func handleSuccess(result: Result<[Recipe], Error>) {
         isFetching = false
         switch result {
         case .success(let recipes):
+            if recipes.isEmpty {
+                return
+            }
             if currentPage == 1 {
                 allRecipes = recipes
             } else {

@@ -21,7 +21,7 @@ class DefaultRecipeFetchService: RecipeFetchService {
         self.networkService = networkService
     }
     
-    private func buildURL(endpoint: String, queryItems: [URLQueryItem]) -> URL? {
+    private func makeURL(endpoint: String, queryItems: [URLQueryItem]) -> URL? {
         let URL = DefaultRecipeFetchService.baseURL.appendingPathComponent(endpoint)
         var URLComponents = URLComponents(url: URL, resolvingAgainstBaseURL: false)
         URLComponents?.queryItems = queryItems
@@ -29,7 +29,7 @@ class DefaultRecipeFetchService: RecipeFetchService {
     }
     
     func fetchRecipes(pageNumber: Int) -> Single<[Recipe]> {
-        guard let URL = buildURL(endpoint: "recipes", queryItems: [URLQueryItem(name: "pageNumber", value: String(pageNumber))]) else {
+        guard let URL = makeURL(endpoint: "recipes", queryItems: [URLQueryItem(name: "pageNumber", value: String(pageNumber))]) else {
             return Single.error(NSError(domain: "URLComponentsError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"]))
         }
         return networkService.getRequest(url: URL, responseType: NetworkResponseDTO<RecipePageDTO>.self)
@@ -38,7 +38,7 @@ class DefaultRecipeFetchService: RecipeFetchService {
     
     
     func searchRecipes(title: String, pageNumber: Int) -> Single<[Recipe]> {
-        guard let URL = buildURL(endpoint: "recipes", queryItems: [
+        guard let URL = makeURL(endpoint: "recipes", queryItems: [
             URLQueryItem(name: "keyword", value: title),
             URLQueryItem(name: "pageNumber", value: String(pageNumber))
         ]) else {

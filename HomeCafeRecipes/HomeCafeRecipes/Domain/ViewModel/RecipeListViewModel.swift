@@ -10,7 +10,7 @@ import RxSwift
 
 protocol RecipeListViewModelDelegate: AnyObject {
     func didFetchRecipes(_ recipes: [RecipeListItemViewModel])
-    func didFailWithError(_ error: Error)
+    func didFail(with error: Error)
 }
 
 protocol InputRecipeListViewModel {
@@ -70,7 +70,7 @@ class RecipeListViewModel: InputRecipeListViewModel, OutputRecipeListViewModel {
         error
             .subscribe(onNext: { [weak self] error in
                 if let error = error {
-                    self?.delegate?.didFailWithError(error)
+                    self?.delegate?.didFail(with: error)
                 }
             })
             .disposed(by: disposeBag)

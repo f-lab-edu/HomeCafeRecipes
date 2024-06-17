@@ -10,11 +10,11 @@ import Foundation
 struct RecipeListItemViewModel {
     let id: Int
     let name: String
-    let imageUrl: URL?
+    let imageURL: URL?
 
     init(recipe: Recipe) {
         self.id = recipe.id
         self.name = recipe.name
-        self.imageUrl = URL(string: recipe.imageUrls.first ?? "")
+        self.imageURL = URL(string: recipe.imageUrls.first ?? "")
     }
 }

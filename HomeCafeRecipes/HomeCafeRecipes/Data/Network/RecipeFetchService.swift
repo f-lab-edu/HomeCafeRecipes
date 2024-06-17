@@ -15,36 +15,36 @@ protocol RecipeFetchService {
 
 class DefaultRecipeFetchService: RecipeFetchService {
     private let networkService: NetworkService
-    private let baseURL: URL
+    private static let baseURL: URL = URL(string: "https://meog0.store/api")!
     
-    init(networkService: NetworkService, baseURL: URL = URL(string: "https://meog0.store/api")!) {
+    init(networkService: NetworkService) {
         self.networkService = networkService
-        self.baseURL = baseURL
+    }
+    
+    private func buildURL(endpoint: String, queryItems: [URLQueryItem]) -> URL? {
+        let URL = DefaultRecipeFetchService.baseURL.appendingPathComponent(endpoint)
+        var URLComponents = URLComponents(url: URL, resolvingAgainstBaseURL: false)
+        URLComponents?.queryItems = queryItems
+        return URLComponents?.url
     }
     
     func fetchRecipes(pageNumber: Int) -> Single<[Recipe]> {
-        let url = baseURL.appendingPathComponent("recipes")
-        var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)
-        urlComponents?.queryItems = [URLQueryItem(name: "pageNumber", value: String(pageNumber))]
-        guard let finalURL = urlComponents?.url else {
+        guard let URL = buildURL(endpoint: "recipes", queryItems: [URLQueryItem(name: "pageNumber", value: String(pageNumber))]) else {
             return Single.error(NSError(domain: "URLComponentsError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"]))
         }
-        return networkService.getRequest(url: finalURL, responseType: NetworkResponseDTO<RecipePageDTO>.self)
-            .map { responseDTO in
-                return responseDTO.data.recipes.map { $0.toDomain() }
-            }
+        return networkService.getRequest(url: URL, responseType: NetworkResponseDTO<RecipePageDTO>.self)
+            .map { $0.data.recipes.map{ $0.toDomain() } }
     }
     
+    
     func searchRecipes(title: String, pageNumber: Int) -> Single<[Recipe]> {
-        let url = baseURL.appendingPathComponent("recipes")
-        var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)
-        urlComponents?.queryItems = [URLQueryItem(name: "keyword", value: title), URLQueryItem(name: "pageNumber", value: String(pageNumber))]
-        guard let finalURL = urlComponents?.url else {
+        guard let URL = buildURL(endpoint: "recipes", queryItems: [
+            URLQueryItem(name: "keyword", value: title),
+            URLQueryItem(name: "pageNumber", value: String(pageNumber))
+        ]) else {
             return Single.error(NSError(domain: "URLComponentsError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"]))
         }
-        return networkService.getRequest(url: finalURL, responseType: NetworkResponseDTO<RecipePageDTO>.self)
-            .map { responseDTO in
-                return responseDTO.data.recipes.map { $0.toDomain() }
-            }
+        return networkService.getRequest(url: URL, responseType: NetworkResponseDTO<RecipePageDTO>.self)
+            .map { $0.data.recipes.map{ $0.toDomain() } }
     }
 }

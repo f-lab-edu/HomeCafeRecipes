@@ -8,11 +8,11 @@
 import Foundation
 
 struct RecipeMapper {
-    static func mapToRecipeListItemViewModels(from recipes: [Recipe]) -> [RecipeListItemViewModel] {
+    func mapToRecipeListItemViewModels(from recipes: [Recipe]) -> [RecipeListItemViewModel] {
         return recipes.map { RecipeListItemViewModel(recipe: $0) }
     }
 
-    static func mapToRecipeItemViewModel(from recipe: Recipe) -> RecipeItemViewModel {
+    func mapToRecipeItemViewModel(from recipe: Recipe) -> RecipeItemViewModel {
         return RecipeItemViewModel(recipe: recipe)
     }
 }

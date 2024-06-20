@@ -31,7 +31,7 @@ class RecipeListViewModel: InputRecipeListViewModel, OutputRecipeListViewModel {
     private let disposeBag = DisposeBag()
     private let fetchFeedListUseCase: FetchFeedListUseCase
     private let searchFeedListUseCase: SearchFeedListUseCase
-    private let recipeListMapper = RecipeMapper()
+    private let recipeListMapper = RecipeFetchMapper()
     private weak var delegate: RecipeListViewModelDelegate?
 
     private var currentPage: Int = 1
@@ -89,7 +89,7 @@ class RecipeListViewModel: InputRecipeListViewModel, OutputRecipeListViewModel {
         guard let recipe = allRecipes.first(where: { $0.id == id }) else {
             return nil
         }
-        return recipeListMapper.mapToRecipeItemViewModel(from: recipe)
+        return RecipeFetchMapper.mapToRecipeItemViewModel(from: recipe)
     }
     
     func resetSearch() {
@@ -139,7 +139,7 @@ class RecipeListViewModel: InputRecipeListViewModel, OutputRecipeListViewModel {
             } else {
                 allRecipes.append(contentsOf: recipes)
             }
-            let recipeViewModels = recipeListMapper.mapToRecipeListItemViewModels(from: recipes)
+            let recipeViewModels = RecipeFetchMapper.mapToRecipeListItemViewModels(from: recipes)
             var currentRecipes = try! recipesSubject.value()
             if isSearching {
                 currentRecipes = recipeViewModels

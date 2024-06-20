@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct RecipeMapper {
+struct RecipeFetchMapper {
     func mapToRecipeListItemViewModels(from recipes: [Recipe]) -> [RecipeListItemViewModel] {
         return recipes.map { RecipeListItemViewModel(recipe: $0) }
     }
-
+    
     func mapToRecipeItemViewModel(from recipe: Recipe) -> RecipeItemViewModel {
         return RecipeItemViewModel(recipe: recipe)
     }

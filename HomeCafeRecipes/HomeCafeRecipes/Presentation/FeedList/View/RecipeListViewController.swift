@@ -26,6 +26,7 @@ class RecipeListViewController: UIViewController, RecipeListViewModelDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        recipelistView.setCollectionViewDataSourceDelegate(self)        
         setupUI()
         interactor.viewDidLoad()
     }
@@ -49,17 +50,14 @@ class RecipeListViewController: UIViewController, RecipeListViewModelDelegate {
             recipelistView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             recipelistView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-
-        recipelistView.collectionView.dataSource = self
-        recipelistView.collectionView.delegate = self
-
+        
         searchBar.delegate = self
     }
 
     func didFetchRecipes(_ recipes: [RecipeListItemViewModel]) {
         DispatchQueue.main.async {
             self.recipes = recipes
-            self.recipelistView.collectionView.reloadData()
+            self.recipelistView.reloadCollectionViewData()
         }
     }
 

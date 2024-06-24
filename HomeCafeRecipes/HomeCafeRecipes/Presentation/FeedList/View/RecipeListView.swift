@@ -9,7 +9,7 @@ import UIKit
 
 final class RecipeListView: UIView {
     
-    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -44,5 +44,14 @@ final class RecipeListView: UIView {
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 10
         collectionView.collectionViewLayout = layout
+    }
+    
+    func setCollectionViewDataSourceDelegate<D: UICollectionViewDataSource & UICollectionViewDelegate>(_ dataSourceDelegate: D) {
+        collectionView.dataSource = dataSourceDelegate
+        collectionView.delegate = dataSourceDelegate
+    }
+    
+    func reloadCollectionViewData() {
+        collectionView.reloadData()
     }
 }

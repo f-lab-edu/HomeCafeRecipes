@@ -11,7 +11,7 @@ class RecipeListViewController: UIViewController, RecipeListViewModelDelegate {
     
     private var interactor: RecipeListInteractor
     private var recipes: [RecipeListItemViewModel] = []
-    private let searchBar = UISearchBar()
+    private let searchBar = SearchBar()
     private let recipeListView = RecipeListView()
 
     init(interactor: RecipeListInteractor) {
@@ -51,7 +51,7 @@ class RecipeListViewController: UIViewController, RecipeListViewModelDelegate {
             recipeListView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
-        searchBar.delegate = self
+        searchBar.setDelegate(self)
     }
 
     func didFetchRecipes(_ recipes: [RecipeListItemViewModel]) {

@@ -12,7 +12,7 @@ class RecipeListViewController: UIViewController, RecipeListViewModelDelegate {
     private var interactor: RecipeListInteractor
     private var recipes: [RecipeListItemViewModel] = []
     private let searchBar = UISearchBar()
-    private let recipelistView = RecipeListView()
+    private let recipeListView = RecipeListView()
 
     init(interactor: RecipeListInteractor) {
         self.interactor = interactor
@@ -26,7 +26,7 @@ class RecipeListViewController: UIViewController, RecipeListViewModelDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        recipelistView.setCollectionViewDataSourceDelegate(self)        
+        recipeListView.setCollectionViewDataSourceDelegate(self)
         setupUI()
         interactor.viewDidLoad()
     }
@@ -34,10 +34,10 @@ class RecipeListViewController: UIViewController, RecipeListViewModelDelegate {
     private func setupUI() {
         view.backgroundColor = .white
         view.addSubview(searchBar)
-        view.addSubview(recipelistView)
+        view.addSubview(recipeListView)
 
         searchBar.translatesAutoresizingMaskIntoConstraints = false
-        recipelistView.translatesAutoresizingMaskIntoConstraints = false
+        recipeListView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -45,10 +45,10 @@ class RecipeListViewController: UIViewController, RecipeListViewModelDelegate {
             searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             searchBar.heightAnchor.constraint(equalToConstant: 50),
 
-            recipelistView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
-            recipelistView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            recipelistView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            recipelistView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            recipeListView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+            recipeListView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            recipeListView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            recipeListView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
         searchBar.delegate = self
@@ -57,7 +57,7 @@ class RecipeListViewController: UIViewController, RecipeListViewModelDelegate {
     func didFetchRecipes(_ recipes: [RecipeListItemViewModel]) {
         DispatchQueue.main.async {
             self.recipes = recipes
-            self.recipelistView.reloadCollectionViewData()
+            self.recipeListView.reloadCollectionViewData()
         }
     }
 

@@ -12,7 +12,7 @@ final class SearchBar: UIView {
     private let searchBar = UISearchBar()
     
     var searchText: String? {
-        return searchBar.text
+        searchBar.text    
     }
 
     override init(frame: CGRect) {

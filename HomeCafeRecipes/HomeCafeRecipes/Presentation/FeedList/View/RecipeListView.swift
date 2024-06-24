@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RecipeListView: UIView {
+final class RecipeListView: UIView {
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 

@@ -9,15 +9,15 @@ import UIKit
 
 class RecipeListViewController: UIViewController, RecipeListViewModelDelegate {
     
-    private var viewModel: RecipeListViewModel
+    private var interactor: RecipeListInteractor
     private var recipes: [RecipeListItemViewModel] = []
     private let searchBar = UISearchBar()
     private let recipelistView = RecipeListView()
 
-    init(viewModel: RecipeListViewModel) {
-        self.viewModel = viewModel
+    init(interactor: RecipeListInteractor) {
+        self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
-        self.viewModel.setDelegate(self)
+        self.interactor.setDelegate(self)
     }
 
     required init?(coder: NSCoder) {
@@ -27,11 +27,10 @@ class RecipeListViewController: UIViewController, RecipeListViewModelDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        viewModel.viewDidLoad()
+        interactor.viewDidLoad()
     }
 
     private func setupUI() {
-        
         view.backgroundColor = .white
         view.addSubview(searchBar)
         view.addSubview(recipelistView)
@@ -40,8 +39,8 @@ class RecipeListViewController: UIViewController, RecipeListViewModelDelegate {
         recipelistView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -25),
-            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor , constant: 10),
+            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             searchBar.heightAnchor.constraint(equalToConstant: 50),
 
@@ -82,9 +81,9 @@ extension RecipeListViewController: UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let recipeListItemViewModel = recipes[indexPath.item]        
-        if let recipeItemViewModel = viewModel.didSelectItem(id: recipeListItemViewModel.id) {
-            let detailVC = RecipeDetailViewController(viewModel: recipeItemViewModel)
+        let recipeListItemViewModel = recipes[indexPath.item]
+        if let recipeItemViewModel = interactor.didSelectItem(id: recipeListItemViewModel.id) {
+            let detailVC = RecipeDetailViewController(viewModel: recipeItemViewModel)            
             navigationController?.pushViewController(detailVC, animated: true)
         } else {
             let RecipeIDErrorAlert = UIAlertController(title: "오류", message: "해당 정보를 찾지 못했습니다.", preferredStyle: .alert)
@@ -102,25 +101,23 @@ extension RecipeListViewController: UICollectionViewDataSource, UICollectionView
         let height = scrollView.frame.size.height
         
         if offsetY > contentHeight - height {
-            viewModel.fetchNextPage()
+            interactor.fetchNextPage()
         }
     }
 }
 
 extension RecipeListViewController: UISearchBarDelegate {
-    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar.text?.count == 0 {
-            viewModel.resetSearch()
+            interactor.resetSearch()
         }
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let query = searchBar.text, !query.isEmpty else {
-            viewModel.resetSearch()
+            interactor.resetSearch()
             return
         }
-        viewModel.searchRecipes(with: query)
+        interactor.searchRecipes(with: query)
     }
-            
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RecipeListViewCell: UICollectionViewCell {
+final class RecipeListViewCell: UICollectionViewCell {
     
     private let imageView = UIImageView()
     private let titleLabel = UILabel()

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchBar: UIView {
+final class SearchBar: UIView {
     
     private let searchBar = UISearchBar()
     

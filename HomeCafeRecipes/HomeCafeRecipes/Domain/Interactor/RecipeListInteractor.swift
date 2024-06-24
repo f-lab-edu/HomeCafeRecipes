@@ -13,7 +13,7 @@ protocol RecipeListViewModelDelegate: AnyObject {
     func didFail(with error: Error)
 }
 
-protocol InputRecipeListViewModel {
+protocol InputRecipeListInteractor {
     func viewDidLoad()
     func fetchNextPage()
     func didSelectItem(id: Int) -> RecipeItemViewModel?
@@ -21,12 +21,12 @@ protocol InputRecipeListViewModel {
     func resetSearch()
 }
 
-protocol OutputRecipeListViewModel {
+protocol OutputRecipeListInteractor {
     var recipes: Observable<[RecipeListItemViewModel]> { get }
     var error: Observable<Error?> { get }
 }
 
-class RecipeListViewModel: InputRecipeListViewModel, OutputRecipeListViewModel {
+class RecipeListInteractor: InputRecipeListInteractor, OutputRecipeListInteractor {
             
     private let disposeBag = DisposeBag()
     private let fetchFeedListUseCase: FetchFeedListUseCase

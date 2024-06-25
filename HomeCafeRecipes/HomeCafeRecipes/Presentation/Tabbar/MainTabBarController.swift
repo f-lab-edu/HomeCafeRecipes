@@ -23,6 +23,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     private func setupButton() {
         addButton.backgroundColor = .blue
         addButton.setTitle("+", for: .normal)
+        addButton.titleLabel?.font = UIFont.systemFont(ofSize: 40)
         addButton.setTitleColor(.white, for: .normal)
         addButton.layer.cornerRadius = buttonSize * 0.5
         addButton.layer.shadowColor = UIColor.black.cgColor

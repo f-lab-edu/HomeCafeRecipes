@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class RecipeListViewController: UIViewController, RecipeListViewModelDelegate {
+final class RecipeListViewController: UIViewController {
     
     private var interactor: RecipeListInteractor
     private var recipes: [RecipeListItemViewModel] = []
@@ -52,17 +52,6 @@ final class RecipeListViewController: UIViewController, RecipeListViewModelDeleg
         ])
         
         searchBar.setDelegate(self)
-    }
-
-    func didFetchRecipes(_ recipes: [RecipeListItemViewModel]) {
-        DispatchQueue.main.async {
-            self.recipes = recipes
-            self.recipeListView.reloadCollectionViewData()
-        }
-    }
-
-    func didFail(with error: Error) {
-        print("Error: \(error.localizedDescription)")
     }
 }
 
@@ -118,4 +107,18 @@ extension RecipeListViewController: UISearchBarDelegate {
         }
         interactor.searchRecipes(with: query)
     }
+}
+
+extension RecipeListViewController: RecipeListViewModelDelegate {
+    
+        func didFetchRecipes(_ recipes: [RecipeListItemViewModel]) {
+            DispatchQueue.main.async {
+                self.recipes = recipes
+                self.recipeListView.reloadCollectionViewData()
+            }
+        }
+    
+        func didFail(with error: Error) {
+            print("Error: \(error.localizedDescription)")
+        }
 }

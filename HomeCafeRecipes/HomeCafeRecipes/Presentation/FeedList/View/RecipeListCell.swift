@@ -51,19 +51,10 @@ final class RecipeListViewCell: UICollectionViewCell {
     func configure(with viewModel: RecipeListItemViewModel) {
         titleLabel.text = viewModel.name
         if let imageUrl = viewModel.imageURL {
-            loadImage(from: imageUrl)
+            recipeThumbnailView.loadImage(from: imageUrl)
         } else {
             recipeThumbnailView.image = nil
         }
 
-    }
-
-    private func loadImage(from url: URL) {
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data, error == nil else { return }
-            DispatchQueue.main.async {
-                self.recipeThumbnailView.image = UIImage(data: data)
-            }
-        }.resume()
     }
 }

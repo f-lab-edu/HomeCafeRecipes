@@ -10,7 +10,8 @@ import UIKit
 class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     
     private let addButton =  UIButton(type: .custom)
-
+    private let buttonSize: CGFloat = 64
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
@@ -23,7 +24,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         addButton.backgroundColor = .blue
         addButton.setTitle("+", for: .normal)
         addButton.setTitleColor(.white, for: .normal)
-        addButton.layer.cornerRadius = 32
+        addButton.layer.cornerRadius = buttonSize * 0.5
         addButton.layer.shadowColor = UIColor.black.cgColor
         addButton.layer.shadowOpacity = 0.3
         addButton.layer.shadowOffset = CGSize(width: 0, height: 2)

@@ -43,6 +43,9 @@ final class RecipeListViewCell: UICollectionViewCell {
         
         titleLabel.font = Fonts.titleFont
         titleLabel.textAlignment = .center
+        
+        recipeThumbnailView.contentMode = .scaleAspectFill
+        recipeThumbnailView.clipsToBounds = true
     }
 
     func configure(with viewModel: RecipeListItemViewModel) {
@@ -53,8 +56,6 @@ final class RecipeListViewCell: UICollectionViewCell {
             recipeThumbnailView.image = nil
         }
 
-        recipeThumbnailView.contentMode = .scaleAspectFill
-        recipeThumbnailView.clipsToBounds = true
     }
 
     private func loadImage(from url: URL) {

@@ -63,16 +63,16 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
             addButton.heightAnchor.constraint(equalToConstant: 64)
         ])
     }
-
+    
     @objc private func didTapActionButton() {
         let alert = UIAlertController(title: "게시물 작성", message: "어떤 게시물을 작성하실 건가요?", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Coffee", style: .default, handler: { [weak self] _ in
-            guard let self = self else { return }
+            guard let self else { return }
             let addRecipeVC = AddRecipeViewController(recipeType: .coffee)
             self.navigationController?.pushViewController(addRecipeVC, animated: true)
         }))
         alert.addAction(UIAlertAction(title: "Dessert", style: .default, handler: { [weak self] _ in
-            guard let self = self else { return }
+            guard let self else { return }
             let addRecipeVC = AddRecipeViewController(recipeType: .dessert)
             self.navigationController?.pushViewController(addRecipeVC, animated: true)
         }))

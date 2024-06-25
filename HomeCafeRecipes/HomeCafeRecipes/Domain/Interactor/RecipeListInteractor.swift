@@ -9,6 +9,7 @@ import Foundation
 import RxSwift
 
 protocol RecipeListViewModelDelegate: AnyObject {
+
     func fetchedRecipes(_ recipes: [RecipeListItemViewModel])
     func didFail(with error: Error)
 }

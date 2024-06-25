@@ -95,13 +95,13 @@ extension RecipeListViewController: UICollectionViewDataSource, UICollectionView
 
 extension RecipeListViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchBar.text?.count == 0 {
+        if searchText.isBlank {
             interactor.resetSearch()
         }
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        guard let query = searchBar.text, !query.isEmpty else {
+        guard let query = searchBar.text, !query.isBlank else {
             interactor.resetSearch()
             return
         }

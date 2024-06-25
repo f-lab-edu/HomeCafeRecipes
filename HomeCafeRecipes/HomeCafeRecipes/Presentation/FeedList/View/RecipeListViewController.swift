@@ -74,7 +74,8 @@ extension RecipeListViewController: UICollectionViewDataSource, UICollectionView
             navigationController?.pushViewController(detailVC, animated: true)
         } else {
             let RecipeIDErrorAlert = UIAlertController(title: "오류", message: "해당 정보를 찾지 못했습니다.", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+            let okAction = UIAlertAction(title: "OK", style: .default) { [weak self]  _  in
+                guard let self = self else { return }
                 self.navigationController?.popToRootViewController(animated: true)
             }
             RecipeIDErrorAlert.addAction(okAction)

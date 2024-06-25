@@ -41,7 +41,7 @@ final class RecipeListViewCell: UICollectionViewCell {
             titleLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.15)
         ])
         
-        titleLabel.font = .systemFont(ofSize: 16, weight: .bold)
+        titleLabel.font = Fonts.titleFont
         titleLabel.textAlignment = .center
     }
 

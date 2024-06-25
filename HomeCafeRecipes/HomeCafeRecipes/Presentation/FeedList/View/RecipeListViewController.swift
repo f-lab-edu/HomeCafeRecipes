@@ -111,7 +111,7 @@ extension RecipeListViewController: UISearchBarDelegate {
 
 extension RecipeListViewController: RecipeListViewModelDelegate {
     
-        func didFetchRecipes(_ recipes: [RecipeListItemViewModel]) {
+        func fetchedRecipes(_ recipes: [RecipeListItemViewModel]) {
             DispatchQueue.main.async {
                 self.recipes = recipes
                 self.recipeListView.reloadCollectionViewData()

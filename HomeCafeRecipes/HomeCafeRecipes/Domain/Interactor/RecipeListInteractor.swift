@@ -9,11 +9,11 @@ import Foundation
 import RxSwift
 
 protocol RecipeListViewModelDelegate: AnyObject {
-    func didFetchRecipes(_ recipes: [RecipeListItemViewModel])
+    func fetchedRecipes(_ recipes: [RecipeListItemViewModel])
     func didFail(with error: Error)
 }
 
-protocol InputRecipeListViewModel {
+protocol InputRecipeListInteractor {
     func viewDidLoad()
     func fetchNextPage()
     func didSelectItem(id: Int) -> RecipeItemViewModel?
@@ -21,16 +21,17 @@ protocol InputRecipeListViewModel {
     func resetSearch()
 }
 
-protocol OutputRecipeListViewModel {
+protocol OutputRecipeListInteractor {
     var recipes: Observable<[RecipeListItemViewModel]> { get }
     var error: Observable<Error?> { get }
 }
 
-class RecipeListViewModel: InputRecipeListViewModel, OutputRecipeListViewModel {
+class RecipeListInteractor: InputRecipeListInteractor, OutputRecipeListInteractor {
             
     private let disposeBag = DisposeBag()
     private let fetchFeedListUseCase: FetchFeedListUseCase
     private let searchFeedListUseCase: SearchFeedListUseCase
+    private let recipeListMapper = RecipeListMapper()
     private weak var delegate: RecipeListViewModelDelegate?
 
     private var currentPage: Int = 1
@@ -63,7 +64,7 @@ class RecipeListViewModel: InputRecipeListViewModel, OutputRecipeListViewModel {
     private func bindOutputs() {
         recipes
             .subscribe(onNext: { [weak self] recipes in
-                self?.delegate?.didFetchRecipes(recipes)
+                self?.delegate?.fetchedRecipes(recipes)
             })
             .disposed(by: disposeBag)
 
@@ -88,7 +89,7 @@ class RecipeListViewModel: InputRecipeListViewModel, OutputRecipeListViewModel {
         guard let recipe = allRecipes.first(where: { $0.id == id }) else {
             return nil
         }
-        return RecipeMapper.mapToRecipeItemViewModel(from: recipe)
+        return recipeListMapper.mapToRecipeItemViewModel(from: recipe)
     }
     
     func resetSearch() {
@@ -138,7 +139,7 @@ class RecipeListViewModel: InputRecipeListViewModel, OutputRecipeListViewModel {
             } else {
                 allRecipes.append(contentsOf: recipes)
             }
-            let recipeViewModels = RecipeMapper.mapToRecipeListItemViewModels(from: recipes)
+            let recipeViewModels = recipeListMapper.mapToRecipeListItemViewModels(from: recipes)
             var currentRecipes = try! recipesSubject.value()
             if isSearching {
                 currentRecipes = recipeViewModels

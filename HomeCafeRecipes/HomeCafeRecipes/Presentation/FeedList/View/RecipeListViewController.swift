@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RecipeListViewController: UIViewController, RecipeListViewModelDelegate {
+final class RecipeListViewController: UIViewController, RecipeListViewModelDelegate {
     
     private var interactor: RecipeListInteractor
     private var recipes: [RecipeListItemViewModel] = []

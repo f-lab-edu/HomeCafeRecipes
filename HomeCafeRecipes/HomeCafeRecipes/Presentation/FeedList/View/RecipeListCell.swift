@@ -9,7 +9,7 @@ import UIKit
 
 final class RecipeListViewCell: UICollectionViewCell {
     
-    private let imageView = UIImageView()
+    private let recipeThumbnailView = UIImageView()
     private let titleLabel = UILabel()
 
     override init(frame: CGRect) {
@@ -22,19 +22,19 @@ final class RecipeListViewCell: UICollectionViewCell {
     }
 
     private func setupUI() {
-        contentView.addSubview(imageView)
+        contentView.addSubview(recipeThumbnailView)
         contentView.addSubview(titleLabel)
 
-        imageView.translatesAutoresizingMaskIntoConstraints = false
+        recipeThumbnailView.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            imageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.75),
+            recipeThumbnailView.topAnchor.constraint(equalTo: topAnchor),
+            recipeThumbnailView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            recipeThumbnailView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            recipeThumbnailView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.75),
             
-            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10),
+            titleLabel.topAnchor.constraint(equalTo: recipeThumbnailView.bottomAnchor, constant: 10),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
             titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
@@ -50,18 +50,18 @@ final class RecipeListViewCell: UICollectionViewCell {
         if let imageUrl = viewModel.imageURL {
             loadImage(from: imageUrl)
         } else {
-            imageView.image = nil
+            recipeThumbnailView.image = nil
         }
 
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
+        recipeThumbnailView.contentMode = .scaleAspectFill
+        recipeThumbnailView.clipsToBounds = true
     }
 
     private func loadImage(from url: URL) {
         URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data, error == nil else { return }
             DispatchQueue.main.async {
-                self.imageView.image = UIImage(data: data)
+                self.recipeThumbnailView.image = UIImage(data: data)
             }
         }.resume()
     }

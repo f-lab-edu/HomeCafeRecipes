@@ -9,6 +9,7 @@ import UIKit
 
 final class RecipeListView: UIView {
     
+    private let itemSize = CGSize(width: UIScreen.main.bounds.width - 20, height: 200)
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
     override init(frame: CGRect) {
@@ -40,7 +41,7 @@ final class RecipeListView: UIView {
 
     private func configureCollectionView() {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.width - 20, height: 200)
+        layout.itemSize = itemSize
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 10
         collectionView.collectionViewLayout = layout

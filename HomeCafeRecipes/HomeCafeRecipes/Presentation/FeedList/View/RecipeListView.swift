@@ -9,26 +9,31 @@ import UIKit
 
 final class RecipeListView: UIView {
     
-    private let itemSize = CGSize(width: UIScreen.main.bounds.width - 20, height: 200)
+    private enum Metric {
+        static let itemSize: CGSize = .init(width: UIScreen.main.bounds.width - 20, height: 200)
+        static let minimumLineSpacing: CGFloat = 10.0
+        static let minimumInteritemSpacing: CGFloat = 10.0
+        
+    }
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
         setupLayout()
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     private func setupUI() {
         backgroundColor = .white
         addSubview(collectionView)
         collectionView.register(RecipeListViewCell.self, forCellWithReuseIdentifier: "RecipeCell")
         configureCollectionView()
     }
-
+    
     private func setupLayout() {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -38,12 +43,12 @@ final class RecipeListView: UIView {
             collectionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
     }
-
+    
     private func configureCollectionView() {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = itemSize
-        layout.minimumLineSpacing = 10
-        layout.minimumInteritemSpacing = 10
+        layout.itemSize = Metric.itemSize
+        layout.minimumLineSpacing = Metric.minimumLineSpacing
+        layout.minimumInteritemSpacing = Metric.minimumInteritemSpacing
         collectionView.collectionViewLayout = layout
     }
     

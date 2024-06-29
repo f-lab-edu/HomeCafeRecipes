@@ -10,7 +10,7 @@ import UIKit
 class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     
     private let addButton =  UIButton(type: .custom)
-    private let buttonSize: CGFloat = 64
+    private let buttonSize = CGSize(all: 64.0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +25,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         addButton.setTitle("+", for: .normal)
         addButton.titleLabel?.font = UIFont.systemFont(ofSize: 40)
         addButton.setTitleColor(.white, for: .normal)
-        addButton.layer.cornerRadius = buttonSize * 0.5
+        addButton.layer.cornerRadius = buttonSize.width * 0.5
         addButton.layer.shadowColor = UIColor.black.cgColor
         addButton.layer.shadowOpacity = 0.3
         addButton.layer.shadowOffset = CGSize(width: 0, height: 2)
@@ -59,8 +59,8 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         NSLayoutConstraint.activate([
             addButton.centerXAnchor.constraint(equalTo: tabBar.centerXAnchor),
             addButton.centerYAnchor.constraint(equalTo: tabBar.topAnchor),
-            addButton.widthAnchor.constraint(equalToConstant: 64),
-            addButton.heightAnchor.constraint(equalToConstant: 64)
+            addButton.widthAnchor.constraint(equalToConstant: buttonSize.width),
+            addButton.heightAnchor.constraint(equalToConstant: buttonSize.height)
         ])
     }
     

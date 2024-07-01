@@ -7,15 +7,24 @@
 
 import UIKit
 
+protocol RecipeListViewDelegate: AnyObject {
+    func ScrollToBottom()
+    func didSelectItem(ID: Int)
+}
+
 final class RecipeListView: UIView {
     
     private enum Metric {
         static let itemSize: CGSize = .init(width: UIScreen.main.bounds.width - 20, height: 200)
         static let minimumLineSpacing: CGFloat = 10.0
         static let minimumInteritemSpacing: CGFloat = 10.0
-        
     }
+    
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    
+    private var recipes: [RecipeListItemViewModel] = []
+    weak var coordinator: RecipeDetailCoordinatorProtocol?
+    weak var delegate: RecipeListViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)

@@ -18,19 +18,20 @@ final class RecipeListViewController: UIViewController {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
         self.interactor.setDelegate(self)
+        
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        recipeListView.setCollectionViewDataSourceDelegate(self)
+        recipeListView.delegate = self
         setupUI()
         interactor.viewDidLoad()
     }
-
+    
     private func setupUI() {
         view.backgroundColor = .white
         view.addSubview(searchBar)
@@ -73,16 +74,33 @@ extension RecipeListViewController: UISearchBarDelegate {
     }
 }
 
-extension RecipeListViewController: RecipeListViewModelDelegate {
-    
-        func fetchedRecipes(_ recipes: [RecipeListItemViewModel]) {
-            DispatchQueue.main.async {
-                self.recipes = recipes
-                self.recipeListView.reloadCollectionViewData()
+// MARK: - RecipeListInteractorDelegate
+extension RecipeListViewController: RecipeListInteractorDelegate {
+    func fetchedRecipes(result: Result<[Recipe], Error>) {
+        switch result {
+        case .success(let recipes):
+            if !recipes.isEmpty {
+                DispatchQueue.main.async {
+                    self.recipeListView.setRecipes(self.recipeListMapper.mapToRecipeListItemViewModels(from: recipes))
+                }
             }
-        }
-    
-        func didFail(with error: Error) {
+        case .failure(let error):
             print("Error: \(error.localizedDescription)")
         }
+    }
+    
+    func showRecipeDetail(ID: Int) {
+        coordinator.showRecipeDetail(from: self, recipeID: ID)
+    }
+}
+
+extension RecipeListViewController: RecipeListViewDelegate {
+    
+    func didSelectItem(ID: Int) {
+        interactor.didSelectItem(ID: ID)
+    }
+    
+    func ScrollToBottom() {
+        interactor.fetchNextPage()
+    }
 }

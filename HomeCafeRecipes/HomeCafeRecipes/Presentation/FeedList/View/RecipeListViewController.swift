@@ -57,7 +57,7 @@ final class RecipeListViewController: UIViewController {
     
 }
 
-
+// MARK: - UISearchBarDelegate
 extension RecipeListViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isBlank {

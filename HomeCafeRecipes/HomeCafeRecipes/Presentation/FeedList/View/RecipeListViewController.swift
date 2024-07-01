@@ -53,46 +53,9 @@ final class RecipeListViewController: UIViewController {
         
         searchBar.setDelegate(self)
     }
+    
 }
 
-extension RecipeListViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return recipes.count
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RecipeCell", for: indexPath) as! RecipeListViewCell
-        let recipeViewModel = recipes[indexPath.item]
-        cell.configure(with: recipeViewModel)
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let recipeListItemViewModel = recipes[indexPath.item]
-        if let recipeItemViewModel = interactor.didSelectItem(id: recipeListItemViewModel.id) {
-            let detailVC = RecipeDetailViewController(viewModel: recipeItemViewModel)            
-            navigationController?.pushViewController(detailVC, animated: true)
-        } else {
-            let RecipeIDErrorAlert = UIAlertController(title: "오류", message: "해당 정보를 찾지 못했습니다.", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default) { [weak self]  _  in
-                guard let self = self else { return }
-                self.navigationController?.popToRootViewController(animated: true)
-            }
-            RecipeIDErrorAlert.addAction(okAction)
-            present(RecipeIDErrorAlert, animated: true, completion: nil)
-        }
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offsetY = scrollView.contentOffset.y
-        let contentHeight = scrollView.contentSize.height
-        let height = scrollView.frame.size.height
-        
-        if offsetY > contentHeight - height {
-            interactor.fetchNextPage()
-        }
-    }
-}
 
 extension RecipeListViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

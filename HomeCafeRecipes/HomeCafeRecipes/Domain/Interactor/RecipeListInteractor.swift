@@ -17,23 +17,21 @@ protocol RecipeListViewModelDelegate: AnyObject {
 protocol InputRecipeListInteractor {
     func viewDidLoad()
     func fetchNextPage()
-    func didSelectItem(id: Int) -> RecipeItemViewModel?
+    func didSelectItem(ID: Int)
     func searchRecipes(with query: String)
     func resetSearch()
 }
 
 protocol OutputRecipeListInteractor {
-    var recipes: Observable<[RecipeListItemViewModel]> { get }
-    var error: Observable<Error?> { get }
+    var recipes: Observable<Result<[Recipe], Error>> { get }
 }
 
 class RecipeListInteractor: InputRecipeListInteractor, OutputRecipeListInteractor {
-            
+    
     private let disposeBag = DisposeBag()
     private let fetchFeedListUseCase: FetchFeedListUseCase
     private let searchFeedListUseCase: SearchFeedListUseCase
-    private let recipeListMapper = RecipeListMapper()
-    private weak var delegate: RecipeListViewModelDelegate?
+    private weak var delegate: RecipeListInteractorDelegate?
 
     private var currentPage: Int = 1
     private var isFetching = false
@@ -41,15 +39,10 @@ class RecipeListInteractor: InputRecipeListInteractor, OutputRecipeListInteracto
     private var currentSearchQuery: String?
     private var allRecipes: [Recipe] = []
 
-    private let recipesSubject = BehaviorSubject<[RecipeListItemViewModel]>(value: [])
-    private let errorSubject = BehaviorSubject<Error?>(value: nil)
+    private let recipesSubject = BehaviorSubject<Result<[Recipe], Error>>(value: .success([]))
 
-    var recipes: Observable<[RecipeListItemViewModel]> {
+    var recipes: Observable<Result<[Recipe], Error>> {
         return recipesSubject.asObservable()
-    }
-
-    var error: Observable<Error?> {
-        return errorSubject.asObservable()
     }
 
     init(fetchFeedListUseCase: FetchFeedListUseCase, searchFeedListUseCase: SearchFeedListUseCase) {
@@ -57,23 +50,15 @@ class RecipeListInteractor: InputRecipeListInteractor, OutputRecipeListInteracto
         self.searchFeedListUseCase = searchFeedListUseCase
     }
 
-    func setDelegate(_ delegate: RecipeListViewModelDelegate) {
+    func setDelegate(_ delegate: RecipeListInteractorDelegate) {
         self.delegate = delegate
         bindOutputs()
     }
 
     private func bindOutputs() {
         recipes
-            .subscribe(onNext: { [weak self] recipes in
-                self?.delegate?.fetchedRecipes(recipes)
-            })
-            .disposed(by: disposeBag)
-
-        error
-            .subscribe(onNext: { [weak self] error in
-                if let error = error {
-                    self?.delegate?.didFail(with: error)
-                }
+            .subscribe(onNext: { [weak self] result in
+                self?.delegate?.fetchedRecipes(result: result)
             })
             .disposed(by: disposeBag)
     }
@@ -86,18 +71,15 @@ class RecipeListInteractor: InputRecipeListInteractor, OutputRecipeListInteracto
         fetchNextRecipes(nextPage: currentPage)
     }
 
-    func didSelectItem(id: Int) -> RecipeItemViewModel? {
-        guard let recipe = allRecipes.first(where: { $0.id == id }) else {
-            return nil
-        }
-        return recipeListMapper.mapToRecipeItemViewModel(from: recipe)
+    func didSelectItem(ID: Int) {
+        delegate?.showRecipeDetail(ID: ID)
     }
     
     func resetSearch() {
         isSearching = false
         currentSearchQuery = nil
         currentPage = 1
-        recipesSubject.onNext([])
+        recipesSubject.onNext(.success([]))
         fetchRecipes()
     }
 
@@ -108,7 +90,9 @@ class RecipeListInteractor: InputRecipeListInteractor, OutputRecipeListInteracto
         isSearching = true
         currentPage = 1
         searchFeedListUseCase.execute(title: title, pageNumber: currentPage)
-            .subscribe(onSuccess: handleSuccess, onFailure: handleError)
+            .subscribe { [weak self] result in
+                self?.handleResult(result)
+            }
             .disposed(by: disposeBag)
     }
 
@@ -116,19 +100,23 @@ class RecipeListInteractor: InputRecipeListInteractor, OutputRecipeListInteracto
         guard !isFetching else { return }
         isFetching = true
         fetchFeedListUseCase.execute(pageNumber: currentPage)
-            .subscribe(onSuccess: handleSuccess, onFailure: handleError)
+            .subscribe { [weak self] result in
+                self?.handleResult(result)
+            }
             .disposed(by: disposeBag)
     }
     
-    private func fetchNextRecipes(nextPage: Int){
+    private func fetchNextRecipes(nextPage: Int) {
         guard !isFetching else { return }
         isFetching = true
         fetchFeedListUseCase.execute(pageNumber: nextPage)
-            .subscribe(onSuccess: handleSuccess, onFailure: handleError)
+            .subscribe { [weak self] result in
+                self?.handleResult(result)
+            }
             .disposed(by: disposeBag)
     }
 
-    private func handleSuccess(result: Result<[Recipe], Error>) {
+    private func handleResult(_ result: Result<[Recipe], Error>) {
         isFetching = false
         switch result {
         case .success(let recipes):
@@ -140,23 +128,11 @@ class RecipeListInteractor: InputRecipeListInteractor, OutputRecipeListInteracto
             } else {
                 allRecipes.append(contentsOf: recipes)
             }
-            let recipeViewModels = recipeListMapper.mapToRecipeListItemViewModels(from: recipes)
-            var currentRecipes = try! recipesSubject.value()
-            if isSearching {
-                currentRecipes = recipeViewModels
-                isSearching = false
-            } else {
-                currentRecipes.append(contentsOf: recipeViewModels)
-            }
-            recipesSubject.onNext(currentRecipes)
-            currentPage += 1
+            self.recipesSubject.onNext(.success(allRecipes))
+            self.currentPage += 1
         case .failure(let error):
-            errorSubject.onNext(error)
+            recipesSubject.onNext(.failure(error))
         }
     }
-
-    private func handleError(error: Error) {
-        isFetching = false
-        errorSubject.onNext(error)
-    }
+        
 }

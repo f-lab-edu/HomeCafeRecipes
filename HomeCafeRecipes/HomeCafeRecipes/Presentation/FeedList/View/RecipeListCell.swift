@@ -46,6 +46,7 @@ final class RecipeListViewCell: UICollectionViewCell {
         
         recipeThumbnailView.contentMode = .scaleAspectFill
         recipeThumbnailView.clipsToBounds = true
+        recipeThumbnailView.image = UIImage(named: "EmptyImage")
     }
 
     func configure(with viewModel: RecipeListItemViewModel) {
@@ -53,7 +54,7 @@ final class RecipeListViewCell: UICollectionViewCell {
         if let imageUrl = viewModel.imageURL {
             recipeThumbnailView.loadImage(from: imageUrl)
         } else {
-            recipeThumbnailView.image = nil
+            recipeThumbnailView.image = UIImage(named: "EmptyImage")
         }
 
     }

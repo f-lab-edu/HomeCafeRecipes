@@ -8,10 +8,9 @@
 import Foundation
 import RxSwift
 
-protocol RecipeListViewModelDelegate: AnyObject {
-
-    func fetchedRecipes(_ recipes: [RecipeListItemViewModel])
-    func didFail(with error: Error)
+protocol RecipeListInteractorDelegate: AnyObject {
+    func fetchedRecipes(result: Result<[Recipe], Error>)
+    func showRecipeDetail(ID: Int)
 }
 
 protocol InputRecipeListInteractor {

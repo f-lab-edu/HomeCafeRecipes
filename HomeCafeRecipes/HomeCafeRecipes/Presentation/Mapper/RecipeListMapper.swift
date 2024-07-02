@@ -12,7 +12,7 @@ struct RecipeListMapper {
         return recipes.map { RecipeListItemViewModel(recipe: $0) }
     }
     
-    func mapToRecipeItemViewModel(from recipe: Recipe) -> RecipeItemViewModel {
-        return RecipeItemViewModel(recipe: recipe)
+    func mapToRecipeDetailViewModel(from recipe: Recipe) -> RecipeDetailViewModel {
+        return RecipeDetailViewModel(recipe: recipe)
     }
 }

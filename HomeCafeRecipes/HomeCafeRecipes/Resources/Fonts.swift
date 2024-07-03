@@ -10,4 +10,6 @@ import UIKit
 struct Fonts {
     static let titleFont: UIFont = .systemFont(ofSize: 16, weight: .bold)
     static let bodyFont: UIFont = .systemFont(ofSize: 14, weight: .regular)
+    static let DetailtitleFont: UIFont = .systemFont(ofSize: 24, weight: .bold)
+    static let DetailBodyFont: UIFont = .systemFont(ofSize: 16, weight: .regular)
 }

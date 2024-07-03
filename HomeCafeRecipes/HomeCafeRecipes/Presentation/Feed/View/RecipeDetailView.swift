@@ -65,11 +65,11 @@ final class RecipeDetailView: UIView {
             recipedescriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
         ])
         
-        recipenameLabel.font = .systemFont(ofSize: 24, weight: .bold)
+        recipenameLabel.font = Fonts.DetailtitleFont
         recipenameLabel.numberOfLines = 0
-        recipedescriptionLabel.font = .systemFont(ofSize: 16)
+        recipedescriptionLabel.font = Fonts.DetailBodyFont
         recipedescriptionLabel.numberOfLines = 0
-        photoIndexLabel.font = .systemFont(ofSize: 16)
+        photoIndexLabel.font = Fonts.DetailBodyFont
     }
     
     func configure(with viewModel: RecipeDetailViewModel) {

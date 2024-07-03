@@ -34,11 +34,11 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     
     private func setupTabBar() {
         let baseneworkServie = BaseNetworkService()
-        let networkService = DefaultRecipeFetchService(networkService: baseneworkServie)
-        let repository = DefaultFeedListRepository(networkService: networkService)
-        let searchrepository = DefaultSearchFeedRepository(networkService: networkService)
-        let fetchFeedListUseCase = DefaultFetchFeedListUseCase(repository: repository)
-        let searchFeedListUsecase = DefaultSearchFeedListUseCase(repository: searchrepository)
+        let networkService = RecipeFetchServiceImpl(networkService: baseneworkServie)
+        let repository = FeedListRepositoryImpl(networkService: networkService)
+        let searchrepository = SearchFeedRepositoryImpl(networkService: networkService)
+        let fetchFeedListUseCase = FetchFeedListUseCaseImpl(repository: repository)
+        let searchFeedListUsecase = SearchFeedListUseCaseImpl(repository: searchrepository)
         
         let recipeListViewModel = RecipeListInteractor(fetchFeedListUseCase: fetchFeedListUseCase, searchFeedListUseCase: searchFeedListUsecase)
         

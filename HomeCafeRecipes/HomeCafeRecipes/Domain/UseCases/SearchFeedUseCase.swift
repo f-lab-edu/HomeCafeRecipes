@@ -11,7 +11,7 @@ protocol SearchFeedListUseCase {
     func execute(title: String,pageNumber: Int) -> Single<Result<[Recipe], Error>>
 }
 
-class DefaultSearchFeedListUseCase: SearchFeedListUseCase {
+class SearchFeedListUseCaseImpl: SearchFeedListUseCase {
     private let repository: SearchFeedListRepository
 
     init(repository: SearchFeedListRepository) {

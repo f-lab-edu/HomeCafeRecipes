@@ -11,7 +11,7 @@ protocol SearchFeedListRepository {
     func searchRecipes(title: String, pageNumber: Int) -> Single<[Recipe]>
 }
 
-class DefaultSearchFeedRepository: SearchFeedListRepository {
+class SearchFeedRepositoryImpl: SearchFeedListRepository {
             
     private let networkService: RecipeFetchService
     

@@ -11,7 +11,7 @@ protocol FetchFeedListUseCase {
     func execute(pageNumber: Int) -> Single<Result<[Recipe], Error>>
 }
 
-class DefaultFetchFeedListUseCase: FetchFeedListUseCase {
+class FetchFeedListUseCaseImpl: FetchFeedListUseCase {
     private let repository: FeedListRepository
     
     init(repository: FeedListRepository) {

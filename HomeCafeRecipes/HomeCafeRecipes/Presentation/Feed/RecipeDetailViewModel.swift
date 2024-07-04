@@ -9,18 +9,18 @@ import Foundation
 
 struct RecipeDetailViewModel {
     let id: Int
-    let name: String
-    let description: String
-    let imageUrls: [URL]
-    let isLikedByCurrentUser: Bool
+    let RecipeName: String
+    let RecipeDescription: String
+    let RecipeImageUrls: [URL]
+    let isLiked: Bool
     let createdAt: Date
     
     init(recipe: Recipe) {
         self.id = recipe.id
-        self.name = recipe.name
-        self.description = recipe.description
-        self.imageUrls = recipe.imageUrls.compactMap { URL(string: $0) }
-        self.isLikedByCurrentUser = recipe.isLikedByCurrentUser
+        self.RecipeName = recipe.name
+        self.RecipeDescription = recipe.description
+        self.RecipeImageUrls = recipe.imageUrls.compactMap { URL(string: $0) }
+        self.isLiked = recipe.isLikedByCurrentUser
         self.createdAt = recipe.createdAt
     }
 }

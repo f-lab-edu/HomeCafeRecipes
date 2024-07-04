@@ -16,7 +16,7 @@ final class RecipeDetailView: UIView {
     private let recipeNameLabel = UILabel()
     private let recipeDescriptionLabel = UILabel()
     private let photoIndexLabel = UILabel()
-    private var recipeimageUrls: [URL] = []
+    private var recipeImageUrls: [URL] = []
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -76,17 +76,17 @@ final class RecipeDetailView: UIView {
     func configure(with viewModel: RecipeDetailViewModel) {
         recipeNameLabel.text = viewModel.RecipeName
         recipeDescriptionLabel.text = viewModel.RecipeDescription
-        recipeimageUrls = viewModel.RecipeImageUrls
+        recipeImageUrls = viewModel.RecipeImageUrls
         
         setupScrollView()
-        pageControl.numberOfPages = recipeimageUrls.count
+        pageControl.numberOfPages = recipeImageUrls.count
         updatePhotoIndexLabel(currentPage: 0)
     }
     
     private func setupScrollView() {
         let imageViewWidth = UIScreen.main.bounds.width
         
-        for (index, url) in recipeimageUrls.enumerated() {
+        for (index, url) in recipeImageUrls.enumerated() {
             let imageView = UIImageView()
             imageView.kf.setImage(with: url)
             imageView.contentMode = .scaleAspectFill
@@ -97,12 +97,12 @@ final class RecipeDetailView: UIView {
             scrollView.addSubview(imageView)
         }
         
-        let contentWidth = imageViewWidth * CGFloat(recipeimageUrls.count)
+        let contentWidth = imageViewWidth * CGFloat(recipeImageUrls.count)
         scrollView.contentSize = CGSize(width: contentWidth, height: 200)
     }
     
     private func updatePhotoIndexLabel(currentPage: Int) {
-        photoIndexLabel.text = "\(currentPage + 1) / \(recipeimageUrls.count)"
+        photoIndexLabel.text = "\(currentPage + 1) / \(recipeImageUrls.count)"
     }
 }
 

@@ -21,6 +21,7 @@ final class RecipeDetailView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
+        setupLayout()
     }
 
     required init?(coder: NSCoder) {
@@ -29,22 +30,12 @@ final class RecipeDetailView: UIView {
 
     private func setupUI() {
         backgroundColor = .white
-        addSubview(scrollView)
-        addSubview(pageControl)
-        addSubview(recipeNameLabel)
-        addSubview(recipeDescriptionLabel)
-        addSubview(photoIndexLabel)
-        
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        pageControl.translatesAutoresizingMaskIntoConstraints = false
-        recipeNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        recipeDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        photoIndexLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        scrollView.isPagingEnabled = true
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.delegate = self
+        setupScrollView()
+        setupPageControl()
+        setupLabels()
+    }
 
+    private func setupLayout() {
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -65,6 +56,29 @@ final class RecipeDetailView: UIView {
             recipeDescriptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             recipeDescriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
         ])
+    }
+    
+    private func setupScrollView() {
+        addSubview(scrollView)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.isPagingEnabled = true
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.delegate = self
+    }
+    
+    private func setupPageControl() {
+        addSubview(pageControl)
+        pageControl.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setupLabels() {
+        addSubview(recipeNameLabel)
+        addSubview(recipeDescriptionLabel)
+        addSubview(photoIndexLabel)
+        
+        recipeNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        recipeDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        photoIndexLabel.translatesAutoresizingMaskIntoConstraints = false
         
         recipeNameLabel.font = Fonts.DetailtitleFont
         recipeNameLabel.numberOfLines = 0
@@ -76,12 +90,12 @@ final class RecipeDetailView: UIView {
     func configure(with viewModel: RecipeDetailViewModel) {
         recipeNameLabel.text = viewModel.RecipeName
         recipeDescriptionLabel.text = viewModel.RecipeDescription                
-        setupScrollView(with: viewModel.RecipeImageUrls)
+        setupScrollViewContent(with: viewModel.RecipeImageUrls)
         pageControl.numberOfPages = viewModel.RecipeImageUrls.count
         updatePhotoIndexLabel(currentPage: 0)
     }
     
-    private func setupScrollView(with recipeImageUrls: [URL]) {
+    private func setupScrollViewContent(with recipeImageUrls: [URL]) {
         guard !imagesAdded else { return }
         let imageViewWidth = UIScreen.main.bounds.width
         

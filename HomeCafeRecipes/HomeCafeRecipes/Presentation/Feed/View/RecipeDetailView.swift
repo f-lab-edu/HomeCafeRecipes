@@ -13,7 +13,7 @@ final class RecipeDetailView: UIView {
     
     private let scrollView = UIScrollView()
     private let pageControl = UIPageControl()
-    private let recipenameLabel = UILabel()
+    private let recipeNameLabel = UILabel()
     private let recipedescriptionLabel = UILabel()
     private let photoIndexLabel = UILabel()
     private var recipeimageUrls: [URL] = []
@@ -31,13 +31,13 @@ final class RecipeDetailView: UIView {
         backgroundColor = .white
         addSubview(scrollView)
         addSubview(pageControl)
-        addSubview(recipenameLabel)
+        addSubview(recipeNameLabel)
         addSubview(recipedescriptionLabel)
         addSubview(photoIndexLabel)
         
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         pageControl.translatesAutoresizingMaskIntoConstraints = false
-        recipenameLabel.translatesAutoresizingMaskIntoConstraints = false
+        recipeNameLabel.translatesAutoresizingMaskIntoConstraints = false
         recipedescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         photoIndexLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -57,24 +57,24 @@ final class RecipeDetailView: UIView {
             photoIndexLabel.topAnchor.constraint(equalTo: pageControl.bottomAnchor, constant: 10),
             photoIndexLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             
-            recipenameLabel.topAnchor.constraint(equalTo: photoIndexLabel.bottomAnchor, constant: 20),
-            recipenameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            recipenameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            recipeNameLabel.topAnchor.constraint(equalTo: photoIndexLabel.bottomAnchor, constant: 20),
+            recipeNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            recipeNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             
-            recipedescriptionLabel.topAnchor.constraint(equalTo: recipenameLabel.bottomAnchor, constant: 20),
+            recipedescriptionLabel.topAnchor.constraint(equalTo: recipeNameLabel.bottomAnchor, constant: 20),
             recipedescriptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             recipedescriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
         ])
         
-        recipenameLabel.font = Fonts.DetailtitleFont
-        recipenameLabel.numberOfLines = 0
+        recipeNameLabel.font = Fonts.DetailtitleFont
+        recipeNameLabel.numberOfLines = 0
         recipedescriptionLabel.font = Fonts.DetailBodyFont
         recipedescriptionLabel.numberOfLines = 0
         photoIndexLabel.font = Fonts.DetailBodyFont
     }
     
     func configure(with viewModel: RecipeDetailViewModel) {
-        recipenameLabel.text = viewModel.RecipeName
+        recipeNameLabel.text = viewModel.RecipeName
         recipedescriptionLabel.text = viewModel.RecipeDescription
         recipeimageUrls = viewModel.RecipeImageUrls
         

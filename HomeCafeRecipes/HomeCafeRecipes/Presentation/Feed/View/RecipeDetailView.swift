@@ -83,7 +83,7 @@ final class RecipeDetailView: UIView {
     private func setupScrollView(with recipeImageUrls: [URL]) {
         let imageViewWidth = UIScreen.main.bounds.width
         
-        for (index, url) in recipeImageUrls.enumerated() {
+        recipeImageUrls.enumerated().forEach { index, url in
             let imageView = UIImageView()
             imageView.kf.setImage(with: url)
             imageView.contentMode = .scaleAspectFill

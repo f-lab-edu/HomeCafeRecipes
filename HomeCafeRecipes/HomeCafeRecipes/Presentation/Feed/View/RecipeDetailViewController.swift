@@ -10,7 +10,7 @@ import RxSwift
 
 final class RecipeDetailViewController: UIViewController {
     
-    private let recipeDetailView = RecipeDetailView()
+    private let contentView = RecipeDetailView()
     private let customNavigationBar = CustomNavigationBar()
     private let interactor: RecipeDetailInteractor
     private let disposeBag = DisposeBag()
@@ -34,10 +34,10 @@ final class RecipeDetailViewController: UIViewController {
     
     private func setupUI() {
         view.backgroundColor = .white
-        view.addSubview(recipeDetailView)
+        view.addSubview(contentView)
         view.addSubview(customNavigationBar)
         
-        recipeDetailView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.translatesAutoresizingMaskIntoConstraints = false
         customNavigationBar.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -46,10 +46,10 @@ final class RecipeDetailViewController: UIViewController {
             customNavigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             customNavigationBar.heightAnchor.constraint(equalToConstant: 44),
             
-            recipeDetailView.topAnchor.constraint(equalTo: customNavigationBar.bottomAnchor),
-            recipeDetailView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            recipeDetailView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            recipeDetailView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            contentView.topAnchor.constraint(equalTo: customNavigationBar.bottomAnchor),
+            contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
         customNavigationBar.backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
@@ -73,7 +73,7 @@ extension RecipeDetailViewController: RecipeDetailInteractorDelegate {
         case .success(let recipe):
             let recipeItemViewModel = RecipeListMapper().mapToRecipeDetailViewModel(from: recipe)
             DispatchQueue.main.async {
-                self.recipeDetailView.configure(with: recipeItemViewModel)
+                self.contentView.configure(with: recipeItemViewModel)
             }
         case .failure(let error):
             DispatchQueue.main.async {

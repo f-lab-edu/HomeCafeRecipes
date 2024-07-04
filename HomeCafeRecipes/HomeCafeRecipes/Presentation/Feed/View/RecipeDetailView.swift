@@ -73,9 +73,9 @@ final class RecipeDetailView: UIView {
     }
     
     func configure(with viewModel: RecipeDetailViewModel) {
-        recipenameLabel.text = viewModel.name
-        recipedescriptionLabel.text = viewModel.description
-        recipeimageUrls = viewModel.imageUrls
+        recipenameLabel.text = viewModel.RecipeName
+        recipedescriptionLabel.text = viewModel.RecipeDescription
+        recipeimageUrls = viewModel.RecipeImageUrls
         
         setupScrollView()
         pageControl.numberOfPages = recipeimageUrls.count

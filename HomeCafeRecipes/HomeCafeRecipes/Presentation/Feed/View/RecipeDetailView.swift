@@ -16,6 +16,7 @@ final class RecipeDetailView: UIView {
     private let recipeNameLabel = UILabel()
     private let recipeDescriptionLabel = UILabel()
     private let photoIndexLabel = UILabel()
+    private var imagesAdded = false
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -81,6 +82,7 @@ final class RecipeDetailView: UIView {
     }
     
     private func setupScrollView(with recipeImageUrls: [URL]) {
+        guard !imagesAdded else { return }
         let imageViewWidth = UIScreen.main.bounds.width
         
         recipeImageUrls.enumerated().forEach { index, url in
@@ -92,6 +94,7 @@ final class RecipeDetailView: UIView {
             let xPos = CGFloat(index) * imageViewWidth
             imageView.frame = CGRect(x: xPos, y: 0, width: imageViewWidth, height: 200)
             scrollView.addSubview(imageView)
+            imagesAdded = true
         }
         
         let contentWidth = imageViewWidth * CGFloat(recipeImageUrls.count)

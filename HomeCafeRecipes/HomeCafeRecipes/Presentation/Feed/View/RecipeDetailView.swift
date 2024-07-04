@@ -14,7 +14,7 @@ final class RecipeDetailView: UIView {
     private let scrollView = UIScrollView()
     private let pageControl = UIPageControl()
     private let recipeNameLabel = UILabel()
-    private let recipedescriptionLabel = UILabel()
+    private let recipeDescriptionLabel = UILabel()
     private let photoIndexLabel = UILabel()
     private var recipeimageUrls: [URL] = []
 
@@ -32,13 +32,13 @@ final class RecipeDetailView: UIView {
         addSubview(scrollView)
         addSubview(pageControl)
         addSubview(recipeNameLabel)
-        addSubview(recipedescriptionLabel)
+        addSubview(recipeDescriptionLabel)
         addSubview(photoIndexLabel)
         
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         recipeNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        recipedescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        recipeDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         photoIndexLabel.translatesAutoresizingMaskIntoConstraints = false
         
         scrollView.isPagingEnabled = true
@@ -61,21 +61,21 @@ final class RecipeDetailView: UIView {
             recipeNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             recipeNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             
-            recipedescriptionLabel.topAnchor.constraint(equalTo: recipeNameLabel.bottomAnchor, constant: 20),
-            recipedescriptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            recipedescriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
+            recipeDescriptionLabel.topAnchor.constraint(equalTo: recipeNameLabel.bottomAnchor, constant: 20),
+            recipeDescriptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            recipeDescriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
         ])
         
         recipeNameLabel.font = Fonts.DetailtitleFont
         recipeNameLabel.numberOfLines = 0
-        recipedescriptionLabel.font = Fonts.DetailBodyFont
-        recipedescriptionLabel.numberOfLines = 0
+        recipeDescriptionLabel.font = Fonts.DetailBodyFont
+        recipeDescriptionLabel.numberOfLines = 0
         photoIndexLabel.font = Fonts.DetailBodyFont
     }
     
     func configure(with viewModel: RecipeDetailViewModel) {
         recipeNameLabel.text = viewModel.RecipeName
-        recipedescriptionLabel.text = viewModel.RecipeDescription
+        recipeDescriptionLabel.text = viewModel.RecipeDescription
         recipeimageUrls = viewModel.RecipeImageUrls
         
         setupScrollView()

@@ -89,7 +89,7 @@ final class RecipeDetailView: UIView {
             let imageView = UIImageView()
             imageView.kf.setImage(with: url)
             imageView.contentMode = .scaleAspectFill
-            imageView.clipsToBounds = true
+            
             
             let xPos = CGFloat(index) * imageViewWidth
             imageView.frame = CGRect(x: xPos, y: 0, width: imageViewWidth, height: 200)

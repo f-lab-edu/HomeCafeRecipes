@@ -60,9 +60,7 @@ extension RecipeDetailViewController: RecipeDetailInteractorDelegate {
                 self.contentView.configure(with: recipeItemViewModel)
             }
         case .failure(let error):
-            DispatchQueue.main.async {
-                self.displayError(error)
-            }
+            self.displayError(error)
         }
     }
 }

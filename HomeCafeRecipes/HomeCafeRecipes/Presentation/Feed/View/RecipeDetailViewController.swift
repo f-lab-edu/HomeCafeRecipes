@@ -49,6 +49,7 @@ final class RecipeDetailViewController: UIViewController {
 }
 
 // MARK: - RecipeDetailInteractorDelegate
+
 extension RecipeDetailViewController: RecipeDetailInteractorDelegate {
     func fetchedRecipe(result: Result<Recipe, Error>) {
         switch result {

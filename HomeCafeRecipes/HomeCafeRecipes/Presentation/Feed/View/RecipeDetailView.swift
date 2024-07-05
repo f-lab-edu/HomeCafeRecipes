@@ -11,6 +11,7 @@ import Kingfisher
 
 final class RecipeDetailView: UIView {
     
+    let customNavigationBar = CustomNavigationBar()
     private let scrollView = UIScrollView()
     private let pageControl = UIPageControl()
     private let recipeNameLabel = UILabel()
@@ -30,34 +31,17 @@ final class RecipeDetailView: UIView {
 
     private func setupUI() {
         backgroundColor = .white
+        setupNavigationBar()
         setupScrollView()
         setupPageControl()
         setupLabels()
     }
 
-    private func setupLayout() {
-        NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            scrollView.heightAnchor.constraint(equalToConstant: 200),
-            
-            pageControl.topAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 10),
-            pageControl.centerXAnchor.constraint(equalTo: centerXAnchor),
-            
-            photoIndexLabel.topAnchor.constraint(equalTo: pageControl.bottomAnchor, constant: 10),
-            photoIndexLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            
-            recipeNameLabel.topAnchor.constraint(equalTo: photoIndexLabel.bottomAnchor, constant: 20),
-            recipeNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            recipeNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            
-            recipeDescriptionLabel.topAnchor.constraint(equalTo: recipeNameLabel.bottomAnchor, constant: 20),
-            recipeDescriptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            recipeDescriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
-        ])
+    private func setupNavigationBar() {
+        addSubview(customNavigationBar)
+        customNavigationBar.translatesAutoresizingMaskIntoConstraints = false
     }
-    
+
     private func setupScrollView() {
         addSubview(scrollView)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -86,6 +70,35 @@ final class RecipeDetailView: UIView {
         recipeDescriptionLabel.numberOfLines = 0
         photoIndexLabel.font = Fonts.DetailBodyFont
     }
+    
+    private func setupLayout() {
+        NSLayoutConstraint.activate([
+            customNavigationBar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            customNavigationBar.leadingAnchor.constraint(equalTo: leadingAnchor),
+            customNavigationBar.trailingAnchor.constraint(equalTo: trailingAnchor),
+            customNavigationBar.heightAnchor.constraint(equalToConstant: 44),
+            
+            scrollView.topAnchor.constraint(equalTo: customNavigationBar.bottomAnchor, constant: 10),
+            scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            scrollView.heightAnchor.constraint(equalToConstant: 200),
+            
+            pageControl.topAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 10),
+            pageControl.centerXAnchor.constraint(equalTo: centerXAnchor),
+            
+            photoIndexLabel.topAnchor.constraint(equalTo: pageControl.bottomAnchor, constant: 10),
+            photoIndexLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            
+            recipeNameLabel.topAnchor.constraint(equalTo: photoIndexLabel.bottomAnchor, constant: 20),
+            recipeNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            recipeNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            
+            recipeDescriptionLabel.topAnchor.constraint(equalTo: recipeNameLabel.bottomAnchor, constant: 20),
+            recipeDescriptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            recipeDescriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
+        ])
+    }
+    
     
     func configure(with viewModel: RecipeDetailViewModel) {
         recipeNameLabel.text = viewModel.RecipeName

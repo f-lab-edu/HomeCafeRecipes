@@ -27,35 +27,16 @@ final class RecipeDetailViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func loadView() {
+        view = contentView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
         interactor.viewDidLoad()
+        contentView.customNavigationBar.backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
     }
-    
-    private func setupUI() {
-        view.backgroundColor = .white
-        view.addSubview(contentView)
-        view.addSubview(customNavigationBar)
-        
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        customNavigationBar.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            customNavigationBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            customNavigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            customNavigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            customNavigationBar.heightAnchor.constraint(equalToConstant: 44),
             
-            contentView.topAnchor.constraint(equalTo: customNavigationBar.bottomAnchor),
-            contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        
-        customNavigationBar.backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-    }
-    
     private func displayError(_ error: Error) {
         let alert = UIAlertController(title: "해당 레시피를 로드하는데 실패했습니다.", message: error.localizedDescription, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))

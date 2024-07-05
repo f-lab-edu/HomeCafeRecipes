@@ -16,6 +16,7 @@ final class RecipeDetailViewController: UIViewController {
     private let interactor: RecipeDetailInteractor
     private let disposeBag = DisposeBag()
     private var recipeDetailViewModel: RecipeDetailViewModel?
+    private let recipeListMapper = RecipeListMapper()
     
     init(interactor: RecipeDetailInteractor) {
         self.interactor = interactor
@@ -54,7 +55,7 @@ extension RecipeDetailViewController: RecipeDetailInteractorDelegate {
     func fetchedRecipe(result: Result<Recipe, Error>) {
         switch result {
         case .success(let recipe):
-            let recipeItemViewModel = RecipeListMapper().mapToRecipeDetailViewModel(from: recipe)
+            let recipeItemViewModel = recipeListMapper.mapToRecipeDetailViewModel(from: recipe)
             DispatchQueue.main.async {
                 self.contentView.configure(with: recipeItemViewModel)
             }

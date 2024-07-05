@@ -12,7 +12,7 @@ protocol RecipeDetailFetchService {
     func fetchRecipeDetail(recipeID: Int) -> Single<Recipe>
 }
 
-class RecipeDetailFetchServiceImpl: RecipeDetailFetchService {
+final class RecipeDetailFetchServiceImpl: RecipeDetailFetchService {
     private let networkService: NetworkService
     private static let baseURL: URL = URL(string: "https://meog0.store/api")!
     

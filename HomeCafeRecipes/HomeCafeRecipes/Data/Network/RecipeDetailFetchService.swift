@@ -25,10 +25,16 @@ final class RecipeDetailFetchServiceImpl: RecipeDetailFetchService {
     }
     
     func fetchRecipeDetail(recipeID: Int) -> Single<Recipe> {
-        guard let URL = makeURL(recipeID: recipeID) else {
-            return Single.error(NSError(domain: "URLComponentsError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"]))
+        guard let url = makeURL(recipeID: recipeID) else {
+            return Single.error(RecipeError.invalidURL)
         }
-        return networkService.getRequest(url: URL, responseType: NetworkResponseDTO<RecipeDetailDTO>.self)
+        return networkService.getRequest(url: url, responseType: NetworkResponseDTO<RecipeDetailDTO>.self)
             .map { $0.data.toDomain() }
+            .catch { error in
+                guard let decodingError = error as? DecodingError else {
+                    return Single.error(RecipeError.networkError(error))
+                }
+                return Single.error(RecipeError.decodingError)
+            }
     }
 }

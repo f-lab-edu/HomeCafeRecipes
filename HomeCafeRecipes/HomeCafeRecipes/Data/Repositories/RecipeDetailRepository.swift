@@ -20,6 +20,6 @@ class FeedListRepositoryImpl: RecipeDetailRepository {
     }
     
     func fetchRecipeDetail(recipeID: Int) -> Single<Recipe> {
-        return networkService.fetchRecipeDetail(recipeId: recipeID)
+        return networkService.fetchRecipeDetail(recipeID: recipeID)
     }
 }

@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 protocol RecipeDetailFetchService {
-    func fetchRecipeDetail(recipeId: Int) -> Single<Recipe>
+    func fetchRecipeDetail(recipeID: Int) -> Single<Recipe>
 }
 
 class RecipeDetailFetchServiceImpl: RecipeDetailFetchService {
@@ -20,12 +20,12 @@ class RecipeDetailFetchServiceImpl: RecipeDetailFetchService {
         self.networkService = networkService
     }
     
-    private func makeURL(recipeId: Int) -> URL? {
-        return RecipeDetailFetchServiceImpl.baseURL.appendingPathComponent("recipes/\(recipeId)")
+    private func makeURL(recipeID: Int) -> URL? {
+        return RecipeDetailFetchServiceImpl.baseURL.appendingPathComponent("recipes/\(recipeID)")
     }
     
-    func fetchRecipeDetail(recipeId: Int) -> Single<Recipe> {
-        guard let URL = makeURL(recipeId: recipeId) else {
+    func fetchRecipeDetail(recipeID: Int) -> Single<Recipe> {
+        guard let URL = makeURL(recipeID: recipeID) else {
             return Single.error(NSError(domain: "URLComponentsError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"]))
         }
         return networkService.getRequest(url: URL, responseType: NetworkResponseDTO<RecipeDetailDTO>.self)

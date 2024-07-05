@@ -64,11 +64,11 @@ final class RecipeDetailView: UIView {
         recipeDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         photoIndexLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        recipeNameLabel.font = Fonts.DetailtitleFont
+        recipeNameLabel.font = Fonts.detailTitleFont
         recipeNameLabel.numberOfLines = 0
-        recipeDescriptionLabel.font = Fonts.DetailBodyFont
+        recipeDescriptionLabel.font = Fonts.detailBodyFont
         recipeDescriptionLabel.numberOfLines = 0
-        photoIndexLabel.font = Fonts.DetailBodyFont
+        photoIndexLabel.font = Fonts.detailBodyFont
     }
     
     private func setupLayout() {
@@ -101,10 +101,10 @@ final class RecipeDetailView: UIView {
     
     
     func configure(with viewModel: RecipeDetailViewModel) {
-        recipeNameLabel.text = viewModel.RecipeName
-        recipeDescriptionLabel.text = viewModel.RecipeDescription                
-        setupScrollViewContent(with: viewModel.RecipeImageUrls)
-        pageControl.numberOfPages = viewModel.RecipeImageUrls.count
+        recipeNameLabel.text = viewModel.recipeName
+        recipeDescriptionLabel.text = viewModel.recipeDescription
+        setupScrollViewContent(with: viewModel.recipeImageUrls)
+        pageControl.numberOfPages = viewModel.recipeImageUrls.count
         updatePhotoIndexLabel(currentPage: 0)
     }
     

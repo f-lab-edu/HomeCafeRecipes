@@ -32,7 +32,10 @@ class RecipeDetailInteractor: InputRecipeDetailInteractor, OutputRecipeDetailInt
         return recipeDetailSubject.asObservable()
     }
 
-    init(fetchRecipeDetailUseCase: FetchRecipeDetailUseCase, recipeID: Int) {
+    init(
+        fetchRecipeDetailUseCase: FetchRecipeDetailUseCase,
+        recipeID: Int
+    ) {
         self.fetchRecipeDetailUseCase = fetchRecipeDetailUseCase
         self.recipeID = recipeID
     }

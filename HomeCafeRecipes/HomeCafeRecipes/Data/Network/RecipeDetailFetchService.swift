@@ -26,15 +26,15 @@ final class RecipeDetailFetchServiceImpl: RecipeDetailFetchService {
     
     func fetchRecipeDetail(recipeID: Int) -> Single<Recipe> {
         guard let url = makeURL(recipeID: recipeID) else {
-            return Single.error(RecipeError.invalidURL)
+            return Single.error(RecipeDetailError.invalidURL)
         }
         return networkService.getRequest(url: url, responseType: NetworkResponseDTO<RecipeDetailDTO>.self)
             .map { $0.data.toDomain() }
             .catch { error in
                 guard let decodingError = error as? DecodingError else {
-                    return Single.error(RecipeError.networkError(error))
+                    return Single.error(RecipeDetailError.networkError(error))
                 }
-                return Single.error(RecipeError.decodingError)
+                return Single.error(RecipeDetailError.decodingError)
             }
     }
 }

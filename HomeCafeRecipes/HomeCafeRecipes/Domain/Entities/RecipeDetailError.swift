@@ -7,14 +7,14 @@
 
 import Foundation
 
-enum RecipeError: Error {
+enum RecipeDetailError: Error {
     case invalidURL
     case networkError(Error)
     case decodingError
     case unknownError
 }
 
-extension RecipeError: LocalizedError {
+extension RecipeDetailError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .invalidURL:

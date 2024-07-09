@@ -6,20 +6,37 @@
 //
 
 import Foundation
+
 import RxSwift
 
 protocol RecipeDetailRepository {
     func fetchRecipeDetail(recipeID: Int) -> Single<Recipe>
 }
 
-class FeedListRepositoryImpl: RecipeDetailRepository {
-    private let networkService: RecipeDetailFetchService
+class RecipeDetailRepositoryImpl: RecipeDetailRepository {
+    private let networkService: NetworkService
+    private static let baseURL: URL = URL(string: "https://meog0.store/api")!
     
-    init(networkService: RecipeDetailFetchService) {
+    init(networkService: NetworkService) {
         self.networkService = networkService
     }
     
+    private func makeURL(recipeId: Int) -> URL? {
+        return RecipeDetailRepositoryImpl.baseURL.appendingPathComponent("recipes/\(recipeId)")
+    }
+    
     func fetchRecipeDetail(recipeID: Int) -> Single<Recipe> {
-        return networkService.fetchRecipeDetail(recipeID: recipeID)
+        guard let URL = makeURL(recipeId: recipeID) else {
+            return Single.error(RecipeDetailError.invalidURL)
+        }
+        return networkService.getRequest(url: URL, responseType: NetworkResponseDTO<RecipeDetailDTO>.self)
+            .map { $0.data.toDomain() }
+            .catch { error in
+                if let decodingError = error as? DecodingError {
+                    return Single.error(RecipeDetailError.decodingError)
+                } else {
+                    return Single.error(RecipeDetailError.networkError(error))
+                }
+            }
     }
 }

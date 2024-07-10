@@ -13,7 +13,6 @@ protocol NetworkService {
 }
 
 class BaseNetworkService: NetworkService {
-    let baseURL = URL(string: "https://meog0.store/api")!
     
     func getRequest<T: Decodable>(url: URL, responseType: T.Type) -> Single<T> {
         var request = URLRequest(url: url)

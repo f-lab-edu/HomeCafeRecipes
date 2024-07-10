@@ -25,6 +25,8 @@
 		1D4741D22C1B4F8D009381CE /* RecipeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4741CD2C1B4F8D009381CE /* RecipeDTO.swift */; };
 		1D4741D32C1B4F8D009381CE /* RecipePageDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4741CE2C1B4F8D009381CE /* RecipePageDTO.swift */; };
 		1D4741D42C1B4F8D009381CE /* NetworkResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4741CF2C1B4F8D009381CE /* NetworkResponseDTO.swift */; };
+		1D60CC452C3F932D00D08FA3 /* APIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D60CC442C3F932D00D08FA3 /* APIConfig.swift */; };
+		1D60CC462C3F932D00D08FA3 /* APIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D60CC442C3F932D00D08FA3 /* APIConfig.swift */; };
 		1D7368B72C3442C8000EF904 /* String+Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7368B52C3442C8000EF904 /* String+Validation.swift */; };
 		1D7368B82C3442C8000EF904 /* UIImageViewImageLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7368B62C3442C8000EF904 /* UIImageViewImageLoading.swift */; };
 		1D7368BA2C3442DE000EF904 /* RecipeListMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7368B92C3442DE000EF904 /* RecipeListMapper.swift */; };
@@ -95,6 +97,7 @@
 		1D4741CD2C1B4F8D009381CE /* RecipeDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeDTO.swift; sourceTree = "<group>"; };
 		1D4741CE2C1B4F8D009381CE /* RecipePageDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipePageDTO.swift; sourceTree = "<group>"; };
 		1D4741CF2C1B4F8D009381CE /* NetworkResponseDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkResponseDTO.swift; sourceTree = "<group>"; };
+		1D60CC442C3F932D00D08FA3 /* APIConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIConfig.swift; sourceTree = "<group>"; };
 		1D7368B52C3442C8000EF904 /* String+Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Validation.swift"; sourceTree = "<group>"; };
 		1D7368B62C3442C8000EF904 /* UIImageViewImageLoading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewImageLoading.swift; sourceTree = "<group>"; };
 		1D7368B92C3442DE000EF904 /* RecipeListMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeListMapper.swift; sourceTree = "<group>"; };
@@ -200,6 +203,7 @@
 				1D4741CB2C1B4F8D009381CE /* DTO */,
 				1D1283C92C16D9C600C5A870 /* RecipeFetchService.swift */,
 				1DE19EB02C1B42200031804A /* NetworkService.swift */,
+				1D60CC442C3F932D00D08FA3 /* APIConfig.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -548,6 +552,7 @@
 				1DF829B12C299F1F00C337FC /* RecipeListInteractor.swift in Sources */,
 				1D2C16EA2BE532B700C04508 /* ViewController.swift in Sources */,
 				1D7368EA2C34FBF7000EF904 /* MainTabBarController.swift in Sources */,
+				1D60CC452C3F932D00D08FA3 /* APIConfig.swift in Sources */,
 				1D7368D42C34FAE8000EF904 /* RecipeDetailInteractor.swift in Sources */,
 				1DE19EC52C1B422F0031804A /* RecipeListView.swift in Sources */,
 				1D7368CB2C3443A1000EF904 /* User.swift in Sources */,
@@ -592,6 +597,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D60CC462C3F932D00D08FA3 /* APIConfig.swift in Sources */,
 				1D2C16FD2BE532B800C04508 /* HomeCafeRecipesTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

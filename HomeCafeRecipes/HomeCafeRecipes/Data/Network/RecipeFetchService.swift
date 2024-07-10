@@ -13,16 +13,15 @@ protocol RecipeFetchService {
     func searchRecipes(title: String, pageNumber: Int) -> Single<[Recipe]>
 }
 
-class DefaultRecipeFetchService: RecipeFetchService {
+class RecipeFetchServiceImpl: RecipeFetchService {
     private let networkService: NetworkService
-    private static let baseURL: URL = URL(string: "https://meog0.store/api")!
     
     init(networkService: NetworkService) {
         self.networkService = networkService
     }
     
     private func makeURL(endpoint: String, queryItems: [URLQueryItem]) -> URL? {
-        let URL = DefaultRecipeFetchService.baseURL.appendingPathComponent(endpoint)
+        let URL = APIConfig().baseURL.appendingPathComponent(endpoint)
         var URLComponents = URLComponents(url: URL, resolvingAgainstBaseURL: false)
         URLComponents?.queryItems = queryItems
         return URLComponents?.url

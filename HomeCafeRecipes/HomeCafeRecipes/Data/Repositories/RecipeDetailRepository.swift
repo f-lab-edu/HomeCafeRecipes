@@ -15,14 +15,13 @@ protocol RecipeDetailRepository {
 
 class RecipeDetailRepositoryImpl: RecipeDetailRepository {
     private let networkService: NetworkService
-    private static let baseURL: URL = URL(string: "https://meog0.store/api")!
     
     init(networkService: NetworkService) {
         self.networkService = networkService
     }
     
     private func makeURL(recipeId: Int) -> URL? {
-        return RecipeDetailRepositoryImpl.baseURL.appendingPathComponent("recipes/\(recipeId)")
+        return APIConfig().baseURL.appendingPathComponent("recipes/\(recipeId)")
     }
     
     func fetchRecipeDetail(recipeID: Int) -> Single<Recipe> {

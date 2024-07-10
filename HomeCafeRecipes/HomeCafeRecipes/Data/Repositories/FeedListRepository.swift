@@ -11,7 +11,7 @@ protocol FeedListRepository {
     func fetchRecipes(pageNumber: Int) -> Single<[Recipe]>
 }
 
-class DefaultFeedListRepository: FeedListRepository {
+class FeedListRepositoryImpl: FeedListRepository {
     private let networkService: RecipeFetchService
 
     init(networkService: RecipeFetchService) {

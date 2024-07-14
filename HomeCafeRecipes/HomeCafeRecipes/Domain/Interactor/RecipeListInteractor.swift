@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 import RxSwift
 
 protocol RecipeListInteractorDelegate: AnyObject {
@@ -13,7 +14,7 @@ protocol RecipeListInteractorDelegate: AnyObject {
     func showRecipeDetail(ID: Int)
 }
 
-protocol InputRecipeListInteractor {
+protocol RecipeListInteractor {
     func viewDidLoad()
     func fetchNextPage()
     func didSelectItem(ID: Int)
@@ -21,11 +22,7 @@ protocol InputRecipeListInteractor {
     func resetSearch()
 }
 
-protocol OutputRecipeListInteractor {
-    var recipes: Observable<Result<[Recipe], Error>> { get }
-}
-
-class RecipeListInteractor: InputRecipeListInteractor, OutputRecipeListInteractor {
+class RecipeListInteractorImpl: RecipeListInteractor {
     
     private let disposeBag = DisposeBag()
     private let fetchFeedListUseCase: FetchFeedListUseCase
@@ -40,10 +37,6 @@ class RecipeListInteractor: InputRecipeListInteractor, OutputRecipeListInteracto
 
     private let recipesSubject = BehaviorSubject<Result<[Recipe], Error>>(value: .success([]))
 
-    var recipes: Observable<Result<[Recipe], Error>> {
-        return recipesSubject.asObservable()
-    }
-
     init(fetchFeedListUseCase: FetchFeedListUseCase, searchFeedListUseCase: SearchFeedListUseCase) {
         self.fetchFeedListUseCase = fetchFeedListUseCase
         self.searchFeedListUseCase = searchFeedListUseCase
@@ -51,15 +44,6 @@ class RecipeListInteractor: InputRecipeListInteractor, OutputRecipeListInteracto
 
     func setDelegate(_ delegate: RecipeListInteractorDelegate) {
         self.delegate = delegate
-        bindOutputs()
-    }
-
-    private func bindOutputs() {
-        recipes
-            .subscribe(onNext: { [weak self] result in
-                self?.delegate?.fetchedRecipes(result: result)
-            })
-            .disposed(by: disposeBag)
     }
 
     func viewDidLoad() {
@@ -67,7 +51,8 @@ class RecipeListInteractor: InputRecipeListInteractor, OutputRecipeListInteracto
     }
     
     func fetchNextPage() {
-        fetchNextRecipes(nextPage: currentPage)
+        guard !isFetching else { return }
+        fetchNextRecipes()
     }
 
     func didSelectItem(ID: Int) {
@@ -78,6 +63,7 @@ class RecipeListInteractor: InputRecipeListInteractor, OutputRecipeListInteracto
         isSearching = false
         currentSearchQuery = nil
         currentPage = 1
+        allRecipes.removeAll()
         recipesSubject.onNext(.success([]))
         fetchRecipes()
     }
@@ -89,9 +75,11 @@ class RecipeListInteractor: InputRecipeListInteractor, OutputRecipeListInteracto
         isSearching = true
         currentPage = 1
         searchFeedListUseCase.execute(title: title, pageNumber: currentPage)
-            .subscribe { [weak self] result in
+            .subscribe(onSuccess: { [weak self] result in
                 self?.handleResult(result)
-            }
+            }, onFailure: { [weak self] error in
+                self?.handleResult(.failure(error))
+            })
             .disposed(by: disposeBag)
     }
 
@@ -99,19 +87,23 @@ class RecipeListInteractor: InputRecipeListInteractor, OutputRecipeListInteracto
         guard !isFetching else { return }
         isFetching = true
         fetchFeedListUseCase.execute(pageNumber: currentPage)
-            .subscribe { [weak self] result in
+            .subscribe(onSuccess: { [weak self] result in
                 self?.handleResult(result)
-            }
+            }, onFailure: { [weak self] error in
+                self?.handleResult(.failure(error))
+            })
             .disposed(by: disposeBag)
     }
     
-    private func fetchNextRecipes(nextPage: Int) {
+    private func fetchNextRecipes() {
         guard !isFetching else { return }
         isFetching = true
-        fetchFeedListUseCase.execute(pageNumber: nextPage)
-            .subscribe { [weak self] result in
+        fetchFeedListUseCase.execute(pageNumber: currentPage)
+            .subscribe(onSuccess: { [weak self] result in
                 self?.handleResult(result)
-            }
+            }, onFailure: { [weak self] error in
+                self?.handleResult(.failure(error))
+            })
             .disposed(by: disposeBag)
     }
 
@@ -127,11 +119,10 @@ class RecipeListInteractor: InputRecipeListInteractor, OutputRecipeListInteracto
             } else {
                 allRecipes.append(contentsOf: recipes)
             }
-            self.recipesSubject.onNext(.success(allRecipes))
-            self.currentPage += 1
+            delegate?.fetchedRecipes(result: .success(allRecipes))
+            currentPage += 1
         case .failure(let error):
-            recipesSubject.onNext(.failure(error))
+            delegate?.fetchedRecipes(result: .failure(error))
         }
     }
-        
 }

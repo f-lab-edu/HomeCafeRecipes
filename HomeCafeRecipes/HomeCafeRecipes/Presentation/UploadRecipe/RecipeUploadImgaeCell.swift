@@ -56,7 +56,12 @@ final class RecipeUploadImgaeCell: UICollectionViewCell {
     private func setupDeleteButton() {
         deleteButton.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
         deleteButton.tintColor = .white
-        deleteButton.addTarget(self, action: #selector(deleteImage), for: .touchUpInside)
+        deleteButton.addAction(
+            UIAction(handler: { [weak self] _ in
+                self?.delegate?.didTapDeleteButton(self!)
+            }),
+            for: .touchUpInside
+        )
     }
     
     private func addSubviews() {
@@ -92,9 +97,5 @@ final class RecipeUploadImgaeCell: UICollectionViewCell {
     func configure(with image: UIImage, isRepresentative: Bool) {
         imageView.image = image
         representativeLabel.isHidden = !isRepresentative
-    }
-    
-    @objc private func deleteImage() {
-        delegate?.didTapDeleteButton(in: self)
     }
 }

@@ -9,13 +9,14 @@ import UIKit
 
 final class RecipeListViewController: UIViewController {
     
-    private var interactor: RecipeListInteractorImpl
+    private var interactor: RecipeListInteractor
+    private var recipes: [RecipeListItemViewModel] = []
     private let searchBar = SearchBar()
     private let recipeListView = RecipeListView()
     private let recipeListMapper = RecipeListMapper()
     private let router: RecipeListRouterProtocol
     
-    init(interactor: RecipeListInteractorImpl, router: RecipeListRouterProtocol) {
+    init(interactor: RecipeListInteractor, router: RecipeListRouterProtocol) {
         self.interactor = interactor
         self.router = router
         super.init(nibName: nil, bundle: nil)

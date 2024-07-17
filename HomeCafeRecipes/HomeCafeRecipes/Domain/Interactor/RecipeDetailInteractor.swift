@@ -41,6 +41,8 @@ class RecipeDetailInteractorImpl: RecipeDetailInteractor {
         fetchRecipeDetailUseCase.execute(recipeID: recipeID)
             .subscribe(onSuccess: { [weak self] result in
                 self?.delegate?.fetchedRecipe(result: result)
+            }, onFailure: { [weak self] error in
+                self?.delegate?.fetchedRecipe(result: .failure(error))
             })
             .disposed(by: disposeBag)
     }

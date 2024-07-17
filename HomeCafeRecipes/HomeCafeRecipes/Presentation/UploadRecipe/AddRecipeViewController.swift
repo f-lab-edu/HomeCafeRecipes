@@ -194,8 +194,9 @@ extension AddRecipeViewController: PHPickerViewControllerDelegate {
             }
         }
         
-        dispatchGroup.notify(queue: .main) {
-            self.contentView.images.append(contentsOf: newImages)
+        dispatchGroup.notify(queue: .main) { [weak self] in
+            guard let self else { return }
+            self.updateImages(newImages: self.images + newImages)
         }
     }
 }

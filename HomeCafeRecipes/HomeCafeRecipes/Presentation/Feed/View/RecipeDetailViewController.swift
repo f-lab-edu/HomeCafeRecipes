@@ -13,12 +13,12 @@ final class RecipeDetailViewController: UIViewController {
     
     private let contentView = RecipeDetailView()
     private let customNavigationBar = CustomNavigationBar()
-    private let interactor: RecipeDetailInteractorImpl
+    private let interactor: RecipeDetailInteractor
     private let disposeBag = DisposeBag()
     private var recipeDetailViewModel: RecipeDetailViewModel?
     private let recipeListMapper = RecipeListMapper()
     
-    init(interactor: RecipeDetailInteractorImpl) {
+    init(interactor: RecipeDetailInteractor) {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
         self.interactor.setDelegate(self)

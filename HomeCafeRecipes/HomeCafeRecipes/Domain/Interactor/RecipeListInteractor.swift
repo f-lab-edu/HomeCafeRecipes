@@ -20,6 +20,7 @@ protocol RecipeListInteractor {
     func didSelectItem(ID: Int)
     func searchRecipes(with query: String)
     func resetSearch()
+    func setDelegate(_ delegate: RecipeListInteractorDelegate)
 }
 
 class RecipeListInteractorImpl: RecipeListInteractor {

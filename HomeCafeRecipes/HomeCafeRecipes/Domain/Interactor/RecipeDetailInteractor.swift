@@ -15,6 +15,7 @@ protocol RecipeDetailInteractorDelegate: AnyObject {
 
 protocol RecipeDetailInteractor {
     func viewDidLoad()
+    func setDelegate(_ delegate: RecipeDetailInteractorDelegate)
 }
 
 class RecipeDetailInteractorImpl: RecipeDetailInteractor {

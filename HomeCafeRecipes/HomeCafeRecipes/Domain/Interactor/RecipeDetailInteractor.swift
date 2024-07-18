@@ -25,7 +25,10 @@ class RecipeDetailInteractorImpl: RecipeDetailInteractor {
     private let disposeBag = DisposeBag()
     weak var delegate: RecipeDetailInteractorDelegate?
     
-    init(fetchRecipeDetailUseCase: FetchRecipeDetailUseCase, recipeID: Int) {
+    init(
+        fetchRecipeDetailUseCase: FetchRecipeDetailUseCase,
+        recipeID: Int
+    ) {
         self.fetchRecipeDetailUseCase = fetchRecipeDetailUseCase
         self.recipeID = recipeID
     }

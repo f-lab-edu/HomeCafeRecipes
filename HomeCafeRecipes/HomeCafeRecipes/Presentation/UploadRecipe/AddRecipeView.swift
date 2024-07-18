@@ -193,7 +193,14 @@ extension AddRecipeView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.item == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SelectImageCell", for: indexPath) as! SelectImageCell
-            cell.selectImageButton.addTarget(self, action: #selector(selectImageButtonTapped), for: .touchUpInside)
+            cell.selectImageButton.addAction(
+                UIAction(
+                    handler: { [weak self] _ in
+                        self?.delegate?.selectImageButtonTapped()
+                    }
+                ),
+                for: .touchUpInside
+            )
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! RecipeUploadImgaeCell
@@ -210,17 +217,10 @@ extension AddRecipeView: UICollectionViewDataSource {
 extension AddRecipeView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.item == 0 {
-            selectImageButtonTapped()
+            delegate?.selectImageButtonTapped()
         }
     }
 }
-
-extension AddRecipeView {
-    @objc private func selectImageButtonTapped() {
-        delegate?.selectImageButtonTapped()
-    }
-}
-
 // MARK: ImageCollectionViewCellDelegate
 
 extension AddRecipeView: ImageCollectionViewCellDelegate {

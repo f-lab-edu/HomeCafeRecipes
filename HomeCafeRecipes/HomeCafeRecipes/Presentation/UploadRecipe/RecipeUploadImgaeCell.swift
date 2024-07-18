@@ -13,9 +13,40 @@ protocol ImageCollectionViewCellDelegate: AnyObject {
 
 final class RecipeUploadImgaeCell: UICollectionViewCell {
     
-    private let imageView = UIImageView()
-    private let representativeLabel = UILabel()
-    private let deleteButton = UIButton(type: .system)
+    private let imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 10
+        return imageView
+    }()
+    
+    private let representativeLabel: UILabel = {
+        let label = UILabel()
+        label.font = Fonts.bodyFont
+        label.textColor = .white
+        label.backgroundColor = .gray
+        label.text = "대표 사진"
+        label.textAlignment = .center
+        label.isHidden = true
+        label.layer.cornerRadius = 10
+        label.clipsToBounds = true
+        return label
+    }()
+    
+    private lazy var deleteButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
+        button.tintColor = .white
+        button.addAction(
+            UIAction(handler: { [weak self] _ in
+                guard let self = self else { return }
+                self.delegate?.didTapDeleteButton(self)
+            }),
+            for: .touchUpInside
+        )
+        return button
+    }()
     
     weak var delegate: ImageCollectionViewCellDelegate?
     
@@ -29,39 +60,8 @@ final class RecipeUploadImgaeCell: UICollectionViewCell {
     }
     
     private func setupUI() {
-        setupImageView()
-        setupLabel()
-        setupDeleteButton()
         addSubviews()
         setupConstraints()
-    }
-    
-    private func setupImageView() {
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 10
-    }
-    
-    private func setupLabel() {
-        representativeLabel.font = .systemFont(ofSize: 12, weight: .bold)
-        representativeLabel.textColor = .white
-        representativeLabel.backgroundColor = .gray
-        representativeLabel.text = "대표 사진"
-        representativeLabel.textAlignment = .center
-        representativeLabel.isHidden = true
-        representativeLabel.layer.cornerRadius = 10
-        representativeLabel.clipsToBounds = true
-    }
-    
-    private func setupDeleteButton() {
-        deleteButton.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
-        deleteButton.tintColor = .white
-        deleteButton.addAction(
-            UIAction(handler: { [weak self] _ in
-                self?.delegate?.didTapDeleteButton(self!)
-            }),
-            for: .touchUpInside
-        )
     }
     
     private func addSubviews() {
@@ -91,7 +91,6 @@ final class RecipeUploadImgaeCell: UICollectionViewCell {
             deleteButton.widthAnchor.constraint(equalToConstant: 20),
             deleteButton.heightAnchor.constraint(equalToConstant: 20)
         ])
-        
     }
     
     func configure(with image: UIImage, isRepresentative: Bool) {

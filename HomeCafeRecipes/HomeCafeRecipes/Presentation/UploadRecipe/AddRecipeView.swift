@@ -17,13 +17,59 @@ protocol AddRecipeViewDelegate: AnyObject {
 
 final class AddRecipeView: UIView {
     
-    private let imageCounterLabel = UILabel()
-    private let titleLabel = UILabel()
-    private let descriptionLabel = UILabel()
+    private let imageCounterLabel: UILabel = {
+        let label = UILabel()
+        label.font = Fonts.bodyFont
+        label.textColor = .gray
+        label.text = "0/5"
+        return label
+    }()
+    
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "제목"
+        return label
+    }()
+    
+    private let descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.text = "내용"
+        return label
+    }()
+    
     private let collectionView: UICollectionView
-    private let titleTextField = UITextField()
-    private let descriptionTextView = UITextView()
-    private let submitButton = UIButton(type: .system)
+    
+    private let titleTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "제목을 입력하세요"
+        textField.borderStyle = .roundedRect
+        return textField
+    }()
+    
+    private let descriptionTextView: UITextView = {
+        let textView = UITextView()
+        textView.layer.borderColor = UIColor.lightGray.cgColor
+        textView.layer.borderWidth = 1
+        textView.layer.cornerRadius = 5
+        textView.font = Fonts.titleFont
+        return textView
+    }()
+    
+    private lazy var submitButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("레시피 등록", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .blue
+        button.layer.cornerRadius = 5
+        button.addAction(
+            UIAction(
+                handler: { [weak self] _ in
+                    self?.delegate?.didTapSubmitButton()
+                }),
+            for: .touchUpInside)
+        return button
+    }()
+    
     let customNavigationBar = CustomNavigationBar()
     
     weak var delegate: AddRecipeViewDelegate?
@@ -46,21 +92,10 @@ final class AddRecipeView: UIView {
     
     private func setupUI() {
         backgroundColor = .white
-        
-        setupLabel()
         setupCollectionView()
-        setupImageCounterLabel()
-        setupTitleTextField()
-        setupDescriptionTextView()
-        setupSubmitButton()
         setupCustomNavigationBar()
         addSubviews()
         setupConstraints()
-    }
-    
-    private func setupLabel() {
-        titleLabel.text = "제목"
-        descriptionLabel.text = "내용"
     }
     
     private func setupCollectionView() {
@@ -68,36 +103,6 @@ final class AddRecipeView: UIView {
         collectionView.delegate = self
         collectionView.register(RecipeUploadImgaeCell.self, forCellWithReuseIdentifier: "ImageCell")
         collectionView.register(SelectImageCell.self, forCellWithReuseIdentifier: "SelectImageCell")
-    }
-    private func setupImageCounterLabel() {
-        imageCounterLabel.font = Fonts.bodyFont
-        imageCounterLabel.textColor = .gray
-        imageCounterLabel.text = "0/5"
-    }
-    
-    private func setupTitleTextField() {
-        titleTextField.placeholder = "제목을 입력하세요"
-        titleTextField.borderStyle = .roundedRect
-    }
-    
-    private func setupDescriptionTextView() {
-        descriptionTextView.layer.borderColor = UIColor.lightGray.cgColor
-        descriptionTextView.layer.borderWidth = 1
-        descriptionTextView.layer.cornerRadius = 5
-        descriptionTextView.font = Fonts.titleFont
-    }
-    
-    private func setupSubmitButton() {
-        submitButton.setTitle("레시피 등록", for: .normal)
-        submitButton.setTitleColor(.white, for: .normal)
-        submitButton.backgroundColor = .blue
-        submitButton.layer.cornerRadius = 5
-        submitButton.addAction(
-            UIAction(
-                handler: { [weak self] _ in
-                    self?.delegate?.didTapSubmitButton()
-                })
-            , for: .touchUpInside)
     }
     
     private func setupCustomNavigationBar() {
@@ -225,6 +230,7 @@ extension AddRecipeView: UICollectionViewDelegate {
         }
     }
 }
+
 // MARK: ImageCollectionViewCellDelegate
 
 extension AddRecipeView: ImageCollectionViewCellDelegate {

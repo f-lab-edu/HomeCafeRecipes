@@ -66,7 +66,8 @@ final class AddRecipeView: UIView {
                 handler: { [weak self] _ in
                     self?.delegate?.didTapSubmitButton()
                 }),
-            for: .touchUpInside)
+            for: .touchUpInside
+        )
         return button
     }()
     

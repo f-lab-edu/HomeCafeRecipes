@@ -149,6 +149,13 @@ extension AddRecipeViewController: AddRecipeViewDelegate {
         addRecipeInteractor.updateDescription(description)
         saveRecipeToServer()
     }
+    
+    func numberOfImages() -> Int {
+        return addRecipeInteractor.numberOfImages()
+    }
+    
+    func recipeImage(at index: Int) -> UIImage? {
+        return addRecipeInteractor.image(at: index)
     }
 }
 

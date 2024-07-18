@@ -11,6 +11,8 @@ protocol AddRecipeViewDelegate: AnyObject {
     func selectImageButtonTapped()
     func didTapDeleteButton(at index: Int)
     func didTapSubmitButton()
+    func numberOfImages() -> Int
+    func recipeImage(at index: Int) -> UIImage?
 }
 
 final class AddRecipeView: UIView {
@@ -186,8 +188,9 @@ final class AddRecipeView: UIView {
 // MARK: UICollectionViewDataSource
 
 extension AddRecipeView: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count + 1
+    func collectionView(_ collectionView: UICollectionView, 
+                        numberOfItemsInSection section: Int) -> Int {
+        return (delegate?.numberOfImages() ?? 0) + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -204,8 +207,9 @@ extension AddRecipeView: UICollectionViewDataSource {
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! RecipeUploadImgaeCell
-            let image = images[indexPath.item - 1]
-            cell.configure(with: image, isRepresentative: indexPath.item == 1)
+            if let image = delegate?.recipeImage(at: indexPath.item - 1) {
+                cell.configure(with: image, isRepresentative: indexPath.item == 1)
+            }
             cell.delegate = self
             return cell
         }

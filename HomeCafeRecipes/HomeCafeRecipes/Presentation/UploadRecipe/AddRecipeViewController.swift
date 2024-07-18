@@ -35,7 +35,6 @@ final class AddRecipeViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         contentView.delegate = self
-        contentView.submitButton.addTarget(self, action: #selector(saveRecipe), for: .touchUpInside)
         setupNavigationBar()
     }
     
@@ -168,6 +167,13 @@ extension AddRecipeViewController: AddRecipeViewDelegate {
     
     func didTapDeleteButton(at index: Int) {
         contentView.images.remove(at: index)
+    func didTapSubmitButton() {
+        let title = contentView.getTitleText() ?? ""
+        let description = contentView.getDescriptionText() ?? ""
+        addRecipeInteractor.updateTitle(title)
+        addRecipeInteractor.updateDescription(description)
+        saveRecipeToServer()
+    }
     }
 }
 

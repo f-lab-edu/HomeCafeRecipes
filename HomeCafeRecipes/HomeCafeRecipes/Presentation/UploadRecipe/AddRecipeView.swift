@@ -10,6 +10,7 @@ import UIKit
 protocol AddRecipeViewDelegate: AnyObject {
     func selectImageButtonTapped()
     func didTapDeleteButton(at index: Int)
+    func didTapSubmitButton()
 }
 
 final class AddRecipeView: UIView {
@@ -96,6 +97,12 @@ final class AddRecipeView: UIView {
         submitButton.setTitleColor(.white, for: .normal)
         submitButton.backgroundColor = .blue
         submitButton.layer.cornerRadius = 5
+        submitButton.addAction(
+            UIAction(
+                handler: { [weak self] _ in
+                    self?.delegate?.didTapSubmitButton()
+                })
+            , for: .touchUpInside)
     }
     
     private func setupCustomNavigationBar() {

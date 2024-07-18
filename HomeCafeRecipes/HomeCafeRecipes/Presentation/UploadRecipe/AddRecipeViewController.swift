@@ -117,7 +117,7 @@ extension AddRecipeViewController: AddRecipeViewDelegate {
         checkPhotoLibraryPermission { granted in
             if granted {
                 var config = PHPickerConfiguration()
-                config.selectionLimit = 5 - self.contentView.images.count
+                config.selectionLimit = 5
                 config.filter = .images
                 
                 let picker = PHPickerViewController(configuration: config)
@@ -138,6 +138,10 @@ extension AddRecipeViewController: AddRecipeViewDelegate {
     
     func didTapDeleteButton(at index: Int) {
         contentView.images.remove(at: index)
+        contentView.reloadCollectionView()
+        contentView.updateImageCounter(count: addRecipeInteractor.numberOfImages())
+    }
+    
     func didTapSubmitButton() {
         let title = contentView.getTitleText() ?? ""
         let description = contentView.getDescriptionText() ?? ""
@@ -173,7 +177,8 @@ extension AddRecipeViewController: PHPickerViewControllerDelegate {
         
         dispatchGroup.notify(queue: .main) { [weak self] in
             guard let self else { return }
-            self.updateImages(newImages: self.images + newImages)
+            self.contentView.reloadCollectionView()
+            self.contentView.updateImageCounter(count: self.addRecipeInteractor.numberOfImages())
         }
     }
 }
@@ -185,5 +190,7 @@ extension AddRecipeViewController: ImageCollectionViewCellDelegate {
         if let indexPath = contentView.collectionView.indexPath(for: cell) {
             contentView.images.remove(at: indexPath.item - 1)
         }
+        contentView.reloadCollectionView()
+        contentView.updateImageCounter(count: addRecipeInteractor.numberOfImages())
     }
 }

@@ -22,16 +22,10 @@ final class AddRecipeView: UIView {
     let titleTextField = UITextField()
     let descriptionTextView = UITextView()
     let submitButton = UIButton(type: .system)
+    private let collectionView: UICollectionView
     let customNavigationBar = CustomNavigationBar()
     
     weak var delegate: AddRecipeViewDelegate?
-    
-    var images: [UIImage] = [] {
-        didSet {
-            collectionView.reloadData()
-            imageCounterLabel.text = "\(images.count)/5"
-        }
-    }
     
     override init(frame: CGRect) {
         let layout = UICollectionViewFlowLayout()
@@ -167,6 +161,14 @@ final class AddRecipeView: UIView {
             submitButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             submitButton.heightAnchor.constraint(equalToConstant: 50)
         ])
+    }
+    
+    func updateImageCounter(count: Int) {
+        imageCounterLabel.text = "\(count)/5"
+    }
+    
+    func reloadCollectionView() {
+        collectionView.reloadData()
     }
 }
 

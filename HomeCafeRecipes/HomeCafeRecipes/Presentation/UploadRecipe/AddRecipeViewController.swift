@@ -62,44 +62,21 @@ final class AddRecipeViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    @objc private func saveRecipe() {
-        guard !contentView.images.isEmpty else {
-            showAlert(title: "이미지 없음", message: "최소 한 장의 이미지를 추가해 주세요.")
-            return
-        }
-        guard let title = contentView.titleTextField.text, let description = contentView.descriptionTextView.text else {
-            showAlert(title: "입력 오류", message: "제목과 설명을 모두 입력해 주세요.")
-            return
-        }
-        
-        guard !title.isBlank else {
-            showAlert(title: "제목 없음", message: "제목을 입력해 주세요.")
-            return
-        }
-        
-        guard description.count > 10 else {
-            showAlert(title: "설명 부족", message: "설명을 10자 이상 입력해 주세요.")
-            return
-        }
-        
-        saveRecipeToServer(title: title, description: description, images: contentView.images)
-    }
-    
-    private func saveRecipeToServer(title: String, description: String, images: [UIImage]) {
-        
+    private func saveRecipeToServer() {
         // MARK: 임시 userID 설정
-        let userId = 6
-        let recipeType = recipeType.rawValue
-        
-        addRecipeInteractor.saveRecipe(userId: userId, recipeType: recipeType, title: title, description: description, images: images)
-            .subscribe(onSuccess: { recipe in
+        let userID = 6
+                
+        addRecipeInteractor.saveRecipe(userID: userID, recipeType: recipeType)
+            .subscribe(onSuccess: { [weak self] result in
                 DispatchQueue.main.async {
-                    self.showSuccessAlert(title: "업로드 성공", message: "레시피가 성공적으로 업로드되었습니다.", success: true)
-                }            }, onFailure: { error in
-                    DispatchQueue.main.async {
-                        self.showSuccessAlert(title: "업로드 실패", message: "레시피 업로드에 실패했습니다.", success: false)
+                    switch result {
+                    case .success:
+                        self?.showCompletedAlert(title: "업로드 성공", message: "레시피가 성공적으로 업로드되었습니다.", success: true)
+                    case .failure(let error):
+                        self?.showCompletedAlert(title: error.title, message: error.localizedDescription, success: false)
                     }
-                })
+                }
+            })
             .disposed(by: disposeBag)
     }
     

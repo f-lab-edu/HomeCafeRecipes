@@ -137,7 +137,7 @@ extension AddRecipeViewController: AddRecipeViewDelegate {
     }
     
     func didTapDeleteButton(at index: Int) {
-        contentView.images.remove(at: index)
+        addRecipeInteractor.removeImage(at: index)
         contentView.reloadCollectionView()
         contentView.updateImageCounter(count: addRecipeInteractor.numberOfImages())
     }
@@ -184,6 +184,7 @@ extension AddRecipeViewController: PHPickerViewControllerDelegate {
         
         dispatchGroup.notify(queue: .main) { [weak self] in
             guard let self else { return }
+            newImages.forEach { self.addRecipeInteractor.addImage($0) }
             self.contentView.reloadCollectionView()
             self.contentView.updateImageCounter(count: self.addRecipeInteractor.numberOfImages())
         }

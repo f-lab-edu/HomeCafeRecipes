@@ -80,7 +80,7 @@ final class AddRecipeViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    private func showSuccessAlert(title: String, message: String, success: Bool) {
+    private func showCompletedAlert(title: String, message: String, success: Bool) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "확인", style: .default) { _ in
             if success {
@@ -88,12 +88,6 @@ final class AddRecipeViewController: UIViewController {
             }
         }
         alert.addAction(confirmAction)
-        present(alert, animated: true, completion: nil)
-    }
-    
-    private func showAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
     

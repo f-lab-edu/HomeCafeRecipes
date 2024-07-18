@@ -8,7 +8,7 @@
 import UIKit
 
 protocol ImageCollectionViewCellDelegate: AnyObject {
-    func didTapDeleteButton(in cell: RecipeUploadImgaeCell)
+    func didTapDeleteButton(_ cell: RecipeUploadImgaeCell)
 }
 
 final class RecipeUploadImgaeCell: UICollectionViewCell {

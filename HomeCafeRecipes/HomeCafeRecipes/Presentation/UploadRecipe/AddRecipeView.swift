@@ -213,7 +213,7 @@ extension AddRecipeView {
 // MARK: ImageCollectionViewCellDelegate
 
 extension AddRecipeView: ImageCollectionViewCellDelegate {
-    func didTapDeleteButton(in cell: RecipeUploadImgaeCell) {
+    func didTapDeleteButton(_ cell: RecipeUploadImgaeCell) {
         if let indexPath = collectionView.indexPath(for: cell) {
             delegate?.didTapDeleteButton(at: indexPath.item - 1)
         }

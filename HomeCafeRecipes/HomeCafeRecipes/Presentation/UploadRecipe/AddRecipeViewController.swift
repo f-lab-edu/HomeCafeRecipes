@@ -186,10 +186,9 @@ extension AddRecipeViewController: PHPickerViewControllerDelegate {
 // MARK: ImageCollectionViewCellDelegate
 
 extension AddRecipeViewController: ImageCollectionViewCellDelegate {
-    func didTapDeleteButton(in cell: RecipeUploadImgaeCell) {
-        if let indexPath = contentView.collectionView.indexPath(for: cell) {
-            contentView.images.remove(at: indexPath.item - 1)
-        }
+    func didTapDeleteButton(_ cell: RecipeUploadImgaeCell) {
+        guard let indexPath = contentView.indexPathForCell(cell) else { return }
+        addRecipeInteractor.removeImage(at: indexPath.item - 1)
         contentView.reloadCollectionView()
         contentView.updateImageCounter(count: addRecipeInteractor.numberOfImages())
     }

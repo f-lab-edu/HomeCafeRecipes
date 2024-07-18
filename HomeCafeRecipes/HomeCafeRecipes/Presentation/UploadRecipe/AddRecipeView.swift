@@ -18,11 +18,10 @@ final class AddRecipeView: UIView {
     private let imageCounterLabel = UILabel()
     private let titleLabel = UILabel()
     private let descriptionLabel = UILabel()
-    let collectionView: UICollectionView
-    let titleTextField = UITextField()
-    let descriptionTextView = UITextView()
-    let submitButton = UIButton(type: .system)
     private let collectionView: UICollectionView
+    private let titleTextField = UITextField()
+    private let descriptionTextView = UITextView()
+    private let submitButton = UIButton(type: .system)
     let customNavigationBar = CustomNavigationBar()
     
     weak var delegate: AddRecipeViewDelegate?
@@ -169,6 +168,18 @@ final class AddRecipeView: UIView {
     
     func reloadCollectionView() {
         collectionView.reloadData()
+    }
+    
+    func getTitleText() -> String? {
+        return titleTextField.text
+    }
+    
+    func getDescriptionText() -> String? {
+        return descriptionTextView.text
+    }
+    
+    func indexPathForCell(_ cell: UICollectionViewCell) -> IndexPath? {
+        return collectionView.indexPath(for: cell)
     }
 }
 

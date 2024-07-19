@@ -16,10 +16,12 @@ final class AddRecipeViewController: UIViewController {
     private let recipeType: RecipeType
     private let addRecipeInteractor: AddRecipeInteractor
     private let disposeBag = DisposeBag()
+    private var addRecipeViewModel: AddRecipeViewModel
     
     init(recipeType: RecipeType, addRecipeInteractor: AddRecipeInteractor) {
         self.recipeType = recipeType
         self.addRecipeInteractor = addRecipeInteractor
+        self.addRecipeViewModel = AddRecipeViewModel(images: addRecipeInteractor.getRecipeImages(), title: addRecipeInteractor.getRecipeTitle(), description: addRecipeInteractor.getRecipeDescription())
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -138,6 +140,7 @@ extension AddRecipeViewController: AddRecipeViewDelegate {
     
     func didTapDeleteButton(at index: Int) {
         addRecipeInteractor.removeImage(at: index)
+        updateaddRecipeViewModel()
         contentView.updateImageView(count: addRecipeViewModel.images.count)
     }
     
@@ -150,11 +153,19 @@ extension AddRecipeViewController: AddRecipeViewDelegate {
     }
     
     func numberOfImages() -> Int {
-        return addRecipeInteractor.numberOfImages()
+        return addRecipeViewModel.images.count
     }
     
     func recipeImage(at index: Int) -> UIImage? {
-        return addRecipeInteractor.image(at: index)
+        return addRecipeViewModel.images[index]
+    }
+    
+    private func updateaddRecipeViewModel() {
+        addRecipeViewModel = AddRecipeViewModel(
+            images: addRecipeInteractor.getRecipeImages(),
+            title: addRecipeInteractor.getRecipeTitle(),
+            description: addRecipeInteractor.getRecipeDescription()
+        )
     }
 }
 
@@ -184,6 +195,7 @@ extension AddRecipeViewController: PHPickerViewControllerDelegate {
         dispatchGroup.notify(queue: .main) { [weak self] in
             guard let self else { return }
             newImages.forEach { self.addRecipeInteractor.addImage($0) }
+            updateaddRecipeViewModel()
             contentView.updateImageView(count: numberOfImages())
         }
     }

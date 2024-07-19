@@ -145,8 +145,8 @@ extension AddRecipeViewController: AddRecipeViewDelegate {
     }
     
     func didTapSubmitButton() {
-        let title = contentView.getTitleText() ?? ""
-        let description = contentView.getDescriptionText() ?? ""
+        let title = contentView.titleText
+        let description = contentView.descriptionText
         addRecipeInteractor.updateTitle(title)
         addRecipeInteractor.updateDescription(description)
         saveRecipeToServer()

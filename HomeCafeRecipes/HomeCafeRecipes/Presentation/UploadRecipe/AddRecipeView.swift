@@ -175,11 +175,11 @@ final class AddRecipeView: UIView {
         collectionView.reloadData()
     }
     
-    func getTitleText() -> String? {
-        return titleTextField.text
+    var titleText: String {
+        return titleTextField.text ?? ""
     }
     
-    func getDescriptionText() -> String? {
+    var descriptionText: String {
         return descriptionTextView.text
     }
     

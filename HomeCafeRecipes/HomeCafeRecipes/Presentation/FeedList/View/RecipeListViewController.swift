@@ -19,8 +19,7 @@ final class RecipeListViewController: UIViewController {
     init(interactor: RecipeListInteractor, router: RecipeListRouterProtocol) {
         self.interactor = interactor
         self.router = router
-        super.init(nibName: nil, bundle: nil)
-        self.interactor.setDelegate(self)
+        super.init(nibName: nil, bundle: nil)        
         recipeListView.delegate = self
     }
     

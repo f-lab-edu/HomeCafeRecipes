@@ -20,8 +20,7 @@ final class RecipeDetailViewController: UIViewController {
     
     init(interactor: RecipeDetailInteractor) {
         self.interactor = interactor
-        super.init(nibName: nil, bundle: nil)
-        self.interactor.setDelegate(self)
+        super.init(nibName: nil, bundle: nil)        
     }
     
     required init?(coder: NSCoder) {

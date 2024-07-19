@@ -20,7 +20,6 @@ protocol RecipeListInteractor {
     func didSelectItem(ID: Int)
     func searchRecipes(with query: String)
     func resetSearch()
-    func setDelegate(_ delegate: RecipeListInteractorDelegate)
 }
 
 class RecipeListInteractorImpl: RecipeListInteractor {
@@ -28,7 +27,7 @@ class RecipeListInteractorImpl: RecipeListInteractor {
     private let disposeBag = DisposeBag()
     private let fetchFeedListUseCase: FetchFeedListUseCase
     private let searchFeedListUseCase: SearchFeedListUseCase
-    private weak var delegate: RecipeListInteractorDelegate?
+    weak var delegate: RecipeListInteractorDelegate?
 
     private var currentPage: Int = 1
     private var isFetching = false
@@ -42,11 +41,7 @@ class RecipeListInteractorImpl: RecipeListInteractor {
         self.fetchFeedListUseCase = fetchFeedListUseCase
         self.searchFeedListUseCase = searchFeedListUseCase
     }
-
-    func setDelegate(_ delegate: RecipeListInteractorDelegate) {
-        self.delegate = delegate
-    }
-
+        
     func viewDidLoad() {
         fetchRecipes()
     }

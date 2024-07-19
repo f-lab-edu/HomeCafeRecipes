@@ -14,8 +14,7 @@ protocol RecipeDetailInteractorDelegate: AnyObject {
 }
 
 protocol RecipeDetailInteractor {
-    func viewDidLoad()
-    func setDelegate(_ delegate: RecipeDetailInteractorDelegate)
+    func viewDidLoad()    
 }
 
 class RecipeDetailInteractorImpl: RecipeDetailInteractor {
@@ -32,11 +31,7 @@ class RecipeDetailInteractorImpl: RecipeDetailInteractor {
         self.fetchRecipeDetailUseCase = fetchRecipeDetailUseCase
         self.recipeID = recipeID
     }
-    
-    func setDelegate(_ delegate: RecipeDetailInteractorDelegate) {
-        self.delegate = delegate
-    }
-    
+        
     func viewDidLoad() {
         fetchRecipeDetail()
     }

@@ -138,8 +138,7 @@ extension AddRecipeViewController: AddRecipeViewDelegate {
     
     func didTapDeleteButton(at index: Int) {
         addRecipeInteractor.removeImage(at: index)
-        contentView.reloadCollectionView()
-        contentView.updateImageCounter(count: addRecipeInteractor.numberOfImages())
+        contentView.updateImageView(count: addRecipeViewModel.images.count)
     }
     
     func didTapSubmitButton() {
@@ -185,8 +184,7 @@ extension AddRecipeViewController: PHPickerViewControllerDelegate {
         dispatchGroup.notify(queue: .main) { [weak self] in
             guard let self else { return }
             newImages.forEach { self.addRecipeInteractor.addImage($0) }
-            self.contentView.reloadCollectionView()
-            self.contentView.updateImageCounter(count: self.addRecipeInteractor.numberOfImages())
+            contentView.updateImageView(count: numberOfImages())
         }
     }
 }
@@ -196,8 +194,7 @@ extension AddRecipeViewController: PHPickerViewControllerDelegate {
 extension AddRecipeViewController: ImageCollectionViewCellDelegate {
     func didTapDeleteButton(_ cell: RecipeUploadImgaeCell) {
         guard let indexPath = contentView.indexPathForCell(cell) else { return }
-        addRecipeInteractor.removeImage(at: indexPath.item - 1)
-        contentView.reloadCollectionView()
-        contentView.updateImageCounter(count: addRecipeInteractor.numberOfImages())
+        addRecipeInteractor.removeRecipeImage(at: indexPath.item - 1)
+        contentView.updateImageView(count: self.numberOfImages())
     }
 }

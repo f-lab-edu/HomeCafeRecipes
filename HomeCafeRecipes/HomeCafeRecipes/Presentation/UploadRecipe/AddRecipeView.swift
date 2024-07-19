@@ -170,11 +170,8 @@ final class AddRecipeView: UIView {
         ])
     }
     
-    func updateImageCounter(count: Int) {
+    func updateImageView(count: Int) {
         imageCounterLabel.text = "\(count)/5"
-    }
-    
-    func reloadCollectionView() {
         collectionView.reloadData()
     }
     

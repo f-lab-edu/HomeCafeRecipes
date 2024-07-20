@@ -64,3 +64,9 @@ extension RecipeDetailViewController: RecipeDetailInteractorDelegate {
         }
     }
 }
+
+extension RecipeDetailViewController: Drawable {
+    var viewController: UIViewController? {
+        return self
+    }
+}

@@ -141,7 +141,7 @@ extension AddRecipeViewController: AddRecipeViewDelegate {
     func didTapDeleteButton(at index: Int) {
         addRecipeInteractor.removeImage(at: index)
         updateaddRecipeViewModel()
-        contentView.updateImageView(count: addRecipeViewModel.images.count)
+        contentView.updateImageView(count: numberOfImages())
     }
     
     func didTapSubmitButton() {

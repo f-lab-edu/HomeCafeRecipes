@@ -13,12 +13,14 @@ final class RecipeListViewController: UIViewController {
     private var recipes: [RecipeListItemViewModel] = []
     private let searchBar = SearchBar()
     private let recipeListView = RecipeListView()
-
-    init(interactor: RecipeListInteractor) {
-        self.interactor = interactor
-        super.init(nibName: nil, bundle: nil)
+    private let recipeListMapper = RecipeListMapper()
+    private let router: RecipeListRouter
+    
+    init(interactor: RecipeListInteractor, router: RecipeListRouter) {
         self.interactor.setDelegate(self)
-        
+        self.interactor = interactor
+        self.router = router
+        super.init(nibName: nil, bundle: nil)        
     }
     
     required init?(coder: NSCoder) {
@@ -90,7 +92,7 @@ extension RecipeListViewController: RecipeListInteractorDelegate {
     }
     
     func showRecipeDetail(ID: Int) {
-        coordinator.showRecipeDetail(from: self, recipeID: ID)
+        router.navigateToRecipeDetail(from: self, recipeID: ID)
     }
 }
 

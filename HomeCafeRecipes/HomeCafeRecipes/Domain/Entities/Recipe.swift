@@ -18,3 +18,10 @@ struct Recipe {
     let likeCount: Int
     let createdAt: Date
 }
+
+extension Recipe {
+    
+    static func dummy() -> Recipe {
+        .init(id: 1, type: .coffee, name: "", description: "", writer: .init(id: 1, profileImage: "", nickname: "", createdAt: Date()), imageUrls: [], isLikedByCurrentUser: false, likeCount: 0, createdAt: Date())
+    }
+}

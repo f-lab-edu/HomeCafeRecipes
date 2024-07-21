@@ -16,12 +16,11 @@ final class AddRecipeViewController: UIViewController {
     private let recipeType: RecipeType
     private let addRecipeInteractor: AddRecipeInteractor
     private let disposeBag = DisposeBag()
-    private var addRecipeViewModel: AddRecipeViewModel
+    private var addRecipeViewModel: AddRecipeViewModel?
     
     init(recipeType: RecipeType, addRecipeInteractor: AddRecipeInteractor) {
         self.recipeType = recipeType
         self.addRecipeInteractor = addRecipeInteractor
-        self.addRecipeViewModel = AddRecipeViewModel(images: addRecipeInteractor.getRecipeImages(), title: addRecipeInteractor.getRecipeTitle(), description: addRecipeInteractor.getRecipeDescription())
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -38,6 +37,7 @@ final class AddRecipeViewController: UIViewController {
         setupUI()
         contentView.delegate = self
         setupNavigationBar()
+        addRecipeInteractor.loadRecipeData()
     }
     
     private func setupUI() {
@@ -67,7 +67,7 @@ final class AddRecipeViewController: UIViewController {
     private func saveRecipeToServer() {
         // MARK: 임시 userID 설정
         let userID = 6
-                
+        
         addRecipeInteractor.saveRecipe(userID: userID, recipeType: recipeType)
             .subscribe(onSuccess: { [weak self] result in
                 DispatchQueue.main.async {
@@ -139,33 +139,25 @@ extension AddRecipeViewController: AddRecipeViewDelegate {
     }
     
     func didTapDeleteButton(at index: Int) {
-        addRecipeInteractor.removeImage(at: index)
-        updateaddRecipeViewModel()
+        addRecipeInteractor.removeRecipeImage(at: index)
+        addRecipeInteractor.loadRecipeData()
         contentView.updateImageView(count: numberOfImages())
     }
     
     func didTapSubmitButton() {
         let title = contentView.titleText
         let description = contentView.descriptionText
-        addRecipeInteractor.updateTitle(title)
-        addRecipeInteractor.updateDescription(description)
+        addRecipeInteractor.updateRecipeTitle(title)
+        addRecipeInteractor.updateRecipeDescription(description)
         saveRecipeToServer()
     }
     
     func numberOfImages() -> Int {
-        return addRecipeViewModel.images.count
+        return addRecipeViewModel?.images.count ?? 0
     }
     
     func recipeImage(at index: Int) -> UIImage? {
-        return addRecipeViewModel.images[index]
-    }
-    
-    private func updateaddRecipeViewModel() {
-        addRecipeViewModel = AddRecipeViewModel(
-            images: addRecipeInteractor.getRecipeImages(),
-            title: addRecipeInteractor.getRecipeTitle(),
-            description: addRecipeInteractor.getRecipeDescription()
-        )
+        return addRecipeViewModel?.images[index]
     }
 }
 
@@ -194,8 +186,8 @@ extension AddRecipeViewController: PHPickerViewControllerDelegate {
         
         dispatchGroup.notify(queue: .main) { [weak self] in
             guard let self else { return }
-            newImages.forEach { self.addRecipeInteractor.addImage($0) }
-            updateaddRecipeViewModel()
+            newImages.forEach { self.addRecipeInteractor.addRecipeImage($0) }
+            addRecipeInteractor.loadRecipeData()
             contentView.updateImageView(count: numberOfImages())
         }
     }
@@ -208,5 +200,14 @@ extension AddRecipeViewController: ImageCollectionViewCellDelegate {
         guard let indexPath = contentView.indexPathForCell(cell) else { return }
         addRecipeInteractor.removeRecipeImage(at: indexPath.item - 1)
         contentView.updateImageView(count: self.numberOfImages())
+    }
+}
+
+// MARK: AddRecipeInteractorDelegate
+
+extension AddRecipeViewController: AddRecipeInteractorDelegate {
+    func didLoadRecipeData(viewModel: AddRecipeViewModel) {
+        self.addRecipeViewModel = viewModel
+        self.contentView.updateImageView(count: numberOfImages())
     }
 }

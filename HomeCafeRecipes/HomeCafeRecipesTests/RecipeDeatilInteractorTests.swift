@@ -17,7 +17,7 @@ final class RecipeDetailInteractorTests: XCTestCase {
     var fetchRecipeDetailUsecase: FetchRecipeDetailUseCaseMock!
     var delegate: RecipeDetailInteractorDelegateMock!
     
-    class FetchRecipeDetailUseCaseMock: FetchRecipeDetailUseCase {
+    final class FetchRecipeDetailUseCaseMock: FetchRecipeDetailUseCase {
         var executeCallCount: Int = 0
         var executeStub: Single<Result<Recipe, Error>> = .just(.failure(NSError()))
         func execute(recipeID: Int) -> Single<Result<Recipe, Error>> {
@@ -26,7 +26,7 @@ final class RecipeDetailInteractorTests: XCTestCase {
         }
     }
     
-    class RecipeDetailInteractorDelegateMock: RecipeDetailInteractorDelegate {
+    final class RecipeDetailInteractorDelegateMock: RecipeDetailInteractorDelegate {
         var fetchedCallCount: Int = 0
         var fetchedRecipeResult: Result<Recipe, Error>?
         func fetchedRecipe(result: Result<Recipe, Error>) {

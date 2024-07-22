@@ -18,7 +18,7 @@ final class FetchRecipeDetailUseCaseTests: XCTestCase {
     var fetchRecipeDetailRepository: FetchRecipeRepositoryMock!
     var disposeBag: DisposeBag!
     
-    class FetchRecipeRepositoryMock: RecipeDetailRepository {
+    final class FetchRecipeRepositoryMock: RecipeDetailRepository {
         var fetchRecipeDetailCallCount: Int = 0
         var fetchRecipeDetailStub: Single<Recipe> = .just(Recipe.dummy())
         func fetchRecipeDetail(recipeID: Int) -> Single<Recipe> {

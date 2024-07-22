@@ -42,7 +42,7 @@ final class FetchRecipeDetailUseCaseTests: XCTestCase {
 
 extension FetchRecipeDetailUseCaseTests {
     
-    func test_execute를_호출하면_1번_RecipeDetailRepository의_fetchRecipeDetail을_호출합니다(){
+    func test_execute를_호출하면_RecipeDetailRepository의_fetchRecipeDetail을_호출합니다(){
         
         // Given
         

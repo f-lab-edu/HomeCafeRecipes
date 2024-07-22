@@ -28,7 +28,9 @@ final class FetchRecipeDetailUseCaseTests: XCTestCase {
     }
     
     func createUseCase() -> FetchRecipeDetailUseCase {
-        let usecase = FetchRecipeDetailUseCaseImpl(repository: fetchRecipeDetailRepository)
+        let usecase = FetchRecipeDetailUseCaseImpl(
+            repository: fetchRecipeDetailRepository
+        )
         return usecase
     }
     

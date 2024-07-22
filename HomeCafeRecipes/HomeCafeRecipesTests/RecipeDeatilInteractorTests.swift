@@ -55,7 +55,7 @@ final class RecipeDetailInteractorTests: XCTestCase {
 
 extension RecipeDetailInteractorTests {
     
-    func test_화면이_로드될때_FetchRecipeDetailUsecase를_실행합니다() {
+    func test_화면이_로드될때_FetchRecipeDetailUsecase를_호출합니다() {
         // given
         let interactor = createInteractor()
         

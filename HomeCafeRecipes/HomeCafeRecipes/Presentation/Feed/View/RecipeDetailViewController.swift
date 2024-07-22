@@ -20,8 +20,7 @@ final class RecipeDetailViewController: UIViewController {
     
     init(interactor: RecipeDetailInteractor) {
         self.interactor = interactor
-        super.init(nibName: nil, bundle: nil)
-        self.interactor.setDelegate(self)
+        super.init(nibName: nil, bundle: nil)        
     }
     
     required init?(coder: NSCoder) {
@@ -37,7 +36,7 @@ final class RecipeDetailViewController: UIViewController {
         interactor.viewDidLoad()
         contentView.customNavigationBar.backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
     }
-            
+    
     private func displayError(_ error: Error) {
         let alert = UIAlertController(title: "해당 레시피를 로드하는데 실패했습니다.", message: error.localizedDescription, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
@@ -60,7 +59,10 @@ extension RecipeDetailViewController: RecipeDetailInteractorDelegate {
                 self.contentView.configure(with: recipeItemViewModel)
             }
         case .failure(let error):
-            self.displayError(error)
+            DispatchQueue.main.async {
+                self.displayError(error)
+            }
         }
     }
 }
+

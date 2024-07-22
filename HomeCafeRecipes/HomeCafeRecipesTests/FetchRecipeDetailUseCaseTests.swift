@@ -36,9 +36,6 @@ final class FetchRecipeDetailUseCaseTests: XCTestCase {
         fetchRecipeDetailRepository = .init()
         disposeBag = .init()
     }
-    
-    override func tearDownWithError() throws {
-    }
 }
 
 extension FetchRecipeDetailUseCaseTests {

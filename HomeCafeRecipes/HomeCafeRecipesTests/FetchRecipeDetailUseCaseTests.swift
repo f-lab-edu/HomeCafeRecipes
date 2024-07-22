@@ -20,7 +20,7 @@ final class FetchRecipeDetailUseCaseTests: XCTestCase {
     
     final class FetchRecipeRepositoryMock: RecipeDetailRepository {
         var fetchRecipeDetailCallCount: Int = 0
-        var fetchRecipeDetailStub: Single<Recipe> = .just(Recipe.dummy())
+        var fetchRecipeDetailStub: Single<Recipe> = .just(Recipe.dummyRecipe())
         func fetchRecipeDetail(recipeID: Int) -> Single<Recipe> {
             fetchRecipeDetailCallCount += 1
             return fetchRecipeDetailStub
@@ -41,11 +41,11 @@ final class FetchRecipeDetailUseCaseTests: XCTestCase {
 extension FetchRecipeDetailUseCaseTests {
     
     func test_execute를_호출하면_1번_RecipeDetailRepository의_fetchRecipeDetail을_호출합니다(){
-       
+        
         // Given
         
         let usecase = createUseCase()
-        fetchRecipeDetailRepository.fetchRecipeDetailStub = .just(Recipe.dummy())
+        fetchRecipeDetailRepository.fetchRecipeDetailStub = .just(Recipe.dummyRecipe())
         
         // When
         
@@ -63,7 +63,7 @@ extension FetchRecipeDetailUseCaseTests {
         // Given
         
         let usecase = createUseCase()
-        let recipe = Recipe.dummy()
+        let recipe = Recipe.dummyRecipe()
         fetchRecipeDetailRepository.fetchRecipeDetailStub = .just(recipe)
         let expectation = self.expectation(description: "Fetch Recipe Success")
         

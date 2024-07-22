@@ -69,7 +69,7 @@ extension RecipeDetailInteractorTests {
     func test_FetchRecipeDetailUsecase의_성공응답이오면_Delegate로_성공을_전달합니다() {
         // given
         let interactor = createInteractor()
-        let recipe = Recipe.dummy()
+        let recipe = Recipe.dummyRecipe()
         fetchRecipeDetailUsecase.executeStub = .just(.success(recipe))
         
         // when

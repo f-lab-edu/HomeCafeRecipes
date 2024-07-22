@@ -21,7 +21,7 @@ struct Recipe {
 
 extension Recipe {
     
-    static func dummy() -> Recipe {
+    static func dummyRecipe() -> Recipe {
         .init(
             id: 1,
             type: .coffee,

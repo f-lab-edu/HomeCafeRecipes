@@ -79,7 +79,7 @@ extension RecipeDetailInteractorTests {
         XCTAssertEqual(self.fetchRecipeDetailUsecase.executeCallCount, 1)
         XCTAssertEqual(self.delegate.fetchedCallCount, 1)
         
-        if case .success(let fetchedRecipe)? = self.delegate.fetchedRecipeResult {
+        if case .success(let fetchedRecipe)? = delegate.fetchedRecipeResult {
             XCTAssertEqual(fetchedRecipe.id, recipe.id)
         } else {
             XCTFail("Expected success but got failure or nil")
@@ -100,7 +100,7 @@ extension RecipeDetailInteractorTests {
         XCTAssertEqual(self.fetchRecipeDetailUsecase.executeCallCount, 1)
         XCTAssertEqual(self.delegate.fetchedCallCount, 1)
         
-        if case .failure(let fetchedError as NSError) = self.delegate.fetchedRecipeResult {
+        if case .failure(let fetchedError as NSError) = delegate.fetchedRecipeResult {
             XCTAssertEqual(fetchedError.domain, error.domain)
             XCTAssertEqual(fetchedError.code, error.code)
         } else {

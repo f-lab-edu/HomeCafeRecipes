@@ -11,7 +11,7 @@ import UIKit
 import RxSwift
 
 protocol AddRecipeInteractorDelegate: AnyObject {
-    func didLoadRecipeData(viewModel: AddRecipeViewModel)
+    func didLoadRecipe(viewModel: AddRecipeViewModel)
 }
 
 protocol AddRecipeInteractor {
@@ -64,6 +64,6 @@ class AddRecipeInteractorImpl: AddRecipeInteractor {
     
     func loadRecipeData() {
         let viewModel = AddRecipeViewModel(images: recipeImages, title: recipeTitle, description: recipeDescription)
-        delegate?.didLoadRecipeData(viewModel: viewModel)
+        delegate?.didLoadRecipe(viewModel: viewModel)
     }
 }

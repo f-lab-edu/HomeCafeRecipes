@@ -49,15 +49,21 @@ class Router: NSObject, RouterProtocol {
 
 extension Router {
     func createRecipeListDependencies() -> RecipeListViewController {
-        let baseNetworkService = BaseNetworkService()
-        let recipeFetchService = RecipeFetchServiceImpl(networkService: baseNetworkService)
-        let feedListRepository = FeedListRepositoryImpl(networkService: recipeFetchService)
-        let searchFeedRepository = SearchFeedRepositoryImpl(networkService: recipeFetchService)
-        let fetchFeedListUseCase = FetchFeedListUseCaseImpl(repository: feedListRepository)
-        let searchFeedListUseCase = SearchFeedListUseCaseImpl(repository: searchFeedRepository)
         let recipeListInteractor = RecipeListInteractorImpl(
-            fetchFeedListUseCase: fetchFeedListUseCase,
-            searchFeedListUseCase: searchFeedListUseCase
+            fetchFeedListUseCase: FetchFeedListUseCaseImpl(
+                repository: FeedListRepositoryImpl(
+                    networkService: RecipeFetchServiceImpl(
+                        networkService: BaseNetworkService()
+                    )
+                )
+            ),
+            searchFeedListUseCase: SearchFeedListUseCaseImpl(
+                repository: SearchFeedRepositoryImpl(
+                    networkService: RecipeFetchServiceImpl(
+                        networkService: BaseNetworkService()
+                    )
+                )
+            )
         )
         let recipeListRouter = RecipeListRouterImpl(router: self)
         let recipeListVC = RecipeListViewController(
@@ -69,21 +75,30 @@ extension Router {
     }
     
     func createAddRecipeDependencies(recipeType: RecipeType) -> AddRecipeViewController {
-        let baseNetworkService = BaseNetworkService()
-        let recipePostService = RecipePostServiceImpl(networkService: baseNetworkService)
-        let saveRepository = AddRecipeRepositoryImpl(recipePostService: recipePostService)
-        let saveRecipeUseCase = SaveRecipeUseCaseImpl(repository: saveRepository)
-        let addRecipeInteractor = AddRecipeInteractorImpl(saveRecipeUseCase: saveRecipeUseCase)
-        let addRecipeVC = AddRecipeViewController(recipeType: recipeType, addRecipeInteractor: addRecipeInteractor)
+        let addRecipeInteractor = AddRecipeInteractorImpl(
+            saveRecipeUseCase: AddRecipeUseCaseImpl(
+                repository: AddRecipeRepositoryImpl(
+                    recipePostService: RecipePostServiceImpl(
+                        networkService: BaseNetworkService()
+                    )
+                )
+            )
+        )
+        let addRecipeVC = AddRecipeViewController(
+            recipeType: recipeType,
+            addRecipeInteractor: addRecipeInteractor
+        )
+        addRecipeInteractor.delegate = addRecipeVC
         return addRecipeVC
     }
     
     func createRecipeDetailDependencies(recipeID: Int) -> RecipeDetailViewController {
-        let baseNetworkService = BaseNetworkService()
-        let recipeDetailRepository = RecipeDetailRepositoryImpl(networkService: baseNetworkService)
-        let fetchRecipeDetailUseCase = FetchRecipeDetailUseCaseImpl(repository: recipeDetailRepository)
         let detailInteractor = RecipeDetailInteractorImpl(
-            fetchRecipeDetailUseCase: fetchRecipeDetailUseCase,
+            fetchRecipeDetailUseCase: FetchRecipeDetailUseCaseImpl(
+                repository: RecipeDetailRepositoryImpl(
+                    networkService: BaseNetworkService()
+                )
+            ),
             recipeID: recipeID
         )
         let detailVC = RecipeDetailViewController(interactor: detailInteractor)

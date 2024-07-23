@@ -19,7 +19,7 @@ protocol AddRecipeUseCase {
     ) -> Single<Result<Recipe, AddRecipeError>>
 }
 
-class AddRecipeUseCaseImpl: AddRecipeUseCase {
+final class AddRecipeUseCaseImpl: AddRecipeUseCase {
     private let repository: AddRecipeRepository
     
     init(repository: AddRecipeRepository) {

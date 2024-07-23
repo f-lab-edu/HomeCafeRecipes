@@ -81,12 +81,12 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         let alert = UIAlertController(title: "게시물 작성", message: "어떤 게시물을 작성하실 건가요?", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Coffee", style: .default, handler: { [weak self] _ in
             guard let self else { return }
-            let addRecipeVC = self.router.createAddRecipeDependencies(recipeType: .coffee)
+            let addRecipeVC = router.makeAddRecipeViewController(recipeType: .coffee)
             self.navigationController?.pushViewController(addRecipeVC, animated: true)
         }))
         alert.addAction(UIAlertAction(title: "Dessert", style: .default, handler: { [weak self] _ in
             guard let self else { return }
-            let addRecipeVC = self.router.createAddRecipeDependencies(recipeType: .dessert)
+            let addRecipeVC = router.makeAddRecipeViewController(recipeType: .dessert)
             self.navigationController?.pushViewController(addRecipeVC, animated: true)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))

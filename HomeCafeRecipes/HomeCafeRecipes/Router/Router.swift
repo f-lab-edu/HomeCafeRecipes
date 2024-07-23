@@ -48,7 +48,7 @@ class Router: NSObject, RouterProtocol {
 }
 
 extension Router {
-    func createRecipeListDependencies() -> RecipeListViewController {
+    func makeRecipeListViewController() -> RecipeListViewController {
         let recipeListInteractor = RecipeListInteractorImpl(
             fetchFeedListUseCase: FetchFeedListUseCaseImpl(
                 repository: FeedListRepositoryImpl(
@@ -74,7 +74,7 @@ extension Router {
         return recipeListVC
     }
     
-    func createAddRecipeDependencies(recipeType: RecipeType) -> AddRecipeViewController {
+    func makeAddRecipeViewController(recipeType: RecipeType) -> AddRecipeViewController {
         let addRecipeInteractor = AddRecipeInteractorImpl(
             saveRecipeUseCase: AddRecipeUseCaseImpl(
                 repository: AddRecipeRepositoryImpl(
@@ -92,7 +92,7 @@ extension Router {
         return addRecipeVC
     }
     
-    func createRecipeDetailDependencies(recipeID: Int) -> RecipeDetailViewController {
+    func makeRecipeDetailViewController(recipeID: Int) -> RecipeDetailViewController {
         let detailInteractor = RecipeDetailInteractorImpl(
             fetchRecipeDetailUseCase: FetchRecipeDetailUseCaseImpl(
                 repository: RecipeDetailRepositoryImpl(

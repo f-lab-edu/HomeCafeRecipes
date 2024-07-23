@@ -19,7 +19,7 @@ class RecipeListRouterImpl: RecipeListRouter {
     }
     
     func navigateToRecipeDetail(from viewController: UIViewController, recipeID: Int) {
-        let detailVC = router.createRecipeDetailDependencies(recipeID: recipeID)
+        let detailVC = router.makeRecipeDetailViewController(recipeID: recipeID)
         router.push(detailVC, from: viewController, isAnimated: true, onNavigateBack: nil)
     }
 }

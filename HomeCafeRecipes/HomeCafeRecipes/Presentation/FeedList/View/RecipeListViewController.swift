@@ -14,13 +14,13 @@ final class RecipeListViewController: UIViewController {
     private let searchBar = SearchBar()
     private let recipeListView = RecipeListView()
     private let recipeListMapper = RecipeListMapper()
-    private let router: RecipeListRouterProtocol
+    private let router: RecipeListRouter
     
-    init(interactor: RecipeListInteractor, router: RecipeListRouterProtocol) {
+    init(interactor: RecipeListInteractor, router: RecipeListRouter) {
+        self.interactor.setDelegate(self)
         self.interactor = interactor
         self.router = router
         super.init(nibName: nil, bundle: nil)        
-        recipeListView.delegate = self
     }
     
     required init?(coder: NSCoder) {

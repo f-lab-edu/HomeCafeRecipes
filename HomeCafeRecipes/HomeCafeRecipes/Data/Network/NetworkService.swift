@@ -47,8 +47,7 @@ class BaseNetworkService: NetworkService {
         url: URL, parameters: [String: Any],
         imageDatas: [Data],
         responseType: T.Type
-    )
-    -> Single<T> {
+    )    -> Single<T> {
         return Single.create { single in
             var formDataRequest = MultipartFormDataRequest(url: url)
             

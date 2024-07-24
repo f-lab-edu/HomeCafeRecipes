@@ -13,12 +13,14 @@ final class RecipeListViewController: UIViewController {
     private var recipes: [RecipeListItemViewModel] = []
     private let searchBar = SearchBar()
     private let recipeListView = RecipeListView()
-
-    init(interactor: RecipeListInteractor) {
-        self.interactor = interactor
-        super.init(nibName: nil, bundle: nil)
+    private let recipeListMapper = RecipeListMapper()
+    private let router: RecipeListRouter
+    
+    init(interactor: RecipeListInteractor, router: RecipeListRouter) {
         self.interactor.setDelegate(self)
-        
+        self.interactor = interactor
+        self.router = router
+        super.init(nibName: nil, bundle: nil)        
     }
     
     required init?(coder: NSCoder) {
@@ -27,7 +29,6 @@ final class RecipeListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        recipeListView.delegate = self
         setupUI()
         interactor.viewDidLoad()
     }
@@ -36,16 +37,16 @@ final class RecipeListViewController: UIViewController {
         view.backgroundColor = .white
         view.addSubview(searchBar)
         view.addSubview(recipeListView)
-
+        
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         recipeListView.translatesAutoresizingMaskIntoConstraints = false
-
+        
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             searchBar.heightAnchor.constraint(equalToConstant: 50),
-
+            
             recipeListView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
             recipeListView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             recipeListView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -54,10 +55,10 @@ final class RecipeListViewController: UIViewController {
         
         searchBar.setDelegate(self)
     }
-    
 }
 
 // MARK: - UISearchBarDelegate
+
 extension RecipeListViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isBlank {
@@ -75,6 +76,7 @@ extension RecipeListViewController: UISearchBarDelegate {
 }
 
 // MARK: - RecipeListInteractorDelegate
+
 extension RecipeListViewController: RecipeListInteractorDelegate {
     func fetchedRecipes(result: Result<[Recipe], Error>) {
         switch result {
@@ -90,7 +92,7 @@ extension RecipeListViewController: RecipeListInteractorDelegate {
     }
     
     func showRecipeDetail(ID: Int) {
-        coordinator.showRecipeDetail(from: self, recipeID: ID)
+        router.navigateToRecipeDetail(from: self, recipeID: ID)
     }
 }
 
@@ -100,7 +102,7 @@ extension RecipeListViewController: RecipeListViewDelegate {
         interactor.didSelectItem(ID: ID)
     }
     
-    func ScrollToBottom() {
+    func scrollToBottom() {
         interactor.fetchNextPage()
     }
 }

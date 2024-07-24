@@ -11,6 +11,16 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     
     private let addButton =  UIButton(type: .custom)
     private let buttonSize = CGSize(all: 64.0)
+    private let router =  Router()
+    
+    init(router: Router) {
+        self.router = router
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,23 +43,26 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     }
     
     private func setupTabBar() {
-        let baseneworkServie = BaseNetworkService()
-        let networkService = RecipeFetchServiceImpl(networkService: baseneworkServie)
-        let repository = FeedListRepositoryImpl(networkService: networkService)
-        let searchrepository = SearchFeedRepositoryImpl(networkService: networkService)
-        let fetchFeedListUseCase = FetchFeedListUseCaseImpl(repository: repository)
-        let searchFeedListUsecase = SearchFeedListUseCaseImpl(repository: searchrepository)
-        
-        let recipeListViewModel = RecipeListInteractor(fetchFeedListUseCase: fetchFeedListUseCase, searchFeedListUseCase: searchFeedListUsecase)
-        
-        let recipeListVC = RecipeListViewController(interactor: recipeListViewModel)
-        recipeListVC.tabBarItem = UITabBarItem(title: "Recipes", image: UIImage(systemName: "list.bullet"), tag: 0)
-        
-        let favoritesVC = UIViewController()
-        favoritesVC.view.backgroundColor = .white
-        favoritesVC.tabBarItem = UITabBarItem(title: "Favorites", image: UIImage(systemName: "bookmark"), tag: 1)
+        let recipeListVC = router.createRecipeListDependencies()
+        let favoritesVC = createFavoritesViewController()
+        recipeListVC.tabBarItem = UITabBarItem(
+            title: "Recipes",
+            image: UIImage(systemName: "list.bullet"),
+            tag: 0
+        )
+        favoritesVC.tabBarItem = UITabBarItem(
+            title: "Favorites",
+            image: UIImage(systemName: "bookmark"),
+            tag: 1
+        )
         
         viewControllers = [recipeListVC, favoritesVC]
+    }
+    
+    private func createFavoritesViewController() -> UIViewController {
+        let favoritesVC = UIViewController()
+        favoritesVC.view.backgroundColor = .white
+        return favoritesVC
     }
     
     private func setupActionButton() {
@@ -68,12 +81,12 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         let alert = UIAlertController(title: "게시물 작성", message: "어떤 게시물을 작성하실 건가요?", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Coffee", style: .default, handler: { [weak self] _ in
             guard let self else { return }
-            let addRecipeVC = AddRecipeViewController(recipeType: .coffee)
+            let addRecipeVC = router.makeAddRecipeViewController(recipeType: .coffee)
             self.navigationController?.pushViewController(addRecipeVC, animated: true)
         }))
         alert.addAction(UIAlertAction(title: "Dessert", style: .default, handler: { [weak self] _ in
             guard let self else { return }
-            let addRecipeVC = AddRecipeViewController(recipeType: .dessert)
+            let addRecipeVC = router.makeAddRecipeViewController(recipeType: .dessert)
             self.navigationController?.pushViewController(addRecipeVC, animated: true)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))

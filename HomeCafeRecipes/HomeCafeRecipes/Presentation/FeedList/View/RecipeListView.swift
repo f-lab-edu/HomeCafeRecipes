@@ -23,7 +23,6 @@ final class RecipeListView: UIView {
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
     private var recipes: [RecipeListItemViewModel] = []
-    weak var coordinator: RecipeDetailCoordinatorProtocol?
     weak var delegate: RecipeListViewDelegate?
     
     override init(frame: CGRect) {

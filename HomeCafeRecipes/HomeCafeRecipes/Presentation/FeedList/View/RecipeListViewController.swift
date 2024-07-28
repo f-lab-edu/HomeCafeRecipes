@@ -17,10 +17,10 @@ final class RecipeListViewController: UIViewController {
     private let router: RecipeListRouter
     
     init(interactor: RecipeListInteractor, router: RecipeListRouter) {
-        self.interactor.setDelegate(self)
         self.interactor = interactor
         self.router = router
-        super.init(nibName: nil, bundle: nil)        
+        super.init(nibName: nil, bundle: nil)
+        recipeListView.delegate = self
     }
     
     required init?(coder: NSCoder) {

@@ -48,7 +48,11 @@ class RecipeListInteractorImpl: RecipeListInteractor {
     
     func fetchNextPage() {
         guard !isFetching else { return }
-        fetchNextRecipes()
+        if isSearching {
+            fetchNextSearchRecipes()
+        } else {
+            fetchNextRecipes()
+        }
     }
 
     func didSelectItem(ID: Int) {
@@ -95,6 +99,19 @@ class RecipeListInteractorImpl: RecipeListInteractor {
         guard !isFetching else { return }
         isFetching = true
         fetchFeedListUseCase.execute(pageNumber: currentPage)
+            .subscribe(onSuccess: { [weak self] result in
+                self?.handleResult(result)
+            }, onFailure: { [weak self] error in
+                self?.handleResult(.failure(error))
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func fetchNextSearchRecipes() {
+        guard !isFetching else { return }
+        guard let query = currentSearchQuery else { return }
+        isFetching = true
+        searchFeedListUseCase.execute(title: query, pageNumber: currentPage)
             .subscribe(onSuccess: { [weak self] result in
                 self?.handleResult(result)
             }, onFailure: { [weak self] error in

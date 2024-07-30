@@ -206,7 +206,7 @@ extension AddRecipeViewController: ImageCollectionViewCellDelegate {
 // MARK: AddRecipeInteractorDelegate
 
 extension AddRecipeViewController: AddRecipeInteractorDelegate {
-    func didLoadRecipeData(viewModel: AddRecipeViewModel) {
+    func didLoadRecipe(viewModel: AddRecipeViewModel) {
         self.addRecipeViewModel = viewModel
         self.contentView.updateImageView(count: numberOfImages())
     }

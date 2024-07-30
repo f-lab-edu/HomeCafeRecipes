@@ -43,7 +43,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     }
     
     private func setupTabBar() {
-        let recipeListVC = router.createRecipeListDependencies()
+        let recipeListVC = router.makeRecipeListViewController()
         let favoritesVC = createFavoritesViewController()
         recipeListVC.tabBarItem = UITabBarItem(
             title: "Recipes",

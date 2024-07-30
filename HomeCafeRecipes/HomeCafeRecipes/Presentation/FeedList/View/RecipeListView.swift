@@ -8,7 +8,7 @@
 import UIKit
 
 protocol RecipeListViewDelegate: AnyObject {
-    func ScrollToBottom()
+    func scrollToBottom()
     func didSelectItem(ID: Int)
 }
 
@@ -97,7 +97,7 @@ extension RecipeListView: UIScrollViewDelegate {
         let height = scrollView.frame.size.height
         
         if offsetY > contentHeight - height {
-            delegate?.ScrollToBottom()
+            delegate?.scrollToBottom()
         }
     }
 }

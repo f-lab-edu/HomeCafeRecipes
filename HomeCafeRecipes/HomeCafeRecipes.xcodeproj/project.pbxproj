@@ -49,8 +49,6 @@
 		1D5AEE792C61095500BBD5F0 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5AEE752C61095500BBD5F0 /* Comment.swift */; };
 		1D5AEE7B2C61096A00BBD5F0 /* UserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5AEE7A2C61096A00BBD5F0 /* UserDTO.swift */; };
 		1D5AEE7C2C61096A00BBD5F0 /* UserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5AEE7A2C61096A00BBD5F0 /* UserDTO.swift */; };
-		1D5AEE7E2C61096F00BBD5F0 /* ErrorResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5AEE7D2C61096F00BBD5F0 /* ErrorResponseDTO.swift */; };
-		1D5AEE7F2C61096F00BBD5F0 /* ErrorResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5AEE7D2C61096F00BBD5F0 /* ErrorResponseDTO.swift */; };
 		1D5AEE812C61099900BBD5F0 /* RecipeListInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5AEE802C61099900BBD5F0 /* RecipeListInteractorTests.swift */; };
 		1D5AEF272C646E5B00BBD5F0 /* FetchFeedListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1283AB2C15EBE600C5A870 /* FetchFeedListUseCase.swift */; };
 		1D5AEF282C646FE600BBD5F0 /* RecipeListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4741D62C1B4FF4009381CE /* RecipeListInteractor.swift */; };
@@ -168,7 +166,6 @@
 		1D5AEE742C61095500BBD5F0 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1D5AEE752C61095500BBD5F0 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		1D5AEE7A2C61096A00BBD5F0 /* UserDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
-		1D5AEE7D2C61096F00BBD5F0 /* ErrorResponseDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorResponseDTO.swift; sourceTree = "<group>"; };
 		1D5AEE802C61099900BBD5F0 /* RecipeListInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeListInteractorTests.swift; sourceTree = "<group>"; };
 		1D5AEF292C64730A00BBD5F0 /* FetchFeedListUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchFeedListUseCaseTests.swift; sourceTree = "<group>"; };
 		1D5AEF2D2C64786F00BBD5F0 /* DateFormatter+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extensions.swift"; sourceTree = "<group>"; };
@@ -380,7 +377,6 @@
 		1D4741CB2C1B4F8D009381CE /* DTO */ = {
 			isa = PBXGroup;
 			children = (
-				1D5AEE7D2C61096F00BBD5F0 /* ErrorResponseDTO.swift */,
 				1D5AEE7A2C61096A00BBD5F0 /* UserDTO.swift */,
 				1D4741CC2C1B4F8D009381CE /* RecipeImageDTO.swift */,
 				1D4741CD2C1B4F8D009381CE /* RecipeDTO.swift */,
@@ -700,7 +696,6 @@
 				1DF829B92C2A818D00C337FC /* String+Validation.swift in Sources */,
 				1D7368862C33D7BE000EF904 /* RecipeUploadResponseDTO.swift in Sources */,
 				1DE19EC42C1B422F0031804A /* RecipeListViewController.swift in Sources */,
-				1D5AEE7E2C61096F00BBD5F0 /* ErrorResponseDTO.swift in Sources */,
 				1DE19EBF2C1B422F0031804A /* RecipeDetailViewModel.swift in Sources */,
 				1D1283A22C15E94300C5A870 /* Recipe.swift in Sources */,
 				1D1283CA2C16D9C600C5A870 /* RecipeFetchService.swift in Sources */,
@@ -729,7 +724,6 @@
 				1D5AEF282C646FE600BBD5F0 /* RecipeListInteractor.swift in Sources */,
 				1D5AEF2A2C64730A00BBD5F0 /* FetchFeedListUseCaseTests.swift in Sources */,
 				1D5AEF352C64790C00BBD5F0 /* SearchFeedUseCase.swift in Sources */,
-				1D5AEE7F2C61096F00BBD5F0 /* ErrorResponseDTO.swift in Sources */,
 				1D6958DE2C3D5E2C008604B3 /* RecipeType.swift in Sources */,
 				1D5AEF2B2C64753900BBD5F0 /* FeedListRepository.swift in Sources */,
 				1D5AEF312C6478E100BBD5F0 /* AddRecipeRepository.swift in Sources */,

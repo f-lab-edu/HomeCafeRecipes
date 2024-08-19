@@ -21,22 +21,27 @@ struct Recipe {
 
 extension Recipe {
     
-    static func dummyRecipe() -> Recipe {
-        .init(
-            id: 1,
-            type: .coffee,
-            name: "",
-            description: "",
-            writer: .init(
-                id: 1,
-                profileImage: "",
-                nickname: "",
-                createdAt: Date()
-            ),
-            imageUrls: [],
-            isLikedByCurrentUser: false,
-            likeCount: 0,
-            createdAt: Date()
+    static func dummyRecipe(
+        id: Int = 1,
+        type: RecipeType = .coffee,
+        name: String = "",
+        description: String = "",
+        writer: User = .init(id: 1, profileImage: "", nickname: "", createdAt: Date()),
+        imageUrls: [String] = [],
+        isLikedByCurrentUser: Bool = false,
+        likeCount: Int = 0,
+        createdAt: Date = Date()
+    ) -> Recipe {
+        return Recipe(
+            id: id,
+            type: type,
+            name: name,
+            description: description,
+            writer: writer,
+            imageUrls: imageUrls,
+            isLikedByCurrentUser: isLikedByCurrentUser,
+            likeCount: likeCount,
+            createdAt: createdAt
         )
     }
 }

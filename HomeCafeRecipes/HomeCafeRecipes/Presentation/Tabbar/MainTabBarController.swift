@@ -11,7 +11,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     
     private let addButton =  UIButton(type: .custom)
     private let buttonSize = CGSize(all: 64.0)
-    private let router =  Router()
+    private let router:  Router
     
     init(router: Router) {
         self.router = router

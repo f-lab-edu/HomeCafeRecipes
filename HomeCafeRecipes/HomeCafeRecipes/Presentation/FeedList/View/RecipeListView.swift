@@ -15,7 +15,10 @@ protocol RecipeListViewDelegate: AnyObject {
 final class RecipeListView: UIView {
     
     private enum Metric {
-        static let itemSize: CGSize = .init(width: UIScreen.main.bounds.width - 20, height: 200)
+        static let itemSize: CGSize = .init(
+            width: UIScreen.main.bounds.width - 20,
+            height: 200
+        )
         static let minimumLineSpacing: CGFloat = 10.0
         static let minimumInteritemSpacing: CGFloat = 10.0
     }
@@ -28,7 +31,6 @@ final class RecipeListView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
-        setupLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -38,11 +40,15 @@ final class RecipeListView: UIView {
     private func setupUI() {
         backgroundColor = .white
         addSubview(collectionView)
-        collectionView.register(RecipeListViewCell.self, forCellWithReuseIdentifier: "RecipeCell")
+        collectionView.register(
+            RecipeListViewCell.self,
+            forCellWithReuseIdentifier: "RecipeCell"
+        )
         configureCollectionView()
+        setupConstraints()
     }
     
-    private func setupLayout() {
+    private func setupConstraints() {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
@@ -75,7 +81,10 @@ extension RecipeListView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RecipeCell", for: indexPath) as! RecipeListViewCell
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: "RecipeCell",
+            for: indexPath
+        ) as! RecipeListViewCell
         let recipeViewModel = recipes[indexPath.item]
         cell.configure(with: recipeViewModel)
         return cell

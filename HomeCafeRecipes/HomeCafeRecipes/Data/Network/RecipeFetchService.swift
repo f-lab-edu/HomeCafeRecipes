@@ -28,8 +28,16 @@ class RecipeFetchServiceImpl: RecipeFetchService {
     }
     
     func fetchRecipes(pageNumber: Int) -> Single<[Recipe]> {
-        guard let URL = makeURL(endpoint: "recipes", queryItems: [URLQueryItem(name: "pageNumber", value: String(pageNumber))]) else {
-            return Single.error(NSError(domain: "URLComponentsError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"]))
+        guard let URL = makeURL(
+            endpoint: "recipes",
+            queryItems: [URLQueryItem(
+                name: "pageNumber",
+                value: String(pageNumber))
+            ]) else {
+            return Single.error(NSError(
+                domain: "URLComponentsError",
+                code: -1,
+                userInfo: [NSLocalizedDescriptionKey: "Invalid URL"]))
         }
         return networkService.getRequest(url: URL, responseType: NetworkResponseDTO<RecipePageDTO>.self)
             .map { $0.data.recipes.map{ $0.toDomain() } }
@@ -38,12 +46,25 @@ class RecipeFetchServiceImpl: RecipeFetchService {
     
     func searchRecipes(title: String, pageNumber: Int) -> Single<[Recipe]> {
         guard let URL = makeURL(endpoint: "recipes", queryItems: [
-            URLQueryItem(name: "keyword", value: title),
-            URLQueryItem(name: "pageNumber", value: String(pageNumber))
+            URLQueryItem(
+                name: "keyword",
+                value: title
+            ),
+            URLQueryItem(
+                name: "pageNumber",
+                value: String(pageNumber)
+            )
         ]) else {
-            return Single.error(NSError(domain: "URLComponentsError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"]))
+            return Single.error(
+                NSError(
+                    domain: "URLComponentsError",
+                    code: -1,
+                    userInfo: [NSLocalizedDescriptionKey: "Invalid URL"]))
         }
-        return networkService.getRequest(url: URL, responseType: NetworkResponseDTO<RecipePageDTO>.self)
-            .map { $0.data.recipes.map{ $0.toDomain() } }
+        return networkService.getRequest(
+            url: URL, responseType:
+                NetworkResponseDTO<RecipePageDTO>.self
+        )
+        .map { $0.data.recipes.map{ $0.toDomain() } }
     }
 }

@@ -110,19 +110,15 @@ final class RecipeDetailView: UIView {
     
     private func setupScrollViewContent(with recipeImageUrls: [URL]) {
         scrollView.subviews.forEach { $0.removeFromSuperview() }
-
         let imageViewWidth = UIScreen.main.bounds.width
-        
         recipeImageUrls.enumerated().forEach { index, url in
             let imageView = UIImageView()
             imageView.kf.setImage(with: url)
             imageView.contentMode = .scaleAspectFill
-            
             let xPos = CGFloat(index) * imageViewWidth
             imageView.frame = CGRect(x: xPos, y: 0, width: imageViewWidth, height: 200)
             scrollView.addSubview(imageView)
         }
-        
         let contentWidth = imageViewWidth * CGFloat(recipeImageUrls.count)
         scrollView.contentSize = CGSize(width: contentWidth, height: 200)
     }

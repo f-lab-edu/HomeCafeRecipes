@@ -16,7 +16,10 @@ final class RecipeListViewController: UIViewController {
     private let recipeListMapper = RecipeListMapper()
     private let router: RecipeListRouter
     
-    init(interactor: RecipeListInteractor, router: RecipeListRouter) {
+    init(
+        interactor: RecipeListInteractor,
+        router: RecipeListRouter
+    ) {
         self.interactor = interactor
         self.router = router
         super.init(nibName: nil, bundle: nil)

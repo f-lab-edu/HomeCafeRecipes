@@ -9,25 +9,44 @@ import UIKit
 
 final class RecipeListViewCell: UICollectionViewCell {
     
-    private let recipeThumbnailView = UIImageView()
-    private let titleLabel = UILabel()
-
+    private let recipeThumbnailView: UIImageView  = {
+        let recipeThumbnail = UIImageView()
+        recipeThumbnail.contentMode = .scaleAspectFill
+        recipeThumbnail.clipsToBounds = true
+        recipeThumbnail.image = UIImage(named: "EmptyImage")
+        return recipeThumbnail
+    }()
+    
+    private let titleLabel: UILabel = {
+        let titleLabel = UILabel()
+        titleLabel.font = Fonts.titleFont
+        titleLabel.textAlignment = .center
+        return titleLabel
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     private func setupUI() {
+        addSubviews()
+        setupConstraints()
+    }
+    
+    private func addSubviews() {
         contentView.addSubview(recipeThumbnailView)
         contentView.addSubview(titleLabel)
-
+    }
+    
+    private func setupConstraints() {
         recipeThumbnailView.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-
+        
         NSLayoutConstraint.activate([
             recipeThumbnailView.topAnchor.constraint(equalTo: topAnchor),
             recipeThumbnailView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
@@ -40,15 +59,8 @@ final class RecipeListViewCell: UICollectionViewCell {
             titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
             titleLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.15)
         ])
-        
-        titleLabel.font = Fonts.titleFont
-        titleLabel.textAlignment = .center
-        
-        recipeThumbnailView.contentMode = .scaleAspectFill
-        recipeThumbnailView.clipsToBounds = true
-        recipeThumbnailView.image = UIImage(named: "EmptyImage")
     }
-
+    
     func configure(with viewModel: RecipeListItemViewModel) {
         titleLabel.text = viewModel.name
         if let imageUrl = viewModel.imageURL {
@@ -56,6 +68,5 @@ final class RecipeListViewCell: UICollectionViewCell {
         } else {
             recipeThumbnailView.image = UIImage(named: "EmptyImage")
         }
-
     }
 }

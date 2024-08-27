@@ -18,8 +18,15 @@ class RecipeListRouterImpl: RecipeListRouter {
         self.router = router
     }
     
-    func navigateToRecipeDetail(from viewController: UIViewController, recipeID: Int) {
+    func navigateToRecipeDetail(
+        from viewController: UIViewController,
+        recipeID: Int
+    ) {
         let detailVC = router.makeRecipeDetailViewController(recipeID: recipeID)
-        router.push(detailVC, from: viewController, isAnimated: true, onNavigateBack: nil)
+        router.push(
+            detailVC,
+            from: viewController,
+            isAnimated: true,
+            onNavigateBack: nil)
     }
 }

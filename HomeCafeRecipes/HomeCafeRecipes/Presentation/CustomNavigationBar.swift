@@ -8,10 +8,21 @@
 import UIKit
 
 final class CustomNavigationBar: UIView {
-        
-    private let titleLabel = UILabel()
-    let backButton = UIButton(type: .system)
-
+    
+    private let titleLabel: UILabel = {
+        let titleLabel = UILabel()
+        titleLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        titleLabel.textAlignment = .center
+        return titleLabel
+    }()
+    
+    let backButton: UIButton = {
+        let backButton = UIButton()
+        backButton.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
+        backButton.tintColor = .black
+        return backButton
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -22,22 +33,22 @@ final class CustomNavigationBar: UIView {
     }
     
     private func setupUI() {
-        
-        backButton.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
-        backButton.tintColor = .black
+        addsubviews()
+        setupConstraints()
+    }
+    
+    private func addsubviews() {
         addSubview(backButton)
-        
-        titleLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        titleLabel.textAlignment = .center
         addSubview(titleLabel)
-        
+    }
+    
+    private func setupConstraints() {
         backButton.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             backButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             backButton.centerYAnchor.constraint(equalTo: centerYAnchor),
-            
             titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])

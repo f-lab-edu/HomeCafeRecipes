@@ -26,7 +26,12 @@ extension Recipe {
         type: RecipeType = .coffee,
         name: String = "",
         description: String = "",
-        writer: User = .init(id: 1, profileImage: "", nickname: "", createdAt: Date()),
+        writer: User = .init(
+            id: 1, 
+            profileImage: "",
+            nickname: "", 
+            createdAt: Date()
+        ),
         imageUrls: [String] = [],
         isLikedByCurrentUser: Bool = false,
         likeCount: Int = 0,

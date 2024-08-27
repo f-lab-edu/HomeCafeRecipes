@@ -25,7 +25,15 @@ final class SearchBar: UIView {
     }
 
     private func setupUI() {
+        addsubviews()
+        setupConstraints()
+    }
+    
+    private func addsubviews() {
         addSubview(searchBar)
+    }
+    
+    private func setupConstraints() {
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: self.topAnchor),
@@ -34,7 +42,7 @@ final class SearchBar: UIView {
             searchBar.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
-
+    
     func setDelegate(_ delegate: UISearchBarDelegate) {
         searchBar.delegate = delegate
     }

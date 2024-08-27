@@ -18,10 +18,12 @@ final class AddRecipeViewController: UIViewController {
     private let disposeBag = DisposeBag()
     private var addRecipeViewModel: AddRecipeViewModel?
     
-    init(recipeType: RecipeType, addRecipeInteractor: AddRecipeInteractor) {
+    init(recipeType: RecipeType,
+         addRecipeInteractor: AddRecipeInteractor) {
         self.recipeType = recipeType
         self.addRecipeInteractor = addRecipeInteractor
-        super.init(nibName: nil, bundle: nil)
+        super.init(nibName: nil, 
+                   bundle: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -83,7 +85,11 @@ final class AddRecipeViewController: UIViewController {
     }
     
     private func showCompletedAlert(title: String, message: String, success: Bool) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert
+        )
         let confirmAction = UIAlertAction(title: "확인", style: .default) { _ in
             if success {
                 self.navigationController?.popViewController(animated: true)
@@ -126,7 +132,9 @@ extension AddRecipeViewController: AddRecipeViewDelegate {
                 picker.delegate = self
                 self.present(picker, animated: true, completion: nil)
             } else {
-                let alert = UIAlertController(title: "권한 필요", message: "사진 라이브러리에 접근하려면 권한이 필요합니다.", preferredStyle: .alert)
+                let alert = UIAlertController(title: "권한 필요",
+                                              message: "사진 라이브러리에 접근하려면 권한이 필요합니다.",
+                                              preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "설정", style: .default) { _ in
                     if let appSettings = URL(string: UIApplication.openSettingsURLString) {
                         UIApplication.shared.open(appSettings, options: [:], completionHandler: nil)

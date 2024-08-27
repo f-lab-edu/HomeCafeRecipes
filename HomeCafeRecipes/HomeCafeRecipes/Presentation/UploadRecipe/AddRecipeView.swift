@@ -102,8 +102,14 @@ final class AddRecipeView: UIView {
     private func setupCollectionView() {
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.register(RecipeUploadImgaeCell.self, forCellWithReuseIdentifier: "ImageCell")
-        collectionView.register(SelectImageCell.self, forCellWithReuseIdentifier: "SelectImageCell")
+        collectionView.register(
+            RecipeUploadImgaeCell.self,
+            forCellWithReuseIdentifier: "ImageCell"
+        )
+        collectionView.register(
+            SelectImageCell.self,
+            forCellWithReuseIdentifier: "SelectImageCell"
+        )
     }
     
     private func setupCustomNavigationBar() {
@@ -196,9 +202,11 @@ extension AddRecipeView: UICollectionViewDataSource {
         return (delegate?.numberOfImages() ?? 0) + 1
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, 
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.item == 0 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SelectImageCell", for: indexPath) as! SelectImageCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SelectImageCell", 
+                                                          for: indexPath) as! SelectImageCell
             cell.selectImageButton.addAction(
                 UIAction(
                     handler: { [weak self] _ in
@@ -209,7 +217,8 @@ extension AddRecipeView: UICollectionViewDataSource {
             )
             return cell
         } else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! RecipeUploadImgaeCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell",
+                                                          for: indexPath) as! RecipeUploadImgaeCell
             if let image = delegate?.recipeImage(at: indexPath.item - 1) {
                 cell.configure(with: image, isRepresentative: indexPath.item == 1)
             }

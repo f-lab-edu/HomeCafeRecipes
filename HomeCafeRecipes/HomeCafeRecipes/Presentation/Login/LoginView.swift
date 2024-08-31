@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol LoginViewDelegate : AnyObject {
+    func didtapLoginButton()
+}
+
 final class LoginView: UIView {
+    
+    weak var delegate: LoginViewDelegate?
     
     private let loginLabel: UILabel = {
         let loginLabel = UILabel()
@@ -37,12 +43,19 @@ final class LoginView: UIView {
         return passwordField
     }()
     
-    let loginButton: UIButton = {
+    private lazy var loginButton: UIButton = {
         let loginButton = UIButton()
         loginButton.setTitle("Login", for: .normal)
         loginButton.backgroundColor = .systemBlue
         loginButton.setTitleColor(.white, for: .normal)
         loginButton.layer.cornerRadius = 8
+        loginButton.addAction(
+            UIAction(
+                handler:{ [weak self] _ in
+                    self?.delegate?.didtapLoginButton()
+                }),
+            for: .touchUpInside
+        )
         return loginButton
     }()
     
@@ -94,5 +107,13 @@ final class LoginView: UIView {
             loginButton.heightAnchor.constraint(equalToConstant: 50)
         
         ])
+    }
+    
+    var ID: String {
+        return loginField.text ?? ""
+    }
+    
+    var password: String {
+        return passwordField.text ?? ""
     }
 }

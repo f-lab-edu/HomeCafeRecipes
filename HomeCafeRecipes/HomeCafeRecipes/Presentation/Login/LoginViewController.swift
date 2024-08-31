@@ -10,6 +10,8 @@ import UIKit
 final class LoginViewController: UIViewController {
     
     private let contentView =  LoginView()
+    private var loginViewModel: LoginViewModel?
+    
     
     override func loadView() {
         view = contentView
@@ -17,6 +19,7 @@ final class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        contentView.delegate = self
         setupUI()
     }
     
@@ -30,4 +33,13 @@ final class LoginViewController: UIViewController {
         ])
     }
     
+
+extension LoginViewController: LoginViewDelegate {
+    func didtapLoginButton() {
+        let ID = contentView.ID
+        let password = contentView.password
+        loginInteractor.didEndEditing(ID: ID)
+        loginInteractor.didEndEditing(password: password)
+        login(ID: ID, password: password)
+    }
 }

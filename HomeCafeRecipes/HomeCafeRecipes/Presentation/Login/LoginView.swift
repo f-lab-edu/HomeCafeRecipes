@@ -9,6 +9,7 @@ import UIKit
 
 protocol LoginViewDelegate : AnyObject {
     func didtapLoginButton()
+    func didtapSignUpButton()
 }
 
 final class LoginView: UIView {
@@ -53,10 +54,26 @@ final class LoginView: UIView {
             UIAction(
                 handler:{ [weak self] _ in
                     self?.delegate?.didtapLoginButton()
-                }),
+                }
+            ),
             for: .touchUpInside
         )
         return loginButton
+    }()
+    
+    private lazy var signUpButton: UIButton = {
+        let signUpButton = UIButton(type: .system)
+        signUpButton.setTitle("회원가입", for: .normal)
+        signUpButton.titleLabel?.font = Fonts.detailBodyFont
+        signUpButton.addAction(
+            UIAction(
+                handler: { [weak self] _ in
+                    self?.delegate?.didtapSignUpButton()
+                }
+            ),
+            for: .touchUpInside
+        )
+        return signUpButton
     }()
     
     override init(frame: CGRect) {
@@ -79,6 +96,7 @@ final class LoginView: UIView {
         addSubview(passwordLabel)
         addSubview(passwordField)
         addSubview(loginButton)
+        addSubview(signUpButton)
     }
     
     private func setupConstraints() {
@@ -87,25 +105,32 @@ final class LoginView: UIView {
         passwordLabel.translatesAutoresizingMaskIntoConstraints = false
         passwordField.translatesAutoresizingMaskIntoConstraints = false
         loginButton.translatesAutoresizingMaskIntoConstraints = false
+        signUpButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             loginLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor,constant: 230),
             loginLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            
             loginField.topAnchor.constraint(equalTo: loginLabel.bottomAnchor, constant: 10),
             loginField.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 20),
             loginField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             loginField.heightAnchor.constraint(equalToConstant: 40),
+            
             passwordLabel.topAnchor.constraint(equalTo: loginField.bottomAnchor,constant: 10),
             passwordLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            
             passwordField.topAnchor.constraint(equalTo: passwordLabel.bottomAnchor, constant: 10),
             passwordField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             passwordField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             passwordField.heightAnchor.constraint(equalToConstant: 40),
+            
+            signUpButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: 10),
+            signUpButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            
             loginButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: 200),
             loginButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             loginButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             loginButton.heightAnchor.constraint(equalToConstant: 50)
-        
         ])
     }
     

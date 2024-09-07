@@ -13,11 +13,13 @@ final class LoginViewController: UIViewController {
     
     private let contentView =  LoginView()
     private let loginInteractor: LoginInteractor
+    private let router: LoginRouter
     private let disposeBag = DisposeBag()
     private var loginViewModel: LoginViewModel?
     
-    init(loginInteractor: LoginInteractor) {
+    init(loginInteractor: LoginInteractor,router: LoginRouter) {
         self.loginInteractor = loginInteractor
+        self.router = router
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -88,5 +90,9 @@ extension LoginViewController: LoginViewDelegate {
         loginInteractor.didEndEditing(ID: ID)
         loginInteractor.didEndEditing(password: password)
         login(ID: ID, password: password)
+    }
+    
+    func didtapSignUpButton() {
+        router.navigateToSignUP(from: self)
     }
 }

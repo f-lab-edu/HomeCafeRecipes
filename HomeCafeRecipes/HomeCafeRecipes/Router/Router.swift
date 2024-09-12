@@ -105,4 +105,27 @@ extension Router {
         detailInteractor.delegate = detailVC
         return detailVC
     }
+    
+    func makeLoginViewController() -> LoginViewController {
+        let loginInteractor = LoginInteractorImpl(
+            loginUseCase: LoginUseCaseImpl(
+                repository: LoginRepositoryImpl(
+                    loginService: LoginServiceImpl(
+                        networkService: BaseNetworkService()
+                    )
+                )
+            )
+        )
+        let loginRouter = LoginRouterImpl(router: self)
+        let LoginViewController = LoginViewController(
+            loginInteractor: loginInteractor,
+            router: loginRouter
+        )
+        return LoginViewController
+    }
+    
+    func makeSignUpViewController() -> SignUpViewController {
+        let signUpViewcontroller = SignUpViewController()
+        return signUpViewcontroller
+    }
 }

@@ -13,6 +13,7 @@ import RxSwift
 protocol NetworkService {
     func getRequest<T: Decodable>(url: URL, responseType: T.Type) -> Single<T>
     func postRequest<T: Decodable>(url: URL, parameters: [String: Any], imageDatas: [Data], responseType: T.Type) -> Single<T>
+    func postJsonRequest<T: Decodable>(url: URL, parameters:[String: Any], responseType: T.Type) -> Single<T>
 }
 
 class BaseNetworkService: NetworkService {
@@ -93,6 +94,54 @@ class BaseNetworkService: NetworkService {
             }
             task.resume()
             
+            return Disposables.create {
+                task.cancel()
+            }
+        }
+    }
+    
+    func postJsonRequest<T: Decodable>(
+        url: URL,
+        parameters: [String: Any],
+        responseType: T.Type
+    ) -> Single<T> {
+        return Single.create { single in
+            // JSON으로 변환
+            guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else {
+                single(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "JSON 인코딩 실패"])))
+                return Disposables.create()
+            }
+
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody = httpBody
+
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    single(.failure(error))
+                } else if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
+                    let statusCode = httpResponse.statusCode
+                    let responseString = data.flatMap { String(data: $0, encoding: .utf8) } ?? "No response data"
+                    let error = NSError(
+                        domain: "",
+                        code: statusCode,
+                        userInfo: [NSLocalizedDescriptionKey: "HTTP \(statusCode): \(responseString)"]
+                    )
+                    single(.failure(error))
+                } else if let data = data {
+                    do {
+                        let decoder = JSONDecoder()
+                        decoder.dateDecodingStrategy = .iso8601
+                        let responseObject = try decoder.decode(T.self, from: data)
+                        single(.success(responseObject))
+                    } catch let decodingError {
+                        single(.failure(decodingError))
+                    }
+                }
+            }
+            task.resume()
+
             return Disposables.create {
                 task.cancel()
             }

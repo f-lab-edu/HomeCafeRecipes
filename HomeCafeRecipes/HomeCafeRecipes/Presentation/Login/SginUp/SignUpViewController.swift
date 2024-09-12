@@ -7,10 +7,19 @@
 
 import UIKit
 
+import RxSwift
+
 final class SignUpViewController: UIViewController {
     private let contentView = SignUpView()
+    private let signUpInteractor: SignUpInteractor
+    private let disposeBag = DisposeBag()
+    private let router: LoginRouter
+    private var signUpViewModel: SignUpViewModel?
     
-    init() {
+    
+    init(signUpInteractor: SignUpInteractor, router: LoginRouter){
+        self.signUpInteractor = signUpInteractor
+        self.router = router
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -26,6 +35,7 @@ final class SignUpViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         contentView.delegate = self
+        signUpInteractor.loadNewUser()
     }
     
     private func setupUI() {
@@ -36,6 +46,27 @@ final class SignUpViewController: UIViewController {
             contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+    
+    private func signUp() {
+        signUpInteractor.didEndEditing(userNickName: contentView.nickname)
+        signUpInteractor.didEndEditing(userID: contentView.ID)
+        signUpInteractor.didEndEditing(password: contentView.password)
+        signUpInteractor.didEndEditing(checkpassword: contentView.passwordCheck)
+        
+        signUpInteractor.signUp()
+            .subscribe(onSuccess: { [weak self] error in
+                if let error = error {
+                    DispatchQueue.main.async {
+                        self?.showCompletedAlert(title: error.title, message: "\(error.errorDescription!)", success: false)
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self?.showCompletedAlert(title: "회원가입 성공", message: "회원가입에 성공했습니다.", success: true)
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -58,7 +89,9 @@ extension SignUpViewController: SignupviewDelegate {
     }
     
     func didTapSignupButton() {
-        return
+        signUp()
+    }
+    
     }
 }
 

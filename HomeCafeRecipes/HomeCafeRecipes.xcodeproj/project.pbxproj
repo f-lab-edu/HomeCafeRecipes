@@ -101,6 +101,8 @@
 		1DC7CC322C283C0200796889 /* RecipeUploadImgaeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC7CC312C283C0200796889 /* RecipeUploadImgaeCell.swift */; };
 		1DC7CC342C294F9200796889 /* SelectImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC7CC332C294F9200796889 /* SelectImageCell.swift */; };
 		1DD4F70A2C80C947003E9D9D /* LoginError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD4F7092C80C947003E9D9D /* LoginError.swift */; };
+		1DDF485B2C93DFC9000A082E /* CheckEmailError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDF485A2C93DFC9000A082E /* CheckEmailError.swift */; };
+		1DDF485D2C9405CF000A082E /* CheckEmailRespones.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDF485C2C9405CF000A082E /* CheckEmailRespones.swift */; };
 		1DDFFD842C1C324F0083B077 /* RecipeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDFFD832C1C324F0083B077 /* RecipeDetailViewController.swift */; };
 		1DE19E9D2C1B3DC10031804A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE19E9C2C1B3DC10031804A /* SceneDelegate.swift */; };
 		1DE19EA72C1B420A0031804A /* FeedListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE19EA52C1B420A0031804A /* FeedListRepository.swift */; };
@@ -216,6 +218,8 @@
 		1DC7CC312C283C0200796889 /* RecipeUploadImgaeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeUploadImgaeCell.swift; sourceTree = "<group>"; };
 		1DC7CC332C294F9200796889 /* SelectImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectImageCell.swift; sourceTree = "<group>"; };
 		1DD4F7092C80C947003E9D9D /* LoginError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginError.swift; sourceTree = "<group>"; };
+		1DDF485A2C93DFC9000A082E /* CheckEmailError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckEmailError.swift; sourceTree = "<group>"; };
+		1DDF485C2C9405CF000A082E /* CheckEmailRespones.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckEmailRespones.swift; sourceTree = "<group>"; };
 		1DDFFD832C1C324F0083B077 /* RecipeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailViewController.swift; sourceTree = "<group>"; };
 		1DE19E9C2C1B3DC10031804A /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		1DE19EA52C1B420A0031804A /* FeedListRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedListRepository.swift; sourceTree = "<group>"; };
@@ -282,6 +286,7 @@
 				1DBC63652C47D23000DA00C2 /* AddRecipeError.swift */,
 				1DD4F7092C80C947003E9D9D /* LoginError.swift */,
 				1D2398B32C8DC23500626F0C /* SignUpError.swift */,
+				1DDF485A2C93DFC9000A082E /* CheckEmailError.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -438,6 +443,7 @@
 				1D7368792C32EB18000EF904 /* RecipeUploadDTO.swift */,
 				1D7368852C33D7BE000EF904 /* RecipeUploadResponseDTO.swift */,
 				1DBD90BA2C91DE1600184F67 /* EmptyResponse.swift */,
+				1DDF485C2C9405CF000A082E /* CheckEmailRespones.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -765,6 +771,7 @@
 				1DF0D1A12C7B92F800E2C94C /* User.swift in Sources */,
 				1D73687A2C32EB18000EF904 /* RecipeUploadDTO.swift in Sources */,
 				1D2C6F6A2C26AF9F004BB54E /* AddRecipeView.swift in Sources */,
+				1DDF485D2C9405CF000A082E /* CheckEmailRespones.swift in Sources */,
 				1D2C6F682C246998004BB54E /* AddRecipeViewController.swift in Sources */,
 				1DFC961C2C90809D006C3309 /* SignUpRepository.swift in Sources */,
 				1DF829B72C2A7CDC00C337FC /* UIImageViewImageLoading.swift in Sources */,
@@ -790,6 +797,7 @@
 				1D2398B22C8DC07800626F0C /* SignUpUseCase.swift in Sources */,
 				1DC7CC342C294F9200796889 /* SelectImageCell.swift in Sources */,
 				1DE19E9D2C1B3DC10031804A /* SceneDelegate.swift in Sources */,
+				1DDF485B2C93DFC9000A082E /* CheckEmailError.swift in Sources */,
 				1D4741D12C1B4F8D009381CE /* RecipeImageDTO.swift in Sources */,
 				1DF6E1432C8C561E005E8875 /* SignUpInteractor.swift in Sources */,
 				1DF0D1AB2C7DF9B500E2C94C /* LoginViewController.swift in Sources */,

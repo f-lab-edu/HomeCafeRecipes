@@ -16,6 +16,7 @@ protocol SignUpViewControllerDelegate: AnyObject {
 protocol SignUpInteractor {
     func loadNewUser()
     func signUp() -> Single<SignUpError?>
+    func checkEmail() -> Single<Bool>
     func didEndEditing(userNickName: String)
     func didEndEditing(userID: String)
     func didEndEditing(password: String)
@@ -33,10 +34,12 @@ final class SignUpInteractorImpl: SignUpInteractor {
     weak var delegate: SignUpViewControllerDelegate?
     
     private let usecase: SignUpUseCase
+    private let checkeEmailUsecase: CheckEmailUseCase
     
     
-    init(usecase: SignUpUseCase){
+    init(usecase: SignUpUseCase,checkeEmailUsecase: CheckEmailUseCase){
         self.usecase = usecase
+        self.checkeEmailUsecase = checkeEmailUsecase
     }
     
     func loadNewUser() {
@@ -72,5 +75,9 @@ final class SignUpInteractorImpl: SignUpInteractor {
             password: password,
             checkpassword: checkpassword
         )
+    }
+    
+    func checkEmail() -> Single<Bool> {        
+        return checkeEmailUsecase.execute(email: userID)
     }
 }

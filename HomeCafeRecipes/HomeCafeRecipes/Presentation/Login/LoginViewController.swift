@@ -48,21 +48,6 @@ final class LoginViewController: UIViewController {
         ])
     }
     
-    private func showCompletedAlert(title: String, message: String, success: Bool) {
-        let alert = UIAlertController(
-            title: title,
-            message: message,
-            preferredStyle: .alert
-        )
-        let confirmAction = UIAlertAction(title: "확인", style: .default) { _ in
-            if success {
-                self.navigationController?.popViewController(animated: true)
-            }
-        }
-        alert.addAction(confirmAction)
-        present(alert, animated: true, completion: nil)
-    }
-    
     private func login(ID: String, password: String) {
         loginInteractor.login(userID: ID, password: password)
             .subscribe(onSuccess: { [weak self] result in

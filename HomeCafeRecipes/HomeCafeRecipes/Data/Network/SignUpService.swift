@@ -15,6 +15,7 @@ protocol SignUpService {
         userID: String,
         password: String
     ) -> Single<Void>
+    func checkEmail(userID: String) -> Single<Bool>
 }
 
 final class SignUpServiceImpl: SignUpService {
@@ -48,15 +49,36 @@ final class SignUpServiceImpl: SignUpService {
         )
         .flatMap { response in
             if response.statusCode == 200 {
-                // 성공 시 data가 null이더라도 성공 처리
                 return .just(())
             } else {
-                // statusCode가 200이 아니면 에러 처리
                 return .error(NSError(domain: "SignUpError", code: response.statusCode, userInfo: [NSLocalizedDescriptionKey: response.message]))
             }
         }
         .catch { error in
-            // 네트워크 또는 서버에서 에러가 발생했을 경우 처리
+            return .error(error)
+        }
+    }
+    
+    func checkEmail(userID: String) -> Single<Bool> {
+        let url = makeURL(endpoint: "auth/checkEmail")
+        
+        let parameters: [String: Any] = [
+            "email" : userID
+        ]
+        
+        return networkService.postJsonRequest(
+            url: url,
+            parameters: parameters,
+            responseType: NetworkResponseDTO<CheckEmailResponesDTO>.self
+        )
+        .flatMap { response in
+            if response.statusCode == 200 {
+                return .just(response.data.isDuplicated)
+            } else {
+                return .error(NSError(domain: "CheckEmailError", code: response.statusCode, userInfo: [NSLocalizedDescriptionKey: response.message]))
+            }
+        }
+        .catch { error in
             return .error(error)
         }
     }

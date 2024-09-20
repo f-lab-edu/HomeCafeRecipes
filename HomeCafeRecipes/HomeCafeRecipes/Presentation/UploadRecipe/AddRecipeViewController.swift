@@ -84,21 +84,6 @@ final class AddRecipeViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    private func showCompletedAlert(title: String, message: String, success: Bool) {
-        let alert = UIAlertController(
-            title: title,
-            message: message,
-            preferredStyle: .alert
-        )
-        let confirmAction = UIAlertAction(title: "확인", style: .default) { _ in
-            if success {
-                self.navigationController?.popViewController(animated: true)
-            }
-        }
-        alert.addAction(confirmAction)
-        present(alert, animated: true, completion: nil)
-    }
-    
     private func checkPhotoLibraryPermission(completion: @escaping (Bool) -> Void) {
         let status = PHPhotoLibrary.authorizationStatus()
         switch status {

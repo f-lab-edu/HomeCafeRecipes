@@ -10,6 +10,7 @@ import UIKit
 protocol SignupviewDelegate: AnyObject {
     func didTapBackButton()
     func didTapSignupButton()
+    func didTapcheckEmailButton()
     func didUpdateTextFields()
 }
 
@@ -36,7 +37,24 @@ final class SignUpView: UIView {
         return IDLabel
     }()
     
-    private lazy var IDField: UITextField = { [weak self]  in
+    lazy var checkEmailButton: UIButton = {
+        let checkEmailButton = UIButton()
+        checkEmailButton.setTitle("중복 확인", for: .normal)
+        checkEmailButton.backgroundColor = .systemBlue
+        checkEmailButton.titleLabel?.font = Fonts.detailBodyFont
+        checkEmailButton.layer.cornerRadius = 8
+        checkEmailButton.addAction(
+            UIAction(
+                handler: { [weak self] _ in
+                    self?.delegate?.didTapcheckEmailButton()
+                }
+            ),
+            for: .touchUpInside
+        )
+        return checkEmailButton
+    }()
+    
+    lazy var IDField: UITextField = { [weak self]  in
         let IDTextField = UITextField()
         IDTextField.placeholder = "Enter your ID"
         IDTextField.borderStyle = .roundedRect
@@ -133,6 +151,7 @@ final class SignUpView: UIView {
         addSubview(nicknameField)
         addSubview(IDLabel)
         addSubview(IDField)
+        addSubview(checkEmailButton)
         addSubview(passwordLabel)
         addSubview(passwordField)
         addSubview(passwordCheckLabel)
@@ -145,6 +164,7 @@ final class SignUpView: UIView {
         nicknameField.translatesAutoresizingMaskIntoConstraints = false
         IDLabel.translatesAutoresizingMaskIntoConstraints = false
         IDField.translatesAutoresizingMaskIntoConstraints = false
+        checkEmailButton.translatesAutoresizingMaskIntoConstraints = false
         passwordLabel.translatesAutoresizingMaskIntoConstraints = false
         passwordField.translatesAutoresizingMaskIntoConstraints = false
         passwordCheckLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -171,7 +191,11 @@ final class SignUpView: UIView {
             
             IDField.topAnchor.constraint(equalTo: IDLabel.bottomAnchor, constant: 10),
             IDField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            IDField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            
+            checkEmailButton.centerYAnchor.constraint(equalTo: IDField.centerYAnchor),
+            checkEmailButton.leadingAnchor.constraint(equalTo: IDField.trailingAnchor, constant: 10),
+            checkEmailButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            checkEmailButton.widthAnchor.constraint(equalToConstant: 100),
             
             passwordLabel.topAnchor.constraint(equalTo: IDField.bottomAnchor, constant: 20),
             passwordLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
@@ -199,7 +223,7 @@ final class SignUpView: UIView {
     @objc private func handleTextFieldEditing(_ textField: UITextField) {
         delegate?.didUpdateTextFields()
     }
-        
+    
     var nickname: String {
         return nicknameField.text ?? ""
     }

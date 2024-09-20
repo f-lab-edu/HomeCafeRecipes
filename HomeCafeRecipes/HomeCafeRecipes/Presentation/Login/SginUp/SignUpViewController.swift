@@ -50,7 +50,6 @@ final class SignUpViewController: UIViewController {
     
     private func signUp() {
         signUpInteractor.didEndEditing(userNickName: contentView.nickname)
-        signUpInteractor.didEndEditing(userID: contentView.ID)
         signUpInteractor.didEndEditing(password: contentView.password)
         signUpInteractor.didEndEditing(checkpassword: contentView.passwordCheck)
         
@@ -64,6 +63,27 @@ final class SignUpViewController: UIViewController {
                     DispatchQueue.main.async {
                         self?.showCompletedAlert(title: "회원가입 성공", message: "회원가입에 성공했습니다.", success: true)
                     }
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func checkEmail() {
+        signUpInteractor.didEndEditing(userID: contentView.ID)
+        
+        signUpInteractor.checkEmail()
+            .subscribe(onSuccess: { [weak self] isAvailable in
+                DispatchQueue.main.async {
+                    if (isAvailable == false) {
+                        self?.showCompletedAlert(title: "이메일 사용 가능", message: "이메일을 사용할 수 있습니다.", success: false)
+                        self?.contentView.IDField.isEnabled = false
+                    } else {
+                        self?.showCompletedAlert(title: "이메일 사용 불가", message: "이미 사용 중인 이메일입니다.", success: false)
+                    }
+                }
+            }, onFailure: { [weak self] error in
+                DispatchQueue.main.async {
+                    self?.showCompletedAlert(title: "오류", message: error.localizedDescription, success: false)
                 }
             })
             .disposed(by: disposeBag)
@@ -92,6 +112,8 @@ extension SignUpViewController: SignupviewDelegate {
         signUp()
     }
     
+    func didTapcheckEmailButton() {
+        checkEmail()
     }
 }
 

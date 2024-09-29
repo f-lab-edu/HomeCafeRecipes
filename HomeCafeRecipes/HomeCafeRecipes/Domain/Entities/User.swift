@@ -13,3 +13,19 @@ struct User {
     let nickname: String
     let createdAt: Date
 }
+
+extension User {
+    static func dummyUser(
+        id: Int = 1,
+        profileImage: String = "",
+        nickname: String = "testID",
+        createAt: Date = Date()
+    ) -> User {
+        return User(
+            id: id,
+            profileImage: profileImage,
+            nickname: nickname,
+            createdAt: createAt
+        )
+    }
+}

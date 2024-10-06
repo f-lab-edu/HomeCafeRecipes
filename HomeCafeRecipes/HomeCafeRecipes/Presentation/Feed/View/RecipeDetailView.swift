@@ -9,6 +9,12 @@ import UIKit
 
 import Kingfisher
 
+protocol RecipeDetailViewDelegate: AnyObject {
+    func didTapLikeButton()
+    func didTapCommentButton()
+    func didTapBookmarkButton()
+}
+
 final class RecipeDetailView: UIView {
     private let scrollView : UIScrollView = {
         let scrollView = UIScrollView()
@@ -42,27 +48,91 @@ final class RecipeDetailView: UIView {
         return photoIndexLabel
     }()
     
+    private lazy var likeButton: UIButton = {
+        let likeButton = UIButton()
+        likeButton.setImage(
+            UIImage(systemName: "suit.heart"),
+            for: .normal
+        )
+        likeButton.tintColor = .red
+        likeButton.addAction(
+            UIAction(
+                handler: { [weak self] _ in
+                    self?.delegate?.didTapLikeButton()
+                }
+            ),
+            for: .touchUpInside
+        )
+        return likeButton
+    }()
+    
+    private lazy var commentButton: UIButton = {
+        let commentButton = UIButton()
+        commentButton.setImage(
+            UIImage(systemName: "text.bubble"),
+            for: .normal
+        )
+        commentButton.tintColor = .gray
+        commentButton.addAction(
+            UIAction(
+                handler: { [weak self] _ in
+                    self?.delegate?.didTapCommentButton()
+                }
+            ),
+            for: .touchUpInside
+        )
+        return commentButton
+    }()
+    
+    private lazy var bookmarkButton: UIButton = {
+        let bookmarkButton = UIButton()
+        bookmarkButton.setImage(
+            UIImage(systemName: "bookmark"),
+            for: .normal
+        )
+        bookmarkButton.tintColor = .gray
+        bookmarkButton.addAction(
+            UIAction(
+                handler: { [weak self] _ in
+                    self?.delegate?.didTapBookmarkButton()
+                }
+            ),
+            for: .touchUpInside
+        )
+        return bookmarkButton
+    }()
+    
+    private lazy var actionButtonStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [likeButton, commentButton, bookmarkButton])
+        stackView.axis = .horizontal
+        stackView.spacing = 15
+        stackView.distribution = .fillEqually
+        return stackView
+    }()
+    
     private var imagesAdded = false
     
+    weak var delegate: RecipeDetailViewDelegate?
+    
     let customNavigationBar = CustomNavigationBar()
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupUI()        
+        setupUI()
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     private func setupUI() {
         backgroundColor = .white
         scrollView.delegate = self
         setupNavigationBar()
         addsubViews()
-        setupConstraints()        
+        setupConstraints()
     }
-
+    
     private func setupNavigationBar() {
         addSubview(customNavigationBar)
         customNavigationBar.translatesAutoresizingMaskIntoConstraints = false
@@ -72,6 +142,7 @@ final class RecipeDetailView: UIView {
         addSubview(scrollView)
         addSubview(pageControl)
         addSubview(recipeNameLabel)
+        addSubview(actionButtonStackView)
         addSubview(recipeDescriptionLabel)
         addSubview(photoIndexLabel)
     }
@@ -79,9 +150,10 @@ final class RecipeDetailView: UIView {
     private func setupConstraints() {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         pageControl.translatesAutoresizingMaskIntoConstraints = false
+        photoIndexLabel.translatesAutoresizingMaskIntoConstraints = false
+        actionButtonStackView.translatesAutoresizingMaskIntoConstraints = false
         recipeNameLabel.translatesAutoresizingMaskIntoConstraints = false
         recipeDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        photoIndexLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             customNavigationBar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
@@ -100,7 +172,10 @@ final class RecipeDetailView: UIView {
             photoIndexLabel.topAnchor.constraint(equalTo: pageControl.bottomAnchor, constant: 10),
             photoIndexLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             
-            recipeNameLabel.topAnchor.constraint(equalTo: photoIndexLabel.bottomAnchor, constant: 20),
+            actionButtonStackView.topAnchor.constraint(equalTo: photoIndexLabel.bottomAnchor, constant: 10),
+            actionButtonStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+                        
+            recipeNameLabel.topAnchor.constraint(equalTo: actionButtonStackView.bottomAnchor, constant: 20),
             recipeNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             recipeNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             

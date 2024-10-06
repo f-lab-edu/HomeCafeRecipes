@@ -110,7 +110,7 @@ extension Router {
         return addRecipeVC
     }
     
-    func makeRecipeDetailViewController(recipeID: Int) -> RecipeDetailViewController {
+    func makeRecipeDetailViewController(recipeID: Int, router: RecipeListRouter) -> RecipeDetailViewController {
         let detailInteractor = RecipeDetailInteractorImpl(
             fetchRecipeDetailUseCase: FetchRecipeDetailUseCaseImpl(
                 repository: RecipeDetailRepositoryImpl(
@@ -119,9 +119,15 @@ extension Router {
             ),
             recipeID: recipeID
         )
-        let detailVC = RecipeDetailViewController(interactor: detailInteractor)
+                     
+        let detailVC = RecipeDetailViewController(interactor: detailInteractor, router: router)
         detailInteractor.delegate = detailVC
         return detailVC
+    }
+    
+    func makeCommentViewController(recipeID: Int) -> CommentViewController {
+        let commentVC = CommentViewController()
+        return commentVC
     }
     
     func makeLoginViewController() -> LoginViewController {

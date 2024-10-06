@@ -9,6 +9,7 @@ import UIKit
 
 protocol RecipeListRouter {
     func navigateToRecipeDetail(from viewController: UIViewController, recipeID: Int)
+    func presentCommentViewModally(from viewController: UIViewController, recipeID: Int)
 }
 
 class RecipeListRouterImpl: RecipeListRouter {
@@ -28,5 +29,26 @@ class RecipeListRouterImpl: RecipeListRouter {
             from: viewController,
             isAnimated: true,
             onNavigateBack: nil)
+    }
+    
+    func presentCommentViewModally(
+        from viewController: UIViewController,
+        recipeID: Int
+    ) {
+        let commentViewController = router.makeCommentViewController(recipeID: recipeID)
+        
+        commentViewController.modalPresentationStyle = .pageSheet
+        if let sheet = commentViewController.sheetPresentationController {
+            let customDetent = UISheetPresentationController.Detent.custom { context in
+                return context.maximumDetentValue * 0.6
+            }
+            sheet.detents = [customDetent]
+        }
+        
+        router.present(
+            commentViewController,
+            from: viewController,
+            isAnimated: true
+        )
     }
 }

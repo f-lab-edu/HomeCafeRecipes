@@ -20,6 +20,12 @@ public protocol RouterProtocol {
         isAnimated: Bool,
         onNavigateBack closure: NavigationBackClosure?
     )
+    
+    func present(
+        _ drawable: Drawable,
+        from viewController: UIViewController,
+        isAnimated: Bool,
+        completion: (() -> Void)?)
 }
 
 class Router: NSObject, RouterProtocol {
@@ -39,6 +45,18 @@ class Router: NSObject, RouterProtocol {
             closures.updateValue(closure, forKey: targetViewController.description)
         }
         viewController.navigationController?.pushViewController(targetViewController, animated: isAnimated)
+    }
+    
+    func present(
+        _ drawable: Drawable,
+        from viewController: UIViewController,
+        isAnimated: Bool,
+        completion: (() -> Void)? = nil
+    ) {
+        guard let targetViewController = drawable.viewController else {
+            return
+        }
+        viewController.present(targetViewController, animated: isAnimated, completion: completion)
     }
     
     private func executeClosure(_ viewController: UIViewController) {

@@ -22,9 +22,9 @@ class RecipeListRouterImpl: RecipeListRouter {
         from viewController: UIViewController,
         recipeID: Int
     ) {
-        let detailVC = router.makeRecipeDetailViewController(recipeID: recipeID)
+        let detailViewController = router.makeRecipeDetailViewController(recipeID: recipeID, router: self)
         router.push(
-            detailVC,
+            detailViewController,
             from: viewController,
             isAnimated: true,
             onNavigateBack: nil)

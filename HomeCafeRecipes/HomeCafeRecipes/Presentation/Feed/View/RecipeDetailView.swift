@@ -10,19 +10,45 @@ import UIKit
 import Kingfisher
 
 final class RecipeDetailView: UIView {
+    private let scrollView : UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.isPagingEnabled = true
+        scrollView.showsHorizontalScrollIndicator = false
+        return scrollView
+    }()
+    
+    private let pageControl: UIPageControl = {
+        let pageControl = UIPageControl()
+        return pageControl
+    }()
+    
+    private let recipeNameLabel: UILabel = {
+        let recipeNameLabel = UILabel()
+        recipeNameLabel.font = Fonts.detailTitleFont
+        recipeNameLabel.numberOfLines = 0
+        return recipeNameLabel
+    }()
+    
+    private let recipeDescriptionLabel:  UILabel = {
+        let recipeDescriptionLabel = UILabel()
+        recipeDescriptionLabel.font = Fonts.detailBodyFont
+        recipeDescriptionLabel.numberOfLines = 0
+        return recipeDescriptionLabel
+    }()
+    
+    private let photoIndexLabel: UILabel = {
+        let photoIndexLabel = UILabel()
+        photoIndexLabel.font = Fonts.detailBodyFont
+        return photoIndexLabel
+    }()
+    
+    private var imagesAdded = false
     
     let customNavigationBar = CustomNavigationBar()
-    private let scrollView = UIScrollView()
-    private let pageControl = UIPageControl()
-    private let recipeNameLabel = UILabel()
-    private let recipeDescriptionLabel = UILabel()
-    private let photoIndexLabel = UILabel()
-    private var imagesAdded = false
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupUI()
-        setupLayout()
+        setupUI()        
     }
 
     required init?(coder: NSCoder) {
@@ -31,47 +57,32 @@ final class RecipeDetailView: UIView {
 
     private func setupUI() {
         backgroundColor = .white
+        scrollView.delegate = self
         setupNavigationBar()
-        setupScrollView()
-        setupPageControl()
-        setupLabels()
+        addsubViews()
+        setupConstraints()        
     }
 
     private func setupNavigationBar() {
         addSubview(customNavigationBar)
         customNavigationBar.translatesAutoresizingMaskIntoConstraints = false
     }
-
-    private func setupScrollView() {
+    
+    private func addsubViews() {
         addSubview(scrollView)
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.isPagingEnabled = true
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.delegate = self
-    }
-    
-    private func setupPageControl() {
         addSubview(pageControl)
-        pageControl.translatesAutoresizingMaskIntoConstraints = false
-    }
-    
-    private func setupLabels() {
         addSubview(recipeNameLabel)
         addSubview(recipeDescriptionLabel)
         addSubview(photoIndexLabel)
-        
+    }
+    
+    private func setupConstraints() {
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        pageControl.translatesAutoresizingMaskIntoConstraints = false
         recipeNameLabel.translatesAutoresizingMaskIntoConstraints = false
         recipeDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         photoIndexLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        recipeNameLabel.font = Fonts.detailTitleFont
-        recipeNameLabel.numberOfLines = 0
-        recipeDescriptionLabel.font = Fonts.detailBodyFont
-        recipeDescriptionLabel.numberOfLines = 0
-        photoIndexLabel.font = Fonts.detailBodyFont
-    }
-    
-    private func setupLayout() {
         NSLayoutConstraint.activate([
             customNavigationBar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             customNavigationBar.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -98,7 +109,6 @@ final class RecipeDetailView: UIView {
             recipeDescriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
         ])
     }
-    
     
     func configure(with viewModel: RecipeDetailViewModel) {
         recipeNameLabel.text = viewModel.recipeName

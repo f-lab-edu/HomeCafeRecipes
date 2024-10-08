@@ -126,8 +126,23 @@ extension Router {
     }
     
     func makeCommentViewController(recipeID: Int) -> CommentViewController {
-        let commentVC = CommentViewController()
-        return commentVC
+        let commentInteractor = CommentInteractorImpl(
+            usecase: FetchCommentUsecaseImpl(
+                repository: CommentListRepositoryImpl(
+                    commnetServie: CommentServiceImpl(
+                        networkService: BaseNetworkService()
+                    )
+                )
+            )
+        )
+        
+        let commentViewController = CommentViewController(
+            commentFetchInteractor: commentInteractor,
+            recipeID: recipeID
+        )
+        
+        commentInteractor.delegate = commentViewController
+        return commentViewController
     }
     
     func makeLoginViewController() -> LoginViewController {

@@ -12,6 +12,13 @@
 		1D0173B02CB1847C00FF04BA /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0173AF2CB1847C00FF04BA /* CommentView.swift */; };
 		1D0173B22CB1856300FF04BA /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0173B12CB1856300FF04BA /* CommentViewController.swift */; };
 		1D0173B42CB185C000FF04BA /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0173B32CB185C000FF04BA /* CommentCell.swift */; };
+		1D0635E12CB28A8700DCC9EA /* CommentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0635E02CB28A8700DCC9EA /* CommentService.swift */; };
+		1D0635E42CB28B8700DCC9EA /* CommentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0635E32CB28B8700DCC9EA /* CommentInteractor.swift */; };
+		1D0635E62CB2A63200DCC9EA /* FetchCommentUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0635E52CB2A63200DCC9EA /* FetchCommentUsecase.swift */; };
+		1D0635E82CB2AA0600DCC9EA /* CommentListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0635E72CB2AA0600DCC9EA /* CommentListRepository.swift */; };
+		1D0635EA2CB2B0CD00DCC9EA /* CommentDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0635E92CB2B0CD00DCC9EA /* CommentDTO.swift */; };
+		1D0BE5822CB5652500F54A26 /* CommnetMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0BE5812CB5652500F54A26 /* CommnetMapper.swift */; };
+		1D0BE5832CB575B800F54A26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D2C16EE2BE532B800C04508 /* Assets.xcassets */; };
 		1D1283A22C15E94300C5A870 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1283A12C15E94300C5A870 /* Recipe.swift */; };
 		1D1283A42C15EA8100C5A870 /* RecipeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1283A32C15EA8100C5A870 /* RecipeType.swift */; };
 		1D1283AA2C15EBCF00C5A870 /* SearchFeedUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1283A92C15EBCF00C5A870 /* SearchFeedUseCase.swift */; };
@@ -166,6 +173,12 @@
 		1D0173AF2CB1847C00FF04BA /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		1D0173B12CB1856300FF04BA /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		1D0173B32CB185C000FF04BA /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
+		1D0635E02CB28A8700DCC9EA /* CommentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentService.swift; sourceTree = "<group>"; };
+		1D0635E32CB28B8700DCC9EA /* CommentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentInteractor.swift; sourceTree = "<group>"; };
+		1D0635E52CB2A63200DCC9EA /* FetchCommentUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchCommentUsecase.swift; sourceTree = "<group>"; };
+		1D0635E72CB2AA0600DCC9EA /* CommentListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentListRepository.swift; sourceTree = "<group>"; };
+		1D0635E92CB2B0CD00DCC9EA /* CommentDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentDTO.swift; sourceTree = "<group>"; };
+		1D0BE5812CB5652500F54A26 /* CommnetMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommnetMapper.swift; sourceTree = "<group>"; };
 		1D1283A12C15E94300C5A870 /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		1D1283A32C15EA8100C5A870 /* RecipeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeType.swift; sourceTree = "<group>"; };
 		1D1283A92C15EBCF00C5A870 /* SearchFeedUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFeedUseCase.swift; sourceTree = "<group>"; };
@@ -295,12 +308,20 @@
 		1D0173AA2CB15E2A00FF04BA /* comment */ = {
 			isa = PBXGroup;
 			children = (
+				1D0635E22CB28ADE00DCC9EA /* View */,
 				1D0173AB2CB162CA00FF04BA /* commentViewModel.swift */,
 				1D0173AF2CB1847C00FF04BA /* CommentView.swift */,
 				1D0173B12CB1856300FF04BA /* CommentViewController.swift */,
 				1D0173B32CB185C000FF04BA /* CommentCell.swift */,
 			);
 			path = comment;
+			sourceTree = "<group>";
+		};
+		1D0635E22CB28ADE00DCC9EA /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		1D12839F2C15E7A700C5A870 /* Entities */ = {
@@ -329,6 +350,7 @@
 				1D7641442C81BE90002AC68F /* LoginUseCase.swift */,
 				1D2398B12C8DC07800626F0C /* SignUpUseCase.swift */,
 				1DFC961F2C908739006C3309 /* CheckEmailUsecase.swift */,
+				1D0635E52CB2A63200DCC9EA /* FetchCommentUsecase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -360,6 +382,7 @@
 				1D39726B2C458CE100495014 /* MultipartFormDataRequest.swift */,
 				1D7641482C831295002AC68F /* LoginService.swift */,
 				1DBD90B82C91BDAC00184F67 /* SignUpService.swift */,
+				1D0635E02CB28A8700DCC9EA /* CommentService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -473,6 +496,7 @@
 				1D7368852C33D7BE000EF904 /* RecipeUploadResponseDTO.swift */,
 				1DBD90BA2C91DE1600184F67 /* EmptyResponse.swift */,
 				1DDF485C2C9405CF000A082E /* CheckEmailRespones.swift */,
+				1D0635E92CB2B0CD00DCC9EA /* CommentDTO.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -509,6 +533,7 @@
 			isa = PBXGroup;
 			children = (
 				1D3972672C44185B00495014 /* RecipeListMapper.swift */,
+				1D0BE5812CB5652500F54A26 /* CommnetMapper.swift */,
 			);
 			path = Mapper;
 			sourceTree = "<group>";
@@ -521,6 +546,7 @@
 				1D73686F2C32BFBB000EF904 /* AddRecipeInteractor.swift */,
 				1D96FDA92C7F55E600EFC657 /* LoginInteractor.swift */,
 				1DF6E1422C8C561E005E8875 /* SignUpInteractor.swift */,
+				1D0635E32CB28B8700DCC9EA /* CommentInteractor.swift */,
 			);
 			path = Interactor;
 			sourceTree = "<group>";
@@ -535,6 +561,7 @@
 				1D7641462C831192002AC68F /* LoginRepository.swift */,
 				1DFC961B2C90809D006C3309 /* SignUpRepository.swift */,
 				1DFC961D2C908723006C3309 /* CheckEmailRepository.swift */,
+				1D0635E72CB2AA0600DCC9EA /* CommentListRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -747,6 +774,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D0BE5832CB575B800F54A26 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -792,6 +820,7 @@
 				1DE19EB12C1B42200031804A /* NetworkService.swift in Sources */,
 				1DC7CC322C283C0200796889 /* RecipeUploadImgaeCell.swift in Sources */,
 				1D7368782C32E7FE000EF904 /* RecipePostService.swift in Sources */,
+				1D0635EA2CB2B0CD00DCC9EA /* CommentDTO.swift in Sources */,
 				1D2398B42C8DC23500626F0C /* SignUpError.swift in Sources */,
 				1DBC63662C47D23000DA00C2 /* AddRecipeError.swift in Sources */,
 				1D95A0A62C37C79500F09077 /* RecipeDetailError.swift in Sources */,
@@ -809,9 +838,11 @@
 				1D5AEE532C592A9900BBD5F0 /* RecipeListItemViewModel.swift in Sources */,
 				1D60CC3D2C3E4F1600D08FA3 /* APIConfig.swift in Sources */,
 				1D0173B02CB1847C00FF04BA /* CommentView.swift in Sources */,
+				1D0635E42CB28B8700DCC9EA /* CommentInteractor.swift in Sources */,
 				1D6F99492C9291B700430FD8 /* UIViewController+Alert.swift in Sources */,
 				1D1283A42C15EA8100C5A870 /* RecipeType.swift in Sources */,
 				1D0173AC2CB162CA00FF04BA /* commentViewModel.swift in Sources */,
+				1D0635E62CB2A63200DCC9EA /* FetchCommentUsecase.swift in Sources */,
 				1D7641472C831192002AC68F /* LoginRepository.swift in Sources */,
 				1DF829B42C2A7A7D00C337FC /* Fonts.swift in Sources */,
 				1DF0D1AD2C7DF9BB00E2C94C /* LoginView.swift in Sources */,
@@ -822,10 +853,12 @@
 				1DBB55062C8418490009E033 /* LoginRouter.swift in Sources */,
 				1DFC961E2C908723006C3309 /* CheckEmailRepository.swift in Sources */,
 				1D1283AA2C15EBCF00C5A870 /* SearchFeedUseCase.swift in Sources */,
+				1D0BE5822CB5652500F54A26 /* CommnetMapper.swift in Sources */,
 				1DE19EA82C1B420A0031804A /* SearchFeedListRepository.swift in Sources */,
 				1DE19EC32C1B422F0031804A /* SearchBar.swift in Sources */,
 				1D439EA22C2C6997008530A5 /* RecipeDetailInteractor.swift in Sources */,
 				1D73686E2C305757000EF904 /* RecipeDetailDTO.swift in Sources */,
+				1D0635E12CB28A8700DCC9EA /* CommentService.swift in Sources */,
 				1D4741D72C1B4FF4009381CE /* RecipeListInteractor.swift in Sources */,
 				1D2398B22C8DC07800626F0C /* SignUpUseCase.swift in Sources */,
 				1DC7CC342C294F9200796889 /* SelectImageCell.swift in Sources */,
@@ -836,6 +869,7 @@
 				1DF6E1432C8C561E005E8875 /* SignUpInteractor.swift in Sources */,
 				1DF0D1AB2C7DF9B500E2C94C /* LoginViewController.swift in Sources */,
 				1D7368742C32CF09000EF904 /* AddRecipeRepository.swift in Sources */,
+				1D0635E82CB2AA0600DCC9EA /* CommentListRepository.swift in Sources */,
 				1DE19EA72C1B420A0031804A /* FeedListRepository.swift in Sources */,
 				1DF0D19B2C7B92D600E2C94C /* UserDTO.swift in Sources */,
 				1DE19EC62C1B422F0031804A /* RecipeListCell.swift in Sources */,

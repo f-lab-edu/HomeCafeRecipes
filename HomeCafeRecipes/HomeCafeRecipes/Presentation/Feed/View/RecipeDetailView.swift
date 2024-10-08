@@ -9,69 +9,152 @@ import UIKit
 
 import Kingfisher
 
+protocol RecipeDetailViewDelegate: AnyObject {
+    func didTapLikeButton()
+    func didTapCommentButton()
+    func didTapBookmarkButton()
+}
+
 final class RecipeDetailView: UIView {
+    private let scrollView : UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.isPagingEnabled = true
+        scrollView.showsHorizontalScrollIndicator = false
+        return scrollView
+    }()
+    
+    private let pageControl: UIPageControl = {
+        let pageControl = UIPageControl()
+        return pageControl
+    }()
+    
+    private let recipeNameLabel: UILabel = {
+        let recipeNameLabel = UILabel()
+        recipeNameLabel.font = Fonts.detailTitleFont
+        recipeNameLabel.numberOfLines = 0
+        return recipeNameLabel
+    }()
+    
+    private let recipeDescriptionLabel:  UILabel = {
+        let recipeDescriptionLabel = UILabel()
+        recipeDescriptionLabel.font = Fonts.detailBodyFont
+        recipeDescriptionLabel.numberOfLines = 0
+        return recipeDescriptionLabel
+    }()
+    
+    private let photoIndexLabel: UILabel = {
+        let photoIndexLabel = UILabel()
+        photoIndexLabel.font = Fonts.detailBodyFont
+        return photoIndexLabel
+    }()
+    
+    private lazy var likeButton: UIButton = {
+        let likeButton = UIButton()
+        likeButton.setImage(
+            UIImage(systemName: "suit.heart"),
+            for: .normal
+        )
+        likeButton.tintColor = .red
+        likeButton.addAction(
+            UIAction(
+                handler: { [weak self] _ in
+                    self?.delegate?.didTapLikeButton()
+                }
+            ),
+            for: .touchUpInside
+        )
+        return likeButton
+    }()
+    
+    private lazy var commentButton: UIButton = {
+        let commentButton = UIButton()
+        commentButton.setImage(
+            UIImage(systemName: "text.bubble"),
+            for: .normal
+        )
+        commentButton.tintColor = .gray
+        commentButton.addAction(
+            UIAction(
+                handler: { [weak self] _ in
+                    self?.delegate?.didTapCommentButton()
+                }
+            ),
+            for: .touchUpInside
+        )
+        return commentButton
+    }()
+    
+    private lazy var bookmarkButton: UIButton = {
+        let bookmarkButton = UIButton()
+        bookmarkButton.setImage(
+            UIImage(systemName: "bookmark"),
+            for: .normal
+        )
+        bookmarkButton.tintColor = .gray
+        bookmarkButton.addAction(
+            UIAction(
+                handler: { [weak self] _ in
+                    self?.delegate?.didTapBookmarkButton()
+                }
+            ),
+            for: .touchUpInside
+        )
+        return bookmarkButton
+    }()
+    
+    private lazy var actionButtonStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [likeButton, commentButton, bookmarkButton])
+        stackView.axis = .horizontal
+        stackView.spacing = 15
+        stackView.distribution = .fillEqually
+        return stackView
+    }()
+    
+    private var imagesAdded = false
+    
+    weak var delegate: RecipeDetailViewDelegate?
     
     let customNavigationBar = CustomNavigationBar()
-    private let scrollView = UIScrollView()
-    private let pageControl = UIPageControl()
-    private let recipeNameLabel = UILabel()
-    private let recipeDescriptionLabel = UILabel()
-    private let photoIndexLabel = UILabel()
-    private var imagesAdded = false
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
-        setupLayout()
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     private func setupUI() {
         backgroundColor = .white
+        scrollView.delegate = self
         setupNavigationBar()
-        setupScrollView()
-        setupPageControl()
-        setupLabels()
+        addsubViews()
+        setupConstraints()
     }
-
+    
     private func setupNavigationBar() {
         addSubview(customNavigationBar)
         customNavigationBar.translatesAutoresizingMaskIntoConstraints = false
     }
-
-    private func setupScrollView() {
+    
+    private func addsubViews() {
         addSubview(scrollView)
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.isPagingEnabled = true
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.delegate = self
-    }
-    
-    private func setupPageControl() {
         addSubview(pageControl)
-        pageControl.translatesAutoresizingMaskIntoConstraints = false
-    }
-    
-    private func setupLabels() {
         addSubview(recipeNameLabel)
+        addSubview(actionButtonStackView)
         addSubview(recipeDescriptionLabel)
         addSubview(photoIndexLabel)
-        
-        recipeNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        recipeDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        photoIndexLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        recipeNameLabel.font = Fonts.detailTitleFont
-        recipeNameLabel.numberOfLines = 0
-        recipeDescriptionLabel.font = Fonts.detailBodyFont
-        recipeDescriptionLabel.numberOfLines = 0
-        photoIndexLabel.font = Fonts.detailBodyFont
     }
     
-    private func setupLayout() {
+    private func setupConstraints() {
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        pageControl.translatesAutoresizingMaskIntoConstraints = false
+        photoIndexLabel.translatesAutoresizingMaskIntoConstraints = false
+        actionButtonStackView.translatesAutoresizingMaskIntoConstraints = false
+        recipeNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        recipeDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             customNavigationBar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             customNavigationBar.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -89,7 +172,10 @@ final class RecipeDetailView: UIView {
             photoIndexLabel.topAnchor.constraint(equalTo: pageControl.bottomAnchor, constant: 10),
             photoIndexLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             
-            recipeNameLabel.topAnchor.constraint(equalTo: photoIndexLabel.bottomAnchor, constant: 20),
+            actionButtonStackView.topAnchor.constraint(equalTo: photoIndexLabel.bottomAnchor, constant: 10),
+            actionButtonStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+                        
+            recipeNameLabel.topAnchor.constraint(equalTo: actionButtonStackView.bottomAnchor, constant: 20),
             recipeNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             recipeNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             
@@ -98,7 +184,6 @@ final class RecipeDetailView: UIView {
             recipeDescriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
         ])
     }
-    
     
     func configure(with viewModel: RecipeDetailViewModel) {
         recipeNameLabel.text = viewModel.recipeName

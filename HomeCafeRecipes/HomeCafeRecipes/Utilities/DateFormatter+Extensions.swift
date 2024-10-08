@@ -16,4 +16,18 @@ extension DateFormatter {
         formatter.locale = Locale(identifier: "en_US_POSIX")
         return formatter
     }()
+    
+    static func timeAgoDisplay(from date: Date) -> String {
+        let calendar = Calendar.current
+        let now = Date()        
+        let components = calendar.dateComponents([.hour, .day], from: date, to: now)
+        
+        if let day = components.day, day >= 1 {
+            return "\(day)일 전"
+        } else if let hour = components.hour, hour >= 1 {
+            return "\(hour)시간 전"
+        } else {
+            return "방금 전"
+        }
+    }
 }

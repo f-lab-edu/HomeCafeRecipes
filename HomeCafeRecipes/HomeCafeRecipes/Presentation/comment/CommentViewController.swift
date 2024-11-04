@@ -63,6 +63,42 @@ extension CommentViewController: CommentInteractorDelegate {
     }
 }
 
+// MARK: CommentViewDelegate
+
+extension CommentViewController: CommentViewDelegate {
+    func didTapAddCommentButton() {        
+        let comment = contentView.comment
+        guard !comment.isEmpty else {
+            print("Comment is empty. Cannot add empty comment.")
+            return
+        }
+        
+        commentInteractor.addComment(recipeID: recipeID, comment: comment)
+            .subscribe(onSuccess: { [weak self] result in
+                switch result {
+                case .success(let newComment):
+                    self?.comments.append(newComment)
+                    DispatchQueue.main.async {
+                        let viewModels = CommentMapper.mapToViewModels(from: self?.comments ?? [])
+                        self?.contentView.updateComments(viewModels)
+                        self?.contentView.clearCommentInput()
+                    }
+                case .failure(let error):
+                    DispatchQueue.main.async {
+                        let alert = UIAlertController(
+                            title: "Error",
+                            message: error.localizedDescription,
+                            preferredStyle: .alert
+                        )
+                        alert.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
+                        self?.present(alert, animated: true, completion: nil)
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+}
+
 extension CommentViewController: Drawable {
     var viewController: UIViewController? {
         return self

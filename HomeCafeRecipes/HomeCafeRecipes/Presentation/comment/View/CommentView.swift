@@ -7,7 +7,14 @@
 
 import UIKit
 
+protocol CommentViewDelegate : AnyObject {
+    func didTapAddCommentButton()
+}
+
 final class CommentView: UIView {
+    
+    weak var delegate: CommentViewDelegate?
+    
     private let tableView = UITableView()
     
     private let commentTextField : UITextField = {
@@ -39,6 +46,7 @@ final class CommentView: UIView {
         view.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
         return view
     }()
+    
     private var comments: [CommentViewModel] = []
     
     
@@ -97,11 +105,20 @@ final class CommentView: UIView {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(CommentCell.self, forCellReuseIdentifier: CommentCell.identifier)
+        tableView.backgroundColor = .clear
     }
     
     func updateComments(_ comments: [CommentViewModel]) {
         self.comments = comments
         tableView.reloadData()
+    }
+    
+    var comment: String {
+        return commentTextField.text ?? ""
+    }
+    
+    func clearCommentInput() {
+        commentTextField.text = ""
     }
 }
 

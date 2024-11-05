@@ -311,21 +311,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1D0173AA2CB15E2A00FF04BA /* comment */ = {
+		1D0173AA2CB15E2A00FF04BA /* Comment */ = {
 			isa = PBXGroup;
 			children = (
-				1D0635E22CB28ADE00DCC9EA /* View */,
 				1D0173AB2CB162CA00FF04BA /* commentViewModel.swift */,
-				1D0173AF2CB1847C00FF04BA /* CommentView.swift */,
-				1D0173B12CB1856300FF04BA /* CommentViewController.swift */,
-				1D0173B32CB185C000FF04BA /* CommentCell.swift */,
+				1D0635E22CB28ADE00DCC9EA /* View */,
 			);
-			path = comment;
+			path = Comment;
 			sourceTree = "<group>";
 		};
 		1D0635E22CB28ADE00DCC9EA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1D0173AF2CB1847C00FF04BA /* CommentView.swift */,
+				1D0173B12CB1856300FF04BA /* CommentViewController.swift */,
+				1D0173B32CB185C000FF04BA /* CommentCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -578,7 +578,7 @@
 		1DE19EB22C1B422F0031804A /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				1D0173AA2CB15E2A00FF04BA /* comment */,
+				1D0173AA2CB15E2A00FF04BA /* Comment */,
 				1DF0D1A72C7DF99F00E2C94C /* Login */,
 				1D2C6F662C24697F004BB54E /* UploadRecipe */,
 				1D2C6F612C2446AF004BB54E /* Tabbar */,

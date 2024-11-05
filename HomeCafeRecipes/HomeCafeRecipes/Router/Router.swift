@@ -127,9 +127,16 @@ extension Router {
     
     func makeCommentViewController(recipeID: Int) -> CommentViewController {
         let commentInteractor = CommentInteractorImpl(
-            usecase: FetchCommentUsecaseImpl(
+            fetchusecase: FetchCommentUsecaseImpl(
                 repository: CommentListRepositoryImpl(
                     commnetServie: CommentServiceImpl(
+                        networkService: BaseNetworkService()
+                    )
+                )
+            ),
+            addusecase: AddCommentUseCaseImpl(
+                addcommentRepository: AddCommenRepositoryImpl(
+                    service: CommentPostServiceImpl(
                         networkService: BaseNetworkService()
                     )
                 )
@@ -137,7 +144,7 @@ extension Router {
         )
         
         let commentViewController = CommentViewController(
-            commentFetchInteractor: commentInteractor,
+            commentInteractor: commentInteractor,
             recipeID: recipeID
         )
         

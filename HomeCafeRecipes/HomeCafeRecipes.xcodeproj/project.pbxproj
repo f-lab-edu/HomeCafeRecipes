@@ -100,6 +100,9 @@
 		1D7641492C831295002AC68F /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7641482C831295002AC68F /* LoginService.swift */; };
 		1D8474562C6C917900323001 /* SearchFeedListUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8474552C6C917900323001 /* SearchFeedListUseCaseTests.swift */; };
 		1D8474592C6CCF6900323001 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8474582C6CCF6900323001 /* TestUtils.swift */; };
+		1D87E08B2CD8C4BD0082A1CD /* AddCommentUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D87E08A2CD8C4BD0082A1CD /* AddCommentUseCase.swift */; };
+		1D87E08D2CD8D5A80082A1CD /* AddCommentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D87E08C2CD8D5A80082A1CD /* AddCommentRepository.swift */; };
+		1D87E08F2CD8DB4A0082A1CD /* CommentPostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D87E08E2CD8DB4A0082A1CD /* CommentPostService.swift */; };
 		1D93B9992CA26EB80094277F /* LoginUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D93B9982CA26EB80094277F /* LoginUseCaseTests.swift */; };
 		1D95A0A62C37C79500F09077 /* RecipeDetailError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D95A0A52C37C79500F09077 /* RecipeDetailError.swift */; };
 		1D96FDAA2C7F55E600EFC657 /* LoginInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D96FDA92C7F55E600EFC657 /* LoginInteractor.swift */; };
@@ -234,6 +237,9 @@
 		1D7641482C831295002AC68F /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		1D8474552C6C917900323001 /* SearchFeedListUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFeedListUseCaseTests.swift; sourceTree = "<group>"; };
 		1D8474582C6CCF6900323001 /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
+		1D87E08A2CD8C4BD0082A1CD /* AddCommentUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCommentUseCase.swift; sourceTree = "<group>"; };
+		1D87E08C2CD8D5A80082A1CD /* AddCommentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCommentRepository.swift; sourceTree = "<group>"; };
+		1D87E08E2CD8DB4A0082A1CD /* CommentPostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentPostService.swift; sourceTree = "<group>"; };
 		1D93B9982CA26EB80094277F /* LoginUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUseCaseTests.swift; sourceTree = "<group>"; };
 		1D95A0A52C37C79500F09077 /* RecipeDetailError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailError.swift; sourceTree = "<group>"; };
 		1D96FDA92C7F55E600EFC657 /* LoginInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInteractor.swift; sourceTree = "<group>"; };
@@ -305,21 +311,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1D0173AA2CB15E2A00FF04BA /* comment */ = {
+		1D0173AA2CB15E2A00FF04BA /* Comment */ = {
 			isa = PBXGroup;
 			children = (
-				1D0635E22CB28ADE00DCC9EA /* View */,
 				1D0173AB2CB162CA00FF04BA /* commentViewModel.swift */,
-				1D0173AF2CB1847C00FF04BA /* CommentView.swift */,
-				1D0173B12CB1856300FF04BA /* CommentViewController.swift */,
-				1D0173B32CB185C000FF04BA /* CommentCell.swift */,
+				1D0635E22CB28ADE00DCC9EA /* View */,
 			);
-			path = comment;
+			path = Comment;
 			sourceTree = "<group>";
 		};
 		1D0635E22CB28ADE00DCC9EA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1D0173AF2CB1847C00FF04BA /* CommentView.swift */,
+				1D0173B12CB1856300FF04BA /* CommentViewController.swift */,
+				1D0173B32CB185C000FF04BA /* CommentCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -351,6 +357,7 @@
 				1D2398B12C8DC07800626F0C /* SignUpUseCase.swift */,
 				1DFC961F2C908739006C3309 /* CheckEmailUsecase.swift */,
 				1D0635E52CB2A63200DCC9EA /* FetchCommentUsecase.swift */,
+				1D87E08A2CD8C4BD0082A1CD /* AddCommentUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -383,6 +390,7 @@
 				1D7641482C831295002AC68F /* LoginService.swift */,
 				1DBD90B82C91BDAC00184F67 /* SignUpService.swift */,
 				1D0635E02CB28A8700DCC9EA /* CommentService.swift */,
+				1D87E08E2CD8DB4A0082A1CD /* CommentPostService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -562,6 +570,7 @@
 				1DFC961B2C90809D006C3309 /* SignUpRepository.swift */,
 				1DFC961D2C908723006C3309 /* CheckEmailRepository.swift */,
 				1D0635E72CB2AA0600DCC9EA /* CommentListRepository.swift */,
+				1D87E08C2CD8D5A80082A1CD /* AddCommentRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -569,7 +578,7 @@
 		1DE19EB22C1B422F0031804A /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				1D0173AA2CB15E2A00FF04BA /* comment */,
+				1D0173AA2CB15E2A00FF04BA /* Comment */,
 				1DF0D1A72C7DF99F00E2C94C /* Login */,
 				1D2C6F662C24697F004BB54E /* UploadRecipe */,
 				1D2C6F612C2446AF004BB54E /* Tabbar */,
@@ -830,6 +839,7 @@
 				1DF0D1A92C7DF9AA00E2C94C /* LoginViewModel.swift in Sources */,
 				1DF0D1A12C7B92F800E2C94C /* User.swift in Sources */,
 				1D73687A2C32EB18000EF904 /* RecipeUploadDTO.swift in Sources */,
+				1D87E08B2CD8C4BD0082A1CD /* AddCommentUseCase.swift in Sources */,
 				1D2C6F6A2C26AF9F004BB54E /* AddRecipeView.swift in Sources */,
 				1DDF485D2C9405CF000A082E /* CheckEmailRespones.swift in Sources */,
 				1D2C6F682C246998004BB54E /* AddRecipeViewController.swift in Sources */,
@@ -856,6 +866,7 @@
 				1D0BE5822CB5652500F54A26 /* CommnetMapper.swift in Sources */,
 				1DE19EA82C1B420A0031804A /* SearchFeedListRepository.swift in Sources */,
 				1DE19EC32C1B422F0031804A /* SearchBar.swift in Sources */,
+				1D87E08D2CD8D5A80082A1CD /* AddCommentRepository.swift in Sources */,
 				1D439EA22C2C6997008530A5 /* RecipeDetailInteractor.swift in Sources */,
 				1D73686E2C305757000EF904 /* RecipeDetailDTO.swift in Sources */,
 				1D0635E12CB28A8700DCC9EA /* CommentService.swift in Sources */,
@@ -886,6 +897,7 @@
 				1D0173AE2CB171DF00FF04BA /* Comment.swift in Sources */,
 				1D1283CA2C16D9C600C5A870 /* RecipeFetchService.swift in Sources */,
 				1D6958D42C3D059E008604B3 /* RecipeListRouter.swift in Sources */,
+				1D87E08F2CD8DB4A0082A1CD /* CommentPostService.swift in Sources */,
 				1D4741D42C1B4F8D009381CE /* NetworkResponseDTO.swift in Sources */,
 				1D439E9C2C2C58DD008530A5 /* FetchRecipeDetailUseCase.swift in Sources */,
 			);

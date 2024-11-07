@@ -7,15 +7,18 @@
 
 import UIKit
 
+import RxSwift
+
 final class CommentViewController: UIViewController {
     private var contentView = CommentView()
     private var comments: [Comment] = []
-    private var commentFetchInteractor: CommentInteractor
+    private var commentInteractor: CommentInteractor
     private let commentMapper = CommentMapper()
     private let recipeID: Int
+    private let disposeBag = DisposeBag()
     
-    init(commentFetchInteractor: CommentInteractor, recipeID: Int) {
-        self.commentFetchInteractor = commentFetchInteractor
+    init(commentInteractor: CommentInteractor, recipeID: Int) {
+        self.commentInteractor = commentInteractor
         self.recipeID = recipeID
         super.init(nibName: nil, bundle: nil)
     }
@@ -31,7 +34,8 @@ final class CommentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        commentFetchInteractor.loadComment(recipeID: recipeID)
+        contentView.delegate = self
+        commentInteractor.loadComment(recipeID: recipeID)
     }
     
     private func setupUI() {
@@ -45,10 +49,13 @@ final class CommentViewController: UIViewController {
     }
 }
 
+// MARK: CommentInteractorDelegate
+
 extension CommentViewController: CommentInteractorDelegate {
     func fetchedComments(result: Result<[Comment], Error>) {
         switch result {
-        case .success(let comments):
+        case .success(let newcomments):
+            comments.append(contentsOf: newcomments)
             let viewModels = CommentMapper.mapToViewModels(from: comments)
             DispatchQueue.main.async { [weak self] in
                 self?.contentView.updateComments(viewModels)
@@ -60,6 +67,42 @@ extension CommentViewController: CommentInteractorDelegate {
                 self?.present(alert, animated: true, completion: nil)
             }
         }
+    }
+}
+
+// MARK: CommentViewDelegate
+
+extension CommentViewController: CommentViewDelegate {
+    func didTapAddCommentButton() {        
+        let comment = contentView.comment
+        guard !comment.isEmpty else {
+            print("Comment is empty. Cannot add empty comment.")
+            return
+        }
+        
+        commentInteractor.addComment(recipeID: recipeID, comment: comment)
+            .subscribe(onSuccess: { [weak self] result in
+                switch result {
+                case .success(let newComment):
+                    self?.comments.append(newComment)
+                    DispatchQueue.main.async {
+                        let viewModels = CommentMapper.mapToViewModels(from: self?.comments ?? [])
+                        self?.contentView.updateComments(viewModels)
+                        self?.contentView.clearCommentInput()
+                    }
+                case .failure(let error):
+                    DispatchQueue.main.async {
+                        let alert = UIAlertController(
+                            title: "Error",
+                            message: error.localizedDescription,
+                            preferredStyle: .alert
+                        )
+                        alert.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
+                        self?.present(alert, animated: true, completion: nil)
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
     }
 }
 

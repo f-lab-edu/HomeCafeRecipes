@@ -78,6 +78,6 @@ extension LoginViewController: LoginViewDelegate {
     }
     
     func didtapSignUpButton() {
-        router.navigateToSignUP(from: self)
+        router.navigateToEmailVerification(from: self)
     }
 }

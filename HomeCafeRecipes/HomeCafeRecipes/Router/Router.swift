@@ -119,7 +119,7 @@ extension Router {
             ),
             recipeID: recipeID
         )
-                     
+        
         let detailVC = RecipeDetailViewController(interactor: detailInteractor, router: router)
         detailInteractor.delegate = detailVC
         return detailVC
@@ -190,5 +190,29 @@ extension Router {
         let signUpViewcontroller = SignUpViewController(
             signUpInteractor: signUpInteractor, router: loginRouter)
         return signUpViewcontroller
+    }
+    
+    func makeEmailVerificationViewController() -> EmailVerificationViewController {
+        let emailVerificationInteractor = EmailVerificationInteractorImpl(
+            sendVerificationCodeUseCase: SendVerificationCodeUseCaseImpl(
+                repository: SendVerificationCodeRepositoryImpl(
+                    service: SendVerificationCodeServiceImpl(
+                        networkService: BaseNetworkService()
+                    )
+                )
+            ), validateEmailCodeUseCase: ValidateEmailCodeUseCaseImpl(
+                repository: ValidateEmailCodeRepositoryImpl(
+                    service: EmailVerificationCodeServiceImpl(
+                        network: BaseNetworkService()
+                    )
+                )
+            )
+        )
+        let loginRouter = LoginRouterImpl(router: self)
+        let emailVerificationViewController = EmailVerificationViewController(
+            interactor: emailVerificationInteractor,
+            router: loginRouter
+        )
+        return emailVerificationViewController
     }
 }

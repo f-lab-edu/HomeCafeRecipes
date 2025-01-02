@@ -49,33 +49,22 @@ final class EmailVerificationViewController: UIViewController {
     private func sendVerificationCode() {
         let emailText = contentView.emailText
         guard !emailText.isEmpty else {
-            DispatchQueue.main.async {
-                self.showCompletedAlert(
-                    title: "오류",
-                    message: "이메일을 입력해주세요",
-                    success: false
-                )
-            }
+            self.showCompletedAlert(
+                title: "오류",
+                message: "이메일을 입력해주세요",
+                success: false
+            )
             return
         }
         emailVerificationinteractor.updateEmail(emailText)
         emailVerificationinteractor.sendVerificationCode()
             .observe(on: MainScheduler.instance)
             .subscribe(onSuccess: { [weak self] success in
-                guard success else {
-                    self?.showCompletedAlert(
-                        title: "오류",
-                        message: "인증번호 전송에 실패했습니다.",
-                        success: false
-                    )
-                    return
-                }
-                self?.showCompletedAlert(
-                    title: "성공",
-                    message: "인증번호가 전송되었습니다.",
-                    success: false
+                self?.handleVerificationResponse(
+                    isSuccess: success,
+                    successMessage: "인증번호가 전송되었습니다.",
+                    failureMessage: "인증번호 전송에 실패했습니다."
                 )
-                self?.contentView.toggleVerificationCodeInput(isHidden: false)
             }, onFailure: { [weak self] error in
                 self?.showCompletedAlert(
                     title: "오류",
@@ -86,44 +75,47 @@ final class EmailVerificationViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    private func validateEmailCode(){
+    private func validateEmailCode() {
         let code = contentView.verificationCodeText
         guard !code.isEmpty else {
-            DispatchQueue.main.async {
-                self.showCompletedAlert(
-                    title: "오류",
-                    message: "코드를 입력해주세요",
-                    success: false
-                )
-            }
+            self.showCompletedAlert(
+                title: "오류",
+                message: "코드를 입력해주세요",
+                success: false
+            )
             return
         }
         emailVerificationinteractor.updateVerificationCode(code)
         emailVerificationinteractor.validateEmailCode()
             .observe(on: MainScheduler.instance)
             .subscribe(onSuccess: { [weak self] success in
-                guard success else {
-                    self?.showCompletedAlert(
-                        title: "오류",
-                        message: "인증에 실패했습니다.",
-                        success: false
-                    )
-                    return
-                }
-                self?.showCompletedAlert(
-                    title: "성공",
-                    message: "인증되었습니다..",
-                    success: false
+                self?.handleVerificationResponse(
+                    isSuccess: success,
+                    successMessage: "인증되었습니다.",
+                    failureMessage: "인증에 실패했습니다."
                 )
-                self?.contentView.toggleVerificationCodeInput(isHidden: false)
             }, onFailure: { [weak self] error in
                 self?.showCompletedAlert(
                     title: "오류",
                     message: error.localizedDescription,
                     success: false
                 )
-            }
-            ).disposed(by: disposeBag)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func handleVerificationResponse(
+        isSuccess: Bool,
+        successMessage: String,
+        failureMessage: String
+    ) {
+        let title = isSuccess ? "성공" : "오류"
+        let message = isSuccess ? successMessage : failureMessage
+        self.showCompletedAlert(title: title, message: message, success: false)
+        
+        if isSuccess {
+            self.contentView.toggleVerificationCodeInput(isHidden: false)
+        }
     }
 }
 

@@ -44,7 +44,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     
     private func setupTabBar() {
         let recipeListVC = router.makeRecipeListViewController()
-        let favoritesVC = createFavoritesViewController()
+        let favoritesVC = router.makeLoginViewController()
         recipeListVC.tabBarItem = UITabBarItem(
             title: "Recipes",
             image: UIImage(systemName: "list.bullet"),
@@ -59,11 +59,6 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         viewControllers = [recipeListVC, favoritesVC]
     }
     
-    private func createFavoritesViewController() -> UIViewController {
-        let favoritesVC = UIViewController()
-        favoritesVC.view.backgroundColor = .white
-        return favoritesVC
-    }
     
     private func setupActionButton() {
         addButton.addTarget(self, action: #selector(didTapActionButton), for: .touchUpInside)

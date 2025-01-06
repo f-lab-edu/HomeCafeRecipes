@@ -57,11 +57,19 @@ final class SignUpViewController: UIViewController {
             .subscribe(onSuccess: { [weak self] error in
                 if let error = error {
                     DispatchQueue.main.async {
-                        self?.showCompletedAlert(title: error.title, message: "\(error.errorDescription!)", success: false)
+                        self?.showCompletedAlert(
+                            title: error.title,
+                            message: "\(error.errorDescription!)"
+                        )
                     }
                 } else {
                     DispatchQueue.main.async {
-                        self?.showCompletedAlert(title: "회원가입 성공", message: "회원가입에 성공했습니다.", success: true)
+                        self?.showCompletedAlert(
+                            title: "회원가입 성공",
+                            message: "회원가입에 성공했습니다."
+                        ){
+                            self?.navigationController?.popToRootViewController(animated: true)
+                        }
                     }
                 }
             })
@@ -75,15 +83,21 @@ final class SignUpViewController: UIViewController {
             .subscribe(onSuccess: { [weak self] isAvailable in
                 DispatchQueue.main.async {
                     if (isAvailable == false) {
-                        self?.showCompletedAlert(title: "이메일 사용 가능", message: "이메일을 사용할 수 있습니다.", success: false)
+                        self?.showCompletedAlert(
+                            title: "이메일 사용 가능",
+                            message: "이메일을 사용할 수 있습니다."
+                        )
                         self?.contentView.IDField.isEnabled = false
                     } else {
-                        self?.showCompletedAlert(title: "이메일 사용 불가", message: "이미 사용 중인 이메일입니다.", success: false)
+                        self?.showCompletedAlert(
+                            title: "이메일 사용 불가",
+                            message: "이미 사용 중인 이메일입니다."
+                        )
                     }
                 }
             }, onFailure: { [weak self] error in
                 DispatchQueue.main.async {
-                    self?.showCompletedAlert(title: "오류", message: error.localizedDescription, success: false)
+                    self?.showCompletedAlert(title: "오류", message: error.localizedDescription)
                 }
             })
             .disposed(by: disposeBag)
@@ -99,7 +113,7 @@ extension SignUpViewController: SignupviewDelegate {
         let isPasswordValid = !contentView.password.isEmpty
         let isPasswordCheckValid = !contentView.passwordCheck.isEmpty
         let isFormValid = isNicknameValid && isIDValid && isPasswordValid && isPasswordCheckValid
-
+        
         contentView.signUpButton.isEnabled = isFormValid
         contentView.signUpButton.backgroundColor = isFormValid ? .systemBlue : .lightGray
     }

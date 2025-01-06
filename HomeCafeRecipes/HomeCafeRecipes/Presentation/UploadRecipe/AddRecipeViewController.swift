@@ -75,9 +75,9 @@ final class AddRecipeViewController: UIViewController {
                 DispatchQueue.main.async {
                     switch result {
                     case .success:
-                        self?.showCompletedAlert(title: "업로드 성공", message: "레시피가 성공적으로 업로드되었습니다.", success: true)
+                        self?.showCompletedAlert(title: "업로드 성공", message: "레시피가 성공적으로 업로드되었습니다.")
                     case .failure(let error):
-                        self?.showCompletedAlert(title: error.title, message: error.localizedDescription, success: false)
+                        self?.showCompletedAlert(title: error.title, message: error.localizedDescription)
                     }
                 }
             })

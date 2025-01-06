@@ -8,18 +8,31 @@
 import UIKit
 
 extension UIViewController {
-    func showCompletedAlert(title: String, message: String, success: Bool) {
+    func showCompletedAlert(
+        title: String,
+        message: String,
+        confirmTitle: String = "확인",
+        cancelTitle: String = "취소",
+        onConfirm: (() -> Void)? = nil,
+        onCancel: (() -> Void)? = nil
+    ) {
         let alert = UIAlertController(
             title: title,
             message: message,
             preferredStyle: .alert
         )
-        let confirmAction = UIAlertAction(title: "확인", style: .default) { _ in
-            if success {
-                self.navigationController?.popViewController(animated: true)
-            }
+        
+        let confirmAction = UIAlertAction(title: confirmTitle, style: .default) { _ in
+            onConfirm?()
         }
+        
+        let cancelAction = UIAlertAction(title: cancelTitle, style: .cancel) { _ in
+            onCancel?()
+        }
+        
         alert.addAction(confirmAction)
+        alert.addAction(cancelAction)
+        
         present(alert, animated: true, completion: nil)
     }
 }

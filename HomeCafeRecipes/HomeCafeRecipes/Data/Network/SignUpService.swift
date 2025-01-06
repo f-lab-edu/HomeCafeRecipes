@@ -14,8 +14,7 @@ protocol SignUpService {
         userNickName: String,
         userID: String,
         password: String
-    ) -> Single<Void>
-    func checkEmail(userID: String) -> Single<Bool>
+    ) -> Single<Void>    
 }
 
 final class SignUpServiceImpl: SignUpService {
@@ -44,7 +43,7 @@ final class SignUpServiceImpl: SignUpService {
         
         return networkService.postJsonRequest(
             url: url,
-            parameters: parameters,            
+            parameters: parameters,
             responseType: NetworkResponseDTO<EmptyResponse>.self
         )
         .flatMap { response in
@@ -52,30 +51,6 @@ final class SignUpServiceImpl: SignUpService {
                 return .just(())
             } else {
                 return .error(NSError(domain: "SignUpError", code: response.statusCode, userInfo: [NSLocalizedDescriptionKey: response.message]))
-            }
-        }
-        .catch { error in
-            return .error(error)
-        }
-    }
-    
-    func checkEmail(userID: String) -> Single<Bool> {
-        let url = makeURL(endpoint: "auth/checkEmail")
-        
-        let parameters: [String: Any] = [
-            "email" : userID
-        ]
-        
-        return networkService.postJsonRequest(
-            url: url,
-            parameters: parameters,
-            responseType: NetworkResponseDTO<CheckEmailResponesDTO>.self
-        )
-        .flatMap { response in
-            if response.statusCode == 200 {
-                return .just(response.data.isDuplicated)
-            } else {
-                return .error(NSError(domain: "CheckEmailError", code: response.statusCode, userInfo: [NSLocalizedDescriptionKey: response.message]))
             }
         }
         .catch { error in

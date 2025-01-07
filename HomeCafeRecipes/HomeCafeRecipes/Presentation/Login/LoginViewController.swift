@@ -58,8 +58,7 @@ final class LoginViewController: UIViewController {
                     DispatchQueue.main.async {
                         self?.showCompletedAlert(
                             title: error.title,
-                            message: error.localizedDescription,
-                            success: false
+                            message: error.localizedDescription
                         )
                     }
                 }

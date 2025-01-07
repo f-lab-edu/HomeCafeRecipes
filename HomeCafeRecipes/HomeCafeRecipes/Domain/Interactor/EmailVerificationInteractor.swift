@@ -11,6 +11,7 @@ import RxSwift
 // MARK: - Protocols
 
 protocol EmailVerificationInteractor {
+    var email: String { get }
     func updateEmail(_ email: String)
     func updateVerificationCode(_ code: String)
     func sendVerificationCode() -> Single<Bool>
@@ -30,7 +31,7 @@ final class EmailVerificationInteractorImpl: EmailVerificationInteractor {
     
     // MARK: - Properties
     
-    private var email: String = ""
+    var email: String = ""
     private var verificationCode: String = ""
         
     private let sendVerificationCodeUseCase: SendVerificationCodeUseCase

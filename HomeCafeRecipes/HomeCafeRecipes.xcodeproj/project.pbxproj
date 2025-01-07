@@ -41,6 +41,10 @@
 		1D2C6F682C246998004BB54E /* AddRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2C6F672C246998004BB54E /* AddRecipeViewController.swift */; };
 		1D2C6F6A2C26AF9F004BB54E /* AddRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2C6F692C26AF9F004BB54E /* AddRecipeView.swift */; };
 		1D2C6F6C2C27051D004BB54E /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2C6F6B2C27051D004BB54E /* CustomNavigationBar.swift */; };
+		1D2F4F762D2BEF6800FCE3A3 /* CheckNicknameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2F4F752D2BEF6800FCE3A3 /* CheckNicknameUseCase.swift */; };
+		1D2F4F782D2BF10C00FCE3A3 /* CheckNicknameRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2F4F772D2BF10C00FCE3A3 /* CheckNicknameRepository.swift */; };
+		1D2F4F7A2D2BF1CC00FCE3A3 /* CheckNicknameService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2F4F792D2BF1CC00FCE3A3 /* CheckNicknameService.swift */; };
+		1D2F4F7C2D2BF45B00FCE3A3 /* CheckNicknameDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2F4F7B2D2BF45B00FCE3A3 /* CheckNicknameDTO.swift */; };
 		1D3972682C44185B00495014 /* RecipeListMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3972672C44185B00495014 /* RecipeListMapper.swift */; };
 		1D39726C2C458CE100495014 /* MultipartFormDataRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D39726B2C458CE100495014 /* MultipartFormDataRequest.swift */; };
 		1D39729C2C45905700495014 /* MultipartFormDataRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D39726B2C458CE100495014 /* MultipartFormDataRequest.swift */; };
@@ -157,8 +161,6 @@
 		1DF829B72C2A7CDC00C337FC /* UIImageViewImageLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF829B62C2A7CDC00C337FC /* UIImageViewImageLoading.swift */; };
 		1DF829B92C2A818D00C337FC /* String+Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF829B82C2A818D00C337FC /* String+Validation.swift */; };
 		1DFC961C2C90809D006C3309 /* SignUpRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFC961B2C90809D006C3309 /* SignUpRepository.swift */; };
-		1DFC961E2C908723006C3309 /* CheckEmailRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFC961D2C908723006C3309 /* CheckEmailRepository.swift */; };
-		1DFC96202C908739006C3309 /* CheckEmailUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFC961F2C908739006C3309 /* CheckEmailUsecase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -213,6 +215,10 @@
 		1D2C6F672C246998004BB54E /* AddRecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecipeViewController.swift; sourceTree = "<group>"; };
 		1D2C6F692C26AF9F004BB54E /* AddRecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecipeView.swift; sourceTree = "<group>"; };
 		1D2C6F6B2C27051D004BB54E /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
+		1D2F4F752D2BEF6800FCE3A3 /* CheckNicknameUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckNicknameUseCase.swift; sourceTree = "<group>"; };
+		1D2F4F772D2BF10C00FCE3A3 /* CheckNicknameRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckNicknameRepository.swift; sourceTree = "<group>"; };
+		1D2F4F792D2BF1CC00FCE3A3 /* CheckNicknameService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckNicknameService.swift; sourceTree = "<group>"; };
+		1D2F4F7B2D2BF45B00FCE3A3 /* CheckNicknameDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckNicknameDTO.swift; sourceTree = "<group>"; };
 		1D3972672C44185B00495014 /* RecipeListMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeListMapper.swift; sourceTree = "<group>"; };
 		1D39726B2C458CE100495014 /* MultipartFormDataRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormDataRequest.swift; sourceTree = "<group>"; };
 		1D39729D2C46C57A00495014 /* FetchRecipeDetailUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchRecipeDetailUseCaseTests.swift; sourceTree = "<group>"; };
@@ -293,8 +299,6 @@
 		1DF829B62C2A7CDC00C337FC /* UIImageViewImageLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewImageLoading.swift; sourceTree = "<group>"; };
 		1DF829B82C2A818D00C337FC /* String+Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Validation.swift"; sourceTree = "<group>"; };
 		1DFC961B2C90809D006C3309 /* SignUpRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRepository.swift; sourceTree = "<group>"; };
-		1DFC961D2C908723006C3309 /* CheckEmailRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckEmailRepository.swift; sourceTree = "<group>"; };
-		1DFC961F2C908739006C3309 /* CheckEmailUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckEmailUsecase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -370,11 +374,11 @@
 				1D439E9B2C2C58DD008530A5 /* FetchRecipeDetailUseCase.swift */,
 				1D7641442C81BE90002AC68F /* LoginUseCase.swift */,
 				1D2398B12C8DC07800626F0C /* SignUpUseCase.swift */,
-				1DFC961F2C908739006C3309 /* CheckEmailUsecase.swift */,
 				1D0635E52CB2A63200DCC9EA /* FetchCommentUsecase.swift */,
 				1D87E08A2CD8C4BD0082A1CD /* AddCommentUseCase.swift */,
 				1D919CBD2D13FAA3004E6D7D /* SendVerificationCodeUseCase.swift */,
 				1DDF0FAE2D1AC71700B30426 /* ValidateEmailCodeUseCase.swift */,
+				1D2F4F752D2BEF6800FCE3A3 /* CheckNicknameUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -410,6 +414,7 @@
 				1D87E08E2CD8DB4A0082A1CD /* CommentPostService.swift */,
 				1D919CC12D15968B004E6D7D /* SendVerificationCodeService.swift */,
 				1DDF0FB22D1ACE2D00B30426 /* EmailVerificationCodeService.swift */,
+				1D2F4F792D2BF1CC00FCE3A3 /* CheckNicknameService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -523,6 +528,7 @@
 				1D7368852C33D7BE000EF904 /* RecipeUploadResponseDTO.swift */,
 				1DBD90BA2C91DE1600184F67 /* EmptyResponse.swift */,
 				1D0635E92CB2B0CD00DCC9EA /* CommentDTO.swift */,
+				1D2F4F7B2D2BF45B00FCE3A3 /* CheckNicknameDTO.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -589,11 +595,11 @@
 				1D7368732C32CF09000EF904 /* AddRecipeRepository.swift */,
 				1D7641462C831192002AC68F /* LoginRepository.swift */,
 				1DFC961B2C90809D006C3309 /* SignUpRepository.swift */,
-				1DFC961D2C908723006C3309 /* CheckEmailRepository.swift */,
 				1D0635E72CB2AA0600DCC9EA /* CommentListRepository.swift */,
 				1D87E08C2CD8D5A80082A1CD /* AddCommentRepository.swift */,
 				1D919CBF2D13FC8B004E6D7D /* SendVerificationCodeRepository.swift */,
 				1DDF0FB02D1ACDA900B30426 /* EmailVerificationCodeRepository.swift */,
+				1D2F4F772D2BF10C00FCE3A3 /* CheckNicknameRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -838,18 +844,21 @@
 				1D2C6F6C2C27051D004BB54E /* CustomNavigationBar.swift in Sources */,
 				1D0173B42CB185C000FF04BA /* CommentCell.swift in Sources */,
 				1DD4F70A2C80C947003E9D9D /* LoginError.swift in Sources */,
+				1D2F4F7A2D2BF1CC00FCE3A3 /* CheckNicknameService.swift in Sources */,
 				1D3972682C44185B00495014 /* RecipeListMapper.swift in Sources */,
 				1D919CBE2D13FAA3004E6D7D /* SendVerificationCodeUseCase.swift in Sources */,
 				1D2C16EA2BE532B700C04508 /* ViewController.swift in Sources */,
 				1DE19EC52C1B422F0031804A /* RecipeListView.swift in Sources */,
 				1D39726C2C458CE100495014 /* MultipartFormDataRequest.swift in Sources */,
 				1D6958D22C3D0553008604B3 /* Router.swift in Sources */,
+				1D2F4F762D2BEF6800FCE3A3 /* CheckNicknameUseCase.swift in Sources */,
 				1D4741D32C1B4F8D009381CE /* RecipePageDTO.swift in Sources */,
 				1D919CC22D15968B004E6D7D /* SendVerificationCodeService.swift in Sources */,
 				1D2C6F652C2446D8004BB54E /* MainTabBarController.swift in Sources */,
 				1DD8739C2D0FF6CF007C8551 /* EmailVerificationViewController.swift in Sources */,
 				1DDFFD842C1C324F0083B077 /* RecipeDetailViewController.swift in Sources */,
 				1D2C16E62BE532B700C04508 /* AppDelegate.swift in Sources */,
+				1D2F4F7C2D2BF45B00FCE3A3 /* CheckNicknameDTO.swift in Sources */,
 				1D5AEE512C592A8000BBD5F0 /* CGSize+addButton.swift in Sources */,
 				1D7641492C831295002AC68F /* LoginService.swift in Sources */,
 				1D7368702C32BFBB000EF904 /* AddRecipeInteractor.swift in Sources */,
@@ -888,11 +897,9 @@
 				1DF829B42C2A7A7D00C337FC /* Fonts.swift in Sources */,
 				1DF0D1AD2C7DF9BB00E2C94C /* LoginView.swift in Sources */,
 				1D4741D22C1B4F8D009381CE /* RecipeDTO.swift in Sources */,
-				1DFC96202C908739006C3309 /* CheckEmailUsecase.swift in Sources */,
 				1DE19EC02C1B422F0031804A /* RecipeDetailView.swift in Sources */,
 				1DF0D1982C7B92C500E2C94C /* DateFormatter+Extensions.swift in Sources */,
 				1DBB55062C8418490009E033 /* LoginRouter.swift in Sources */,
-				1DFC961E2C908723006C3309 /* CheckEmailRepository.swift in Sources */,
 				1D1283AA2C15EBCF00C5A870 /* SearchFeedUseCase.swift in Sources */,
 				1D0BE5822CB5652500F54A26 /* CommnetMapper.swift in Sources */,
 				1DE19EA82C1B420A0031804A /* SearchFeedListRepository.swift in Sources */,
@@ -907,6 +914,7 @@
 				1DE19E9D2C1B3DC10031804A /* SceneDelegate.swift in Sources */,
 				1D0173B22CB1856300FF04BA /* CommentViewController.swift in Sources */,
 				1D4741D12C1B4F8D009381CE /* RecipeImageDTO.swift in Sources */,
+				1D2F4F782D2BF10C00FCE3A3 /* CheckNicknameRepository.swift in Sources */,
 				1DF6E1432C8C561E005E8875 /* SignUpInteractor.swift in Sources */,
 				1D919CC02D13FC8B004E6D7D /* SendVerificationCodeRepository.swift in Sources */,
 				1DF0D1AB2C7DF9B500E2C94C /* LoginViewController.swift in Sources */,

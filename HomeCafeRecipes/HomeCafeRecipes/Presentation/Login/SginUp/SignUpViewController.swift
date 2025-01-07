@@ -14,12 +14,17 @@ final class SignUpViewController: UIViewController {
     private let signUpInteractor: SignUpInteractor
     private let disposeBag = DisposeBag()
     private let router: LoginRouter
+    private let email: String
     private var signUpViewModel: SignUpViewModel?
     
-    
-    init(signUpInteractor: SignUpInteractor, router: LoginRouter){
+    init(
+        signUpInteractor: SignUpInteractor,
+        router: LoginRouter,
+        email: String
+    ){
         self.signUpInteractor = signUpInteractor
         self.router = router
+        self.email = email
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -35,6 +40,8 @@ final class SignUpViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         contentView.delegate = self
+        contentView.setEmail(email: email)
+        signUpInteractor.didEndEditing(userID: email)
         signUpInteractor.loadNewUser()
     }
     
@@ -49,44 +56,73 @@ final class SignUpViewController: UIViewController {
     }
     
     private func signUp() {
-        signUpInteractor.didEndEditing(userNickName: contentView.nickname)
         signUpInteractor.didEndEditing(password: contentView.password)
         signUpInteractor.didEndEditing(checkpassword: contentView.passwordCheck)
         
         signUpInteractor.signUp()
+            .observe(on: MainScheduler.instance)
             .subscribe(onSuccess: { [weak self] error in
-                if let error = error {
-                    DispatchQueue.main.async {
-                        self?.showCompletedAlert(title: error.title, message: "\(error.errorDescription!)", success: false)
+                guard let self = self else { return }
+                self.showAlertForResult(
+                    isSuccess: error == nil,
+                    successTitle: "회원가입 성공",
+                    successMessage: "회원가입에 성공했습니다.",
+                    failureTitle: "회원가입 실패",
+                    failureMessage: error?.errorDescription ?? "알 수 없는 오류",
+                    onSuccess: {
+                        self.navigationController?.popToRootViewController(animated: true)
                     }
-                } else {
-                    DispatchQueue.main.async {
-                        self?.showCompletedAlert(title: "회원가입 성공", message: "회원가입에 성공했습니다.", success: true)
+                )
+            })
+            .disposed(by: disposeBag)
+    }
+
+    private func checkNickname() {
+        signUpInteractor.didEndEditing(userNickName: contentView.nickname)
+        signUpInteractor.checkNickname()
+            .observe(on: MainScheduler.instance)
+            .subscribe(onSuccess: { [weak self] isDuplicate in
+                guard let self = self else { return }
+                self.showAlertForResult(
+                    isSuccess: !isDuplicate,
+                    successTitle: "닉네임 사용 가능",
+                    successMessage: "사용 가능한 닉네임입니다. 이 닉네임을 사용하시겠습니까?",
+                    failureTitle: "닉네임 중복",
+                    failureMessage: "이미 사용 중인 닉네임입니다. 다른 닉네임을 입력해주세요.",
+                    onSuccess: {
+                        
+                    },
+                    onFailure: {
+                        
                     }
-                }
+                )
+            }, onFailure: { [weak self] error in
+                self?.showCompletedAlert(
+                    title: "오류",
+                    message: error.localizedDescription
+                )
             })
             .disposed(by: disposeBag)
     }
     
-    private func checkEmail() {
-        signUpInteractor.didEndEditing(userID: contentView.ID)
+    private func processVerificationResult(
+        isSuccess: Bool,
+        successMessage: String,
+        failureMessage: String,
+        onSuccess: (() -> Void)? = nil
+    ) {
+        let title = isSuccess ? "성공" : "오류"
+        let message = isSuccess ? successMessage : failureMessage
         
-        signUpInteractor.checkEmail()
-            .subscribe(onSuccess: { [weak self] isAvailable in
-                DispatchQueue.main.async {
-                    if (isAvailable == false) {
-                        self?.showCompletedAlert(title: "이메일 사용 가능", message: "이메일을 사용할 수 있습니다.", success: false)
-                        self?.contentView.IDField.isEnabled = false
-                    } else {
-                        self?.showCompletedAlert(title: "이메일 사용 불가", message: "이미 사용 중인 이메일입니다.", success: false)
-                    }
+        self.showCompletedAlert(
+            title: title,
+            message: message,
+            onConfirm: {
+                if isSuccess {
+                    onSuccess?()
                 }
-            }, onFailure: { [weak self] error in
-                DispatchQueue.main.async {
-                    self?.showCompletedAlert(title: "오류", message: error.localizedDescription, success: false)
-                }
-            })
-            .disposed(by: disposeBag)
+            }
+        )
     }
 }
 
@@ -95,11 +131,10 @@ final class SignUpViewController: UIViewController {
 extension SignUpViewController: SignupviewDelegate {
     func didUpdateTextFields() {
         let isNicknameValid = !contentView.nickname.isEmpty
-        let isIDValid = !contentView.ID.isEmpty
         let isPasswordValid = !contentView.password.isEmpty
         let isPasswordCheckValid = !contentView.passwordCheck.isEmpty
-        let isFormValid = isNicknameValid && isIDValid && isPasswordValid && isPasswordCheckValid
-
+        let isFormValid = isNicknameValid && isPasswordValid && isPasswordCheckValid
+        
         contentView.signUpButton.isEnabled = isFormValid
         contentView.signUpButton.backgroundColor = isFormValid ? .systemBlue : .lightGray
     }
@@ -112,10 +147,37 @@ extension SignUpViewController: SignupviewDelegate {
         signUp()
     }
     
-    func didTapcheckEmailButton() {
-        checkEmail()
+    func didTapcheckNicknameButton() {
+        checkNickname()
     }
 }
+
+extension SignUpViewController {
+    private func showAlertForResult(
+        isSuccess: Bool,
+        successTitle: String,
+        successMessage: String,
+        failureTitle: String,
+        failureMessage: String,
+        onSuccess: (() -> Void)? = nil,
+        onFailure: (() -> Void)? = nil
+    ) {
+        if isSuccess {
+            showCompletedAlert(
+                title: successTitle,
+                message: successMessage,
+                onConfirm: onSuccess
+            )
+        } else {
+            showCompletedAlert(
+                title: failureTitle,
+                message: failureMessage,
+                onConfirm: onFailure
+            )
+        }
+    }
+}
+
 
 // MARK: Drawable
 

@@ -10,11 +10,26 @@ import UIKit
 protocol SignupviewDelegate: AnyObject {
     func didTapBackButton()
     func didTapSignupButton()
-    func didTapcheckEmailButton()
+    func didTapcheckNicknameButton()
     func didUpdateTextFields()
 }
 
 final class SignUpView: UIView {
+    private let IDLabel: UILabel = {
+        let IDLabel = UILabel()
+        IDLabel.text = "아이디"
+        IDLabel.font = Fonts.detailBodyFont
+        return IDLabel
+    }()
+    
+    private let IDField: UITextField = {
+        let IDTextField = UITextField()
+        IDTextField.placeholder = "Enter your ID"
+        IDTextField.borderStyle = .roundedRect
+        IDTextField.isEnabled = false
+        return IDTextField
+    }()
+    
     private let nicknameLabel: UILabel = {
         let nicknameLabel = UILabel()
         nicknameLabel.text = "닉네임"
@@ -24,42 +39,25 @@ final class SignUpView: UIView {
     
     private lazy var nicknameField: UITextField = { [weak self]  in
         let nicknameTextField = UITextField()
-        nicknameTextField.placeholder = "Enter your nickname"
         nicknameTextField.borderStyle = .roundedRect
-        nicknameTextField.addTarget(self, action: #selector(self?.handleTextFieldEditing), for: .editingChanged)
         return nicknameTextField
     }()
     
-    private let IDLabel: UILabel = {
-        let IDLabel = UILabel()
-        IDLabel.text = "아이디"
-        IDLabel.font = Fonts.detailBodyFont
-        return IDLabel
-    }()
-    
-    lazy var checkEmailButton: UIButton = {
-        let checkEmailButton = UIButton()
-        checkEmailButton.setTitle("중복 확인", for: .normal)
-        checkEmailButton.backgroundColor = .systemBlue
-        checkEmailButton.titleLabel?.font = Fonts.detailBodyFont
-        checkEmailButton.layer.cornerRadius = 8
-        checkEmailButton.addAction(
+    lazy var checkNicknameButton: UIButton = {
+        let checkNicknameButton = UIButton()
+        checkNicknameButton.setTitle("중복 확인", for: .normal)
+        checkNicknameButton.backgroundColor = .systemBlue
+        checkNicknameButton.titleLabel?.font = Fonts.detailBodyFont
+        checkNicknameButton.layer.cornerRadius = 8
+        checkNicknameButton.addAction(
             UIAction(
                 handler: { [weak self] _ in
-                    self?.delegate?.didTapcheckEmailButton()
+                    self?.delegate?.didTapcheckNicknameButton()
                 }
             ),
             for: .touchUpInside
         )
-        return checkEmailButton
-    }()
-    
-    lazy var IDField: UITextField = { [weak self]  in
-        let IDTextField = UITextField()
-        IDTextField.placeholder = "Enter your ID"
-        IDTextField.borderStyle = .roundedRect
-        IDTextField.addTarget(self, action: #selector(self?.handleTextFieldEditing), for: .editingChanged)
-        return IDTextField
+        return checkNicknameButton
     }()
     
     private let passwordLabel: UILabel = {
@@ -90,7 +88,11 @@ final class SignUpView: UIView {
         passwordCheckField.placeholder = "Enter your password"
         passwordCheckField.borderStyle = .roundedRect
         passwordCheckField.isSecureTextEntry = true
-        passwordCheckField.addTarget(self, action: #selector(self?.handleTextFieldEditing), for: .editingChanged)
+        passwordCheckField.addTarget(
+            self,
+            action: #selector(self?.handleTextFieldEditing),
+            for: .editingChanged
+        )
         return passwordCheckField
     }()
     
@@ -151,7 +153,7 @@ final class SignUpView: UIView {
         addSubview(nicknameField)
         addSubview(IDLabel)
         addSubview(IDField)
-        addSubview(checkEmailButton)
+        addSubview(checkNicknameButton)
         addSubview(passwordLabel)
         addSubview(passwordField)
         addSubview(passwordCheckLabel)
@@ -160,11 +162,11 @@ final class SignUpView: UIView {
     }
     
     private func setupConstraints() {
-        nicknameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nicknameField.translatesAutoresizingMaskIntoConstraints = false
         IDLabel.translatesAutoresizingMaskIntoConstraints = false
         IDField.translatesAutoresizingMaskIntoConstraints = false
-        checkEmailButton.translatesAutoresizingMaskIntoConstraints = false
+        nicknameLabel.translatesAutoresizingMaskIntoConstraints = false
+        nicknameField.translatesAutoresizingMaskIntoConstraints = false
+        checkNicknameButton.translatesAutoresizingMaskIntoConstraints = false
         passwordLabel.translatesAutoresizingMaskIntoConstraints = false
         passwordField.translatesAutoresizingMaskIntoConstraints = false
         passwordCheckLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -177,27 +179,27 @@ final class SignUpView: UIView {
             customNavigationBar.trailingAnchor.constraint(equalTo: trailingAnchor),
             customNavigationBar.heightAnchor.constraint(equalToConstant: 44),
             
-            nicknameLabel.topAnchor.constraint(equalTo: customNavigationBar.bottomAnchor, constant: 150),
-            nicknameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            nicknameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            
-            nicknameField.topAnchor.constraint(equalTo: nicknameLabel.bottomAnchor, constant: 10),
-            nicknameField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            nicknameField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            
-            IDLabel.topAnchor.constraint(equalTo: nicknameField.bottomAnchor, constant: 20),
+            IDLabel.topAnchor.constraint(equalTo: customNavigationBar.bottomAnchor, constant: 150),
             IDLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             IDLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             
             IDField.topAnchor.constraint(equalTo: IDLabel.bottomAnchor, constant: 10),
             IDField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            IDField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             
-            checkEmailButton.centerYAnchor.constraint(equalTo: IDField.centerYAnchor),
-            checkEmailButton.leadingAnchor.constraint(equalTo: IDField.trailingAnchor, constant: 10),
-            checkEmailButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            checkEmailButton.widthAnchor.constraint(equalToConstant: 100),
+            nicknameLabel.topAnchor.constraint(equalTo: IDField.bottomAnchor, constant: 20),
+            nicknameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            nicknameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             
-            passwordLabel.topAnchor.constraint(equalTo: IDField.bottomAnchor, constant: 20),
+            nicknameField.topAnchor.constraint(equalTo: nicknameLabel.bottomAnchor, constant: 10),
+            nicknameField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            
+            checkNicknameButton.centerYAnchor.constraint(equalTo: nicknameField.centerYAnchor),
+            checkNicknameButton.leadingAnchor.constraint(equalTo: nicknameField.trailingAnchor, constant: 10),
+            checkNicknameButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            checkNicknameButton.widthAnchor.constraint(equalToConstant: 100),
+            
+            passwordLabel.topAnchor.constraint(equalTo: nicknameField.bottomAnchor, constant: 20),
             passwordLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             passwordLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             
@@ -220,16 +222,16 @@ final class SignUpView: UIView {
         ])
     }
     
+    func setEmail(email: String) {
+        IDField.text = email
+    }
+    
     @objc private func handleTextFieldEditing(_ textField: UITextField) {
         delegate?.didUpdateTextFields()
     }
     
     var nickname: String {
         return nicknameField.text ?? ""
-    }
-    
-    var ID: String {
-        return IDField.text ?? ""
     }
     
     var password: String {

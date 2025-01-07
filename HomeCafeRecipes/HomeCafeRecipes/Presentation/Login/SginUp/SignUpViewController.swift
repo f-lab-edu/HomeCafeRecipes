@@ -14,12 +14,17 @@ final class SignUpViewController: UIViewController {
     private let signUpInteractor: SignUpInteractor
     private let disposeBag = DisposeBag()
     private let router: LoginRouter
+    private let email: String
     private var signUpViewModel: SignUpViewModel?
     
-    
-    init(signUpInteractor: SignUpInteractor, router: LoginRouter){
+    init(
+        signUpInteractor: SignUpInteractor,
+        router: LoginRouter,
+        email: String
+    ){
         self.signUpInteractor = signUpInteractor
         self.router = router
+        self.email = email
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -35,6 +40,8 @@ final class SignUpViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         contentView.delegate = self
+        contentView.setEmail(email: email)
+        signUpInteractor.didEndEditing(userID: email)
         signUpInteractor.loadNewUser()
     }
     

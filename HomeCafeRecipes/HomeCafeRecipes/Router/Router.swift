@@ -170,7 +170,7 @@ extension Router {
         return LoginViewController
     }
     
-    func makeSignUpViewController() -> SignUpViewController {
+    func makeSignUpViewController(email: String) -> SignUpViewController {
         let signUpInteractor = SignUpInteractorImpl(
             usecase: SignUpUseCaseImpl(
                 repository: SignUpRepositoryImpl(
@@ -178,17 +178,17 @@ extension Router {
                         networkService: BaseNetworkService()
                     )
                 )
-            ), checkeEmailUsecase: CheckEmailUseCaseImpl(
-                repository: CheckEmailRepositoryImpl(
-                    signUpPostService: SignUpServiceImpl(
-                        networkService: BaseNetworkService()
+            ), checkNicknameUseCase: CheckNicknameUseCaseImpl(
+                repository: CheckNicknameRepositoryImpl(
+                    service:CheckNicknameServiceImpl(
+                        network: BaseNetworkService()
                     )
                 )
             )
         )
         let loginRouter = LoginRouterImpl(router: self)
         let signUpViewcontroller = SignUpViewController(
-            signUpInteractor: signUpInteractor, router: loginRouter)
+            signUpInteractor: signUpInteractor, router: loginRouter, email: email)
         return signUpViewcontroller
     }
     

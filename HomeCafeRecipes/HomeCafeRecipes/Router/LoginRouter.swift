@@ -9,7 +9,7 @@ import UIKit
 
 protocol LoginRouter {
     func navigateToEmailVerification(from viewController: UIViewController)
-    func navigateToSignUP(from viewController: UIViewController)
+    func navigateToSignUP(from viewController: UIViewController, email: String)
 }
 
 final class LoginRouterImpl: LoginRouter {
@@ -18,6 +18,7 @@ final class LoginRouterImpl: LoginRouter {
     init(router: Router) {
         self.router = router
     }
+    
     func navigateToEmailVerification(from viewController: UIViewController){
         let EmailVerificationViewController = router.makeEmailVerificationViewController()
         router.push(
@@ -27,9 +28,9 @@ final class LoginRouterImpl: LoginRouter {
             onNavigateBack: nil
         )
     }
-    func navigateToSignUP(from viewController: UIViewController) {
-        let SignUpViewController = router.makeSignUpViewController()
-        
+    
+    func navigateToSignUP(from viewController: UIViewController, email: String) {
+        let SignUpViewController = router.makeSignUpViewController(email: email)
         router.push(
             SignUpViewController,
             from: viewController,

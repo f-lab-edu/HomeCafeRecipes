@@ -16,7 +16,7 @@ struct RecipeUploadResponseDTO: Decodable {
     let likesCount: Int
     let createdAt: String
     let writer: UserDTO
-    let imageUrls: [RecipeImageDTO]
+    let imageUrls: [String]
     let isLikedByCurrentUser: Bool
         
     enum CodingKeys: String, CodingKey {
@@ -41,7 +41,7 @@ extension RecipeUploadResponseDTO {
             name: name,
             description: description,
             writer: writer.toDomain(),
-            imageUrls: imageUrls.map { $0.recipeImageUrl },
+            imageUrls: imageUrls,
             isLikedByCurrentUser: isLikedByCurrentUser,
             likeCount: likesCount,
             createdAt: DateFormatter.iso8601.date(from: createdAt) ?? Date()

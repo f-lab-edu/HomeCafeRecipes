@@ -8,7 +8,7 @@
 import RxSwift
 
 protocol FeedListRepository {
-    func fetchRecipes(pageNumber: Int) -> Single<[Recipe]>
+    func fetchRecipes(currentPage: Int, targetPage: Int, boundaryID: Int) -> Single<[Recipe]>
 }
 
 class FeedListRepositoryImpl: FeedListRepository {
@@ -18,7 +18,7 @@ class FeedListRepositoryImpl: FeedListRepository {
         self.networkService = networkService
     }
 
-    func fetchRecipes(pageNumber: Int) -> Single<[Recipe]> {
-        return networkService.fetchRecipes(pageNumber: pageNumber)
+    func fetchRecipes(currentPage: Int, targetPage: Int, boundaryID: Int) -> Single<[Recipe]> {
+        return networkService.fetchRecipes(currentPage: currentPage, targetPage: targetPage, boundaryID: boundaryID)
     }
 }

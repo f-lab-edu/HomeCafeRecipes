@@ -28,20 +28,21 @@ class RecipeListInteractorImpl: RecipeListInteractor {
     private let fetchFeedListUseCase: FetchFeedListUseCase
     private let searchFeedListUseCase: SearchFeedListUseCase
     weak var delegate: RecipeListInteractorDelegate?
-
+    
     private var currentPage: Int = 1
+    private var boundaryID: Int = 0
     private var isFetching = false
     private var isSearching = false
     private var currentSearchQuery: String?
     private var allRecipes: [Recipe] = []
-
+    
     private let recipesSubject = BehaviorSubject<Result<[Recipe], Error>>(value: .success([]))
-
+    
     init(fetchFeedListUseCase: FetchFeedListUseCase, searchFeedListUseCase: SearchFeedListUseCase) {
         self.fetchFeedListUseCase = fetchFeedListUseCase
         self.searchFeedListUseCase = searchFeedListUseCase
     }
-        
+    
     func viewDidLoad() {
         fetchRecipes()
     }
@@ -54,7 +55,7 @@ class RecipeListInteractorImpl: RecipeListInteractor {
             fetchNextRecipes()
         }
     }
-
+    
     func didSelectItem(ID: Int) {
         delegate?.showRecipeDetail(ID: ID)
     }
@@ -67,7 +68,7 @@ class RecipeListInteractorImpl: RecipeListInteractor {
         recipesSubject.onNext(.success([]))
         fetchRecipes()
     }
-
+    
     func searchRecipes(with title: String) {
         guard !isFetching else { return }
         isFetching = true
@@ -82,29 +83,37 @@ class RecipeListInteractorImpl: RecipeListInteractor {
             })
             .disposed(by: disposeBag)
     }
-
+    
     private func fetchRecipes() {
         guard !isFetching else { return }
         isFetching = true
-        fetchFeedListUseCase.execute(pageNumber: currentPage)
-            .subscribe(onSuccess: { [weak self] result in
-                self?.handleResult(result)
-            }, onFailure: { [weak self] error in
-                self?.handleResult(.failure(error))
-            })
-            .disposed(by: disposeBag)
+        fetchFeedListUseCase.execute(
+            currentPage: currentPage,
+            targetPage: currentPage == 1 ? 1 : currentPage+1,
+            boundaryID: boundaryID
+        )
+        .subscribe(onSuccess: { [weak self] result in
+            self?.handleResult(result)
+        }, onFailure: { [weak self] error in
+            self?.handleResult(.failure(error))
+        })
+        .disposed(by: disposeBag)
     }
     
     private func fetchNextRecipes() {
         guard !isFetching else { return }
         isFetching = true
-        fetchFeedListUseCase.execute(pageNumber: currentPage)
-            .subscribe(onSuccess: { [weak self] result in
-                self?.handleResult(result)
-            }, onFailure: { [weak self] error in
-                self?.handleResult(.failure(error))
-            })
-            .disposed(by: disposeBag)
+        fetchFeedListUseCase.execute(
+            currentPage: currentPage,
+            targetPage: currentPage == 1 ? 1 : currentPage+1,
+            boundaryID: boundaryID
+        )
+        .subscribe(onSuccess: { [weak self] result in
+            self?.handleResult(result)
+        }, onFailure: { [weak self] error in
+            self?.handleResult(.failure(error))
+        })
+        .disposed(by: disposeBag)
     }
     
     private func fetchNextSearchRecipes() {
@@ -134,6 +143,9 @@ class RecipeListInteractorImpl: RecipeListInteractor {
             }
             delegate?.fetchedRecipes(result: .success(allRecipes))
             currentPage += 1
+            if let maxRecipeID = recipes.map({ $0.id }).max() {
+                boundaryID = maxRecipeID
+            }
         case .failure(let error):
             delegate?.fetchedRecipes(result: .failure(error))
         }

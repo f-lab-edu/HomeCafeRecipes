@@ -8,20 +8,17 @@
 import Foundation
 
 struct RecipeDetailDTO: Decodable {
-    
     let id: Int
-    let type: String
     let name: String
     let description: String
     let likesCount: Int
     let createdAt: String
     let writer: UserDTO
-    let imageUrls: [RecipeImageDTO]
+    let imageUrls: [String] // 배열로 수신
     let isLikedByCurrentUser: Bool
         
     enum CodingKeys: String, CodingKey {
         case id = "recipeId"
-        case type = "recipeType"
         case name = "recipeName"
         case description = "recipeDescription"
         case likesCount = "recipeLikesCnt"
@@ -35,12 +32,12 @@ struct RecipeDetailDTO: Decodable {
 extension RecipeDetailDTO {
     func toDomain() -> Recipe {
         return Recipe(
-            id: id,
-            type: RecipeType(rawValue: type) ?? .coffee,
+            id: id, 
+            type: .coffee,
             name: name,
             description: description,
             writer: writer.toDomain(),
-            imageUrls: imageUrls.map { $0.recipeImageUrl },
+            imageUrls: imageUrls,
             isLikedByCurrentUser: isLikedByCurrentUser,
             likeCount: likesCount,
             createdAt: DateFormatter.iso8601.date(from: createdAt) ?? Date()

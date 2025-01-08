@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 protocol RecipeFetchService {
-    func fetchRecipes(pageNumber: Int) -> Single<[Recipe]>
+    func fetchRecipes(currentPage: Int, targetPage: Int, boundaryID: Int) -> Single<[Recipe]>
     func searchRecipes(title: String, pageNumber: Int) -> Single<[Recipe]>
 }
 
@@ -27,22 +27,27 @@ class RecipeFetchServiceImpl: RecipeFetchService {
         return URLComponents?.url
     }
     
-    func fetchRecipes(pageNumber: Int) -> Single<[Recipe]> {
-        guard let URL = makeURL(
-            endpoint: "recipes",
-            queryItems: [URLQueryItem(
-                name: "pageNumber",
-                value: String(pageNumber))
-            ]) else {
+    func fetchRecipes(
+        currentPage: Int,
+        targetPage: Int,
+        boundaryID: Int
+    ) -> Single<[Recipe]> {
+        let queryItems = [
+            URLQueryItem(name: "currentPage", value: String(currentPage)),
+            URLQueryItem(name: "targetPage", value: String(targetPage)),
+            URLQueryItem(name: "boundaryId", value: String(boundaryID))
+        ]
+        
+        guard let URL = makeURL(endpoint: "recipes", queryItems: queryItems) else {
             return Single.error(NSError(
                 domain: "URLComponentsError",
                 code: -1,
                 userInfo: [NSLocalizedDescriptionKey: "Invalid URL"]))
         }
+        
         return networkService.getRequest(url: URL, responseType: NetworkResponseDTO<RecipePageDTO>.self)
-            .map { $0.data.recipes.map{ $0.toDomain() } }
+            .map { $0.data.recipes.map { $0.toDomain() } }
     }
-    
     
     func searchRecipes(title: String, pageNumber: Int) -> Single<[Recipe]> {
         guard let URL = makeURL(endpoint: "recipes", queryItems: [

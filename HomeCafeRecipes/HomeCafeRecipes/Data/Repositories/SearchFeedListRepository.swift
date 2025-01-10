@@ -8,18 +8,28 @@
 import RxSwift
 
 protocol SearchFeedListRepository {
-    func searchRecipes(title: String, pageNumber: Int) -> Single<[Recipe]>
+    func searchRecipes(title: String, currentPage: Int, targetPage: Int, boundaryID: Int) -> Single<[Recipe]>
 }
 
 class SearchFeedRepositoryImpl: SearchFeedListRepository {
-            
+    
     private let networkService: RecipeFetchService
     
     init(networkService: RecipeFetchService) {
         self.networkService = networkService
     }
     
-    func searchRecipes(title: String,pageNumber: Int) -> Single<[Recipe]> {
-        return networkService.searchRecipes(title: title, pageNumber: pageNumber)
+    func searchRecipes(
+        title: String,
+        currentPage: Int,
+        targetPage: Int,
+        boundaryID: Int
+    ) -> Single<[Recipe]> {
+        return networkService.searchRecipes(
+            title: title,
+            currentPage: currentPage,
+            targetPage: targetPage,
+            boundaryID: boundaryID
+        )
     }
 }

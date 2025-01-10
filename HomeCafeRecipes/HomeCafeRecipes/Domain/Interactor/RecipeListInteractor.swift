@@ -64,6 +64,7 @@ class RecipeListInteractorImpl: RecipeListInteractor {
         isSearching = false
         currentSearchQuery = nil
         currentPage = 1
+        boundaryID = 0
         allRecipes.removeAll()
         recipesSubject.onNext(.success([]))
         fetchRecipes()
@@ -75,13 +76,18 @@ class RecipeListInteractorImpl: RecipeListInteractor {
         currentSearchQuery = title
         isSearching = true
         currentPage = 1
-        searchFeedListUseCase.execute(title: title, pageNumber: currentPage)
-            .subscribe(onSuccess: { [weak self] result in
-                self?.handleResult(result)
-            }, onFailure: { [weak self] error in
-                self?.handleResult(.failure(error))
-            })
-            .disposed(by: disposeBag)
+        searchFeedListUseCase.execute(
+            title: title,
+            currentPage: currentPage,
+            targetPage: currentPage == 1 ? 1 : currentPage+1,
+            boundaryID: 0
+        )
+        .subscribe(onSuccess: { [weak self] result in
+            self?.handleResult(result)
+        }, onFailure: { [weak self] error in
+            self?.handleResult(.failure(error))
+        })
+        .disposed(by: disposeBag)
     }
     
     private func fetchRecipes() {
@@ -118,15 +124,27 @@ class RecipeListInteractorImpl: RecipeListInteractor {
     
     private func fetchNextSearchRecipes() {
         guard !isFetching else { return }
-        guard let query = currentSearchQuery else { return }
+        guard let query = currentSearchQuery else {
+            print("Error: No current search query available.")
+            return
+        }
+        
         isFetching = true
-        searchFeedListUseCase.execute(title: query, pageNumber: currentPage)
-            .subscribe(onSuccess: { [weak self] result in
-                self?.handleResult(result)
-            }, onFailure: { [weak self] error in
-                self?.handleResult(.failure(error))
-            })
-            .disposed(by: disposeBag)
+        
+        searchFeedListUseCase.execute(
+            title: query,
+            currentPage: currentPage,
+            targetPage: currentPage + 1,
+            boundaryID: boundaryID
+        )
+        .subscribe(onSuccess: { [weak self] result in
+            guard let self = self else { return }
+            self.handleResult(result)
+        }, onFailure: { [weak self] error in
+            guard let self = self else { return }
+            self.handleResult(.failure(error))
+        })
+        .disposed(by: disposeBag)
     }
 
     private func handleResult(_ result: Result<[Recipe], Error>) {

@@ -8,7 +8,7 @@
 import RxSwift
 
 protocol SearchFeedListUseCase {
-    func execute(title: String,pageNumber: Int) -> Single<Result<[Recipe], Error>>
+    func execute(title: String, currentPage: Int, targetPage: Int, boundaryID: Int) -> Single<Result<[Recipe], Error>>
 }
 
 class SearchFeedListUseCaseImpl: SearchFeedListUseCase {
@@ -17,14 +17,24 @@ class SearchFeedListUseCaseImpl: SearchFeedListUseCase {
     init(repository: SearchFeedListRepository) {
         self.repository = repository
     }
-
-    func execute(title: String,pageNumber: Int) -> Single<Result<[Recipe], Error>> {
-        return repository.searchRecipes(title: title,pageNumber: pageNumber)
-            .map { recipes in
-                return .success(recipes)
-            }
-            .catch { error in
-                return .just(.failure(error))
-            }
+    
+    func execute(
+        title: String,
+        currentPage: Int,
+        targetPage: Int,
+        boundaryID: Int
+    ) -> Single<Result<[Recipe], Error>> {
+        return repository.searchRecipes(
+            title: title,
+            currentPage: currentPage,
+            targetPage: targetPage,
+            boundaryID: boundaryID
+        )
+        .map { recipes in
+            return .success(recipes)
+        }
+        .catch { error in
+            return .just(.failure(error))
+        }
     }
 }

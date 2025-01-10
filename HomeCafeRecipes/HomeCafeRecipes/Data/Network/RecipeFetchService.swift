@@ -27,16 +27,35 @@ class RecipeFetchServiceImpl: RecipeFetchService {
         return URLComponents?.url
     }
     
+    private func makeQueryItems(
+        currentPage: Int,
+        targetPage: Int,
+        boundaryID: Int,
+        keyword: String? = nil
+    ) -> [URLQueryItem] {
+        var queryItems: [URLQueryItem] = [
+            URLQueryItem(name: "currentPage", value: String(currentPage)),
+            URLQueryItem(name: "targetPage", value: String(targetPage)),
+            URLQueryItem(name: "boundaryId", value: String(boundaryID))
+        ]
+        
+        if let keyword = keyword, !keyword.isEmpty {
+            queryItems.append(URLQueryItem(name: "keyword", value: keyword))
+        }
+        
+        return queryItems
+    }
+    
     func fetchRecipes(
         currentPage: Int,
         targetPage: Int,
         boundaryID: Int
     ) -> Single<[Recipe]> {
-        let queryItems = [
-            URLQueryItem(name: "currentPage", value: String(currentPage)),
-            URLQueryItem(name: "targetPage", value: String(targetPage)),
-            URLQueryItem(name: "boundaryId", value: String(boundaryID))
-        ]
+        let queryItems = makeQueryItems(
+            currentPage: currentPage,
+            targetPage: targetPage,
+            boundaryID: boundaryID
+        )
         
         guard let URL = makeURL(endpoint: "recipes", queryItems: queryItems) else {
             return Single.error(NSError(

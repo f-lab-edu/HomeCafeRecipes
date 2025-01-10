@@ -10,7 +10,7 @@ import RxSwift
 
 protocol RecipeFetchService {
     func fetchRecipes(currentPage: Int, targetPage: Int, boundaryID: Int) -> Single<[Recipe]>
-    func searchRecipes(title: String, pageNumber: Int) -> Single<[Recipe]>
+    func searchRecipes(title: String, currentPage: Int, targetPage: Int, boundaryID: Int) -> Single<[Recipe]>
 }
 
 class RecipeFetchServiceImpl: RecipeFetchService {
@@ -68,23 +68,27 @@ class RecipeFetchServiceImpl: RecipeFetchService {
             .map { $0.data.recipes.map { $0.toDomain() } }
     }
     
-    func searchRecipes(title: String, pageNumber: Int) -> Single<[Recipe]> {
-        guard let URL = makeURL(endpoint: "recipes", queryItems: [
-            URLQueryItem(
-                name: "keyword",
-                value: title
-            ),
-            URLQueryItem(
-                name: "pageNumber",
-                value: String(pageNumber)
-            )
-        ]) else {
+    func searchRecipes(
+        title: String,
+        currentPage: Int,
+        targetPage: Int,
+        boundaryID: Int
+    ) -> Single<[Recipe]> {
+        let queryItems = makeQueryItems(
+            currentPage: currentPage,
+            targetPage: targetPage,
+            boundaryID: boundaryID,
+            keyword: title
+        )
+        
+        guard let URL = makeURL(endpoint: "recipes", queryItems: queryItems) else {
             return Single.error(
                 NSError(
                     domain: "URLComponentsError",
                     code: -1,
                     userInfo: [NSLocalizedDescriptionKey: "Invalid URL"]))
         }
+        
         return networkService.getRequest(
             url: URL, responseType:
                 NetworkResponseDTO<RecipePageDTO>.self

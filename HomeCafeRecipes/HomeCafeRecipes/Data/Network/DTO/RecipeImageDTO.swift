@@ -12,7 +12,7 @@ struct RecipeImageDTO: Decodable {
     let recipeImageUrl: String
     
     private enum CodingKeys: String, CodingKey {
-        case recipeImageID = "recipeImgId"
-        case recipeImageUrl = "recipeImgUrl"
+        case recipeImageID = "recipeImageId"
+        case recipeImageUrl = "recipeImageUrl"
     }
 }

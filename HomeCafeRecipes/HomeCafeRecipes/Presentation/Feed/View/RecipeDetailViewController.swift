@@ -90,8 +90,7 @@ extension RecipeDetailViewController: RecipeDetailViewDelegate {
             print("Recipe ID is missing")
             return
         }
-        router.presentCommentViewModally(from: self, recipeID: recipeID)
-        print(recipeID)
+        router.presentCommentViewModally(from: self, recipeID: recipeID)        
     }
     
     func didTapBookmarkButton() {

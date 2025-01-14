@@ -22,8 +22,20 @@ final class RecipeListInteractorTests: XCTestCase {
     
     final class FetchFeedListUseCaseMock: FetchFeedListUseCase {
         var executeCallCount: Int = 0
-        var executeStub: Single<Result<[Recipe], Error>> = .just(.failure(NSError(domain: "Test", code: -1, userInfo: nil)))
-        func execute(pageNumber: Int) -> Single<Result<[Recipe], Error>> {
+        var executeStub: Single<Result<[Recipe], Error>> = .just(
+            .failure(
+                NSError(
+                    domain: "Test",
+                    code: -1,
+                    userInfo: nil
+                )
+            )
+        )
+        func execute(
+            currentPage: Int,
+            targetPage: Int,
+            boundaryID: Int
+        ) -> Single<Result<[Recipe], Error>> {
             executeCallCount += 1
             return executeStub
         }
@@ -31,9 +43,22 @@ final class RecipeListInteractorTests: XCTestCase {
     
     final class SearchFeedListUseCaseMock: SearchFeedListUseCase {
         var executeCallCount: Int = 0
-        var executeStub: Single<Result<[Recipe], Error>> = .just(.failure(NSError(domain: "Test", code: -1, userInfo: nil)))
-
-        func execute(title: String, pageNumber: Int) -> Single<Result<[Recipe], Error>> {
+        var executeStub: Single<Result<[Recipe], Error>> = .just(
+            .failure(
+                NSError(
+                    domain: "Test",
+                    code: -1,
+                    userInfo: nil
+                )
+            )
+        )
+        
+        func execute(
+            title: String,
+            currentPage: Int,
+            targetPage: Int,
+            boundaryID: Int
+        ) -> Single<Result<[Recipe], Error>> {
             executeCallCount += 1
             return executeStub
         }
@@ -49,7 +74,7 @@ final class RecipeListInteractorTests: XCTestCase {
             fetchedCallCount += 1
             fetchedRecipeResult = result
         }
-
+        
         func showRecipeDetail(ID: Int) {
             showRecipeDetailCallCount += 1
             receivedShowRecipeDetailID = ID
@@ -157,7 +182,7 @@ extension RecipeListInteractorTests {
         // Given
         let interactor = createInteractor()
         let initialRecipes = [Recipe.dummyRecipe()]
-        let nextPageRecipes = [Recipe.dummyRecipe(id: 2)]        
+        let nextPageRecipes = [Recipe.dummyRecipe(id: 2)]
         fetchFeedListUseCase.executeStub = .just(.success(initialRecipes))
         interactor.viewDidLoad()
         fetchFeedListUseCase.executeStub = .just(.success(nextPageRecipes))

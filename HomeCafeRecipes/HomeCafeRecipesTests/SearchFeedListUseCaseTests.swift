@@ -22,7 +22,9 @@ final class SearchFeedListUseCaseTests: XCTestCase {
         var searchRecipeListStub: Single<[Recipe]> = .just([Recipe.dummyRecipe()])
         func searchRecipes(
             title: String,
-            pageNumber: Int
+            currentPage: Int,
+            targetPage: Int,
+            boundaryID: Int
         ) -> Single<[Recipe]>
         {
             searchRecipeListCallCount += 1
@@ -50,7 +52,9 @@ final class SearchFeedListUseCaseTests: XCTestCase {
         
         usecase.execute(
             title: "",
-            pageNumber: 0
+            currentPage: 0,
+            targetPage: 0,
+            boundaryID: 0
         )
         .subscribe()
         .disposed(by: disposeBag)
@@ -70,7 +74,9 @@ final class SearchFeedListUseCaseTests: XCTestCase {
         // When
         usecase.execute(
             title: "Test Recipe",
-            pageNumber: 1
+            currentPage: 0,
+            targetPage: 0,
+            boundaryID: 0
         )
         .subscribe(onSuccess: { result in
             switch result {
@@ -98,20 +104,24 @@ final class SearchFeedListUseCaseTests: XCTestCase {
         let expectation = self.expectation(description: "Search Recipes Failure")
         
         // When
-        usecase.execute(title: "Test Recipe", pageNumber: 1)
-            .subscribe(onSuccess: { result in
-                switch result {
-                case .success:
-                    XCTFail("Expected failure but got success")
-                case .failure(let receivedError as NSError):
-                    XCTAssertEqual(receivedError.domain, error.domain)
-                    XCTAssertEqual(receivedError.code, error.code)
-                    expectation.fulfill()
-                }
-            }, onFailure: { error in
-                XCTFail("Expected failure but got error: \(error)")
-            })
-            .disposed(by: disposeBag)
+        usecase.execute(title: "Test Recipe",
+                        currentPage: 0,
+                        targetPage: 0,
+                        boundaryID: 0
+        )
+        .subscribe(onSuccess: { result in
+            switch result {
+            case .success:
+                XCTFail("Expected failure but got success")
+            case .failure(let receivedError as NSError):
+                XCTAssertEqual(receivedError.domain, error.domain)
+                XCTAssertEqual(receivedError.code, error.code)
+                expectation.fulfill()
+            }
+        }, onFailure: { error in
+            XCTFail("Expected failure but got error: \(error)")
+        })
+        .disposed(by: disposeBag)
         
         wait(for: [expectation], timeout: 1.0)
     }

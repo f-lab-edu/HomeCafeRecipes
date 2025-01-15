@@ -134,6 +134,26 @@ extension RecipeListInteractorTests {
         }
     }
     
+    func test_boundaryID가_최대값으로_설정됩니다() {
+        // Given
+        let interactor = createInteractor()
+        let recipes = [
+            Recipe.dummyRecipe(id: 1),
+            Recipe.dummyRecipe(id: 3),
+            Recipe.dummyRecipe(id: 2)
+        ]
+        
+        fetchFeedListUseCase.executeStub = .just(.success(recipes))
+        
+        // When
+        interactor.viewDidLoad()
+        
+        // Then
+        XCTAssertEqual(fetchFeedListUseCase.executeCallCount, 1)
+        XCTAssertEqual(delegate.fetchedCallCount, 1)
+        XCTAssertEqual(recipes.map( {$0.id} ).max(), 3)
+    }
+    
     func test_FetchFeedListUseCase의_실패응답이오면_Delegate로_실패를_전달합니다() {
         
         // Given

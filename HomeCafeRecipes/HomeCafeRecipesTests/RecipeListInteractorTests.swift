@@ -22,8 +22,20 @@ final class RecipeListInteractorTests: XCTestCase {
     
     final class FetchFeedListUseCaseMock: FetchFeedListUseCase {
         var executeCallCount: Int = 0
-        var executeStub: Single<Result<[Recipe], Error>> = .just(.failure(NSError(domain: "Test", code: -1, userInfo: nil)))
-        func execute(pageNumber: Int) -> Single<Result<[Recipe], Error>> {
+        var executeStub: Single<Result<[Recipe], Error>> = .just(
+            .failure(
+                NSError(
+                    domain: "Test",
+                    code: -1,
+                    userInfo: nil
+                )
+            )
+        )
+        func execute(
+            currentPage: Int,
+            targetPage: Int,
+            boundaryID: Int
+        ) -> Single<Result<[Recipe], Error>> {
             executeCallCount += 1
             return executeStub
         }
@@ -31,9 +43,22 @@ final class RecipeListInteractorTests: XCTestCase {
     
     final class SearchFeedListUseCaseMock: SearchFeedListUseCase {
         var executeCallCount: Int = 0
-        var executeStub: Single<Result<[Recipe], Error>> = .just(.failure(NSError(domain: "Test", code: -1, userInfo: nil)))
-
-        func execute(title: String, pageNumber: Int) -> Single<Result<[Recipe], Error>> {
+        var executeStub: Single<Result<[Recipe], Error>> = .just(
+            .failure(
+                NSError(
+                    domain: "Test",
+                    code: -1,
+                    userInfo: nil
+                )
+            )
+        )
+        
+        func execute(
+            title: String,
+            currentPage: Int,
+            targetPage: Int,
+            boundaryID: Int
+        ) -> Single<Result<[Recipe], Error>> {
             executeCallCount += 1
             return executeStub
         }
@@ -49,7 +74,7 @@ final class RecipeListInteractorTests: XCTestCase {
             fetchedCallCount += 1
             fetchedRecipeResult = result
         }
-
+        
         func showRecipeDetail(ID: Int) {
             showRecipeDetailCallCount += 1
             receivedShowRecipeDetailID = ID
@@ -109,6 +134,26 @@ extension RecipeListInteractorTests {
         }
     }
     
+    func test_boundaryID가_최대값으로_설정됩니다() {
+        // Given
+        let interactor = createInteractor()
+        let recipes = [
+            Recipe.dummyRecipe(id: 1),
+            Recipe.dummyRecipe(id: 3),
+            Recipe.dummyRecipe(id: 2)
+        ]
+        
+        fetchFeedListUseCase.executeStub = .just(.success(recipes))
+        
+        // When
+        interactor.viewDidLoad()
+        
+        // Then
+        XCTAssertEqual(fetchFeedListUseCase.executeCallCount, 1)
+        XCTAssertEqual(delegate.fetchedCallCount, 1)
+        XCTAssertEqual(recipes.map( {$0.id} ).max(), 3)
+    }
+    
     func test_FetchFeedListUseCase의_실패응답이오면_Delegate로_실패를_전달합니다() {
         
         // Given
@@ -157,7 +202,7 @@ extension RecipeListInteractorTests {
         // Given
         let interactor = createInteractor()
         let initialRecipes = [Recipe.dummyRecipe()]
-        let nextPageRecipes = [Recipe.dummyRecipe(id: 2)]        
+        let nextPageRecipes = [Recipe.dummyRecipe(id: 2)]
         fetchFeedListUseCase.executeStub = .just(.success(initialRecipes))
         interactor.viewDidLoad()
         fetchFeedListUseCase.executeStub = .just(.success(nextPageRecipes))

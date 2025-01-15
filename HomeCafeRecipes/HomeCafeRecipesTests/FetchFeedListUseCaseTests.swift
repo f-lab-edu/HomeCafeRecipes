@@ -22,7 +22,11 @@ final class FetchFeedListUseCaseTests: XCTestCase {
         var fetchRecipeListCallCount: Int = 0
         var fetchRecipeListStub: Single<[Recipe]> = .just([Recipe.dummyRecipe()])
         
-        func fetchRecipes(pageNumber: Int) -> Single<[Recipe]> {
+        func fetchRecipes(
+            currentPage: Int,
+            targetPage: Int,
+            boundaryID: Int
+        ) -> Single<[Recipe]> {
             fetchRecipeListCallCount += 1
             return fetchRecipeListStub
         }
@@ -49,9 +53,13 @@ extension FetchFeedListUseCaseTests {
         
         // When
         
-        usecase.execute(pageNumber: 0)
-            .subscribe()
-            .disposed(by: disposeBag)
+        usecase.execute(
+            currentPage: 0,
+            targetPage: 0,
+            boundaryID: 0
+        )
+        .subscribe()
+        .disposed(by: disposeBag)
         
         // Then
         
@@ -66,20 +74,24 @@ extension FetchFeedListUseCaseTests {
         
         // When
         
-        usecase.execute(pageNumber: 0)
-            .subscribe(onSuccess:{ result in
-                if case .success(let fetchedRecipes) = result {
-                    XCTAssertTrue(TestUtils.areRecipesEqual(fetchedRecipes, recipe))
-                    expectation.fulfill()
-                } else {
-                    XCTFail("Expected success but got failure")
-                }
-                
-            }, onFailure: { error in
-                XCTFail("Expected success but got error: \(error)")
-                
-            })
-            .disposed(by: disposeBag)
+        usecase.execute(
+            currentPage: 0,
+            targetPage: 0,
+            boundaryID: 0
+        )
+        .subscribe(onSuccess:{ result in
+            if case .success(let fetchedRecipes) = result {
+                XCTAssertTrue(TestUtils.areRecipesEqual(fetchedRecipes, recipe))
+                expectation.fulfill()
+            } else {
+                XCTFail("Expected success but got failure")
+            }
+            
+        }, onFailure: { error in
+            XCTFail("Expected success but got error: \(error)")
+            
+        })
+        .disposed(by: disposeBag)
         
         wait(for: [expectation], timeout: 1.0)
         XCTAssertEqual(fetchRecipeListRepository.fetchRecipeListCallCount, 1)
@@ -93,21 +105,25 @@ extension FetchFeedListUseCaseTests {
         let expectation = self.expectation(description: "Fetch Recipes Failure")
         
         // When
-        usecase.execute(pageNumber: 0)
-            .subscribe(onSuccess: { result in
-                if case .failure(let receivedError as NSError) = result {
-                    // Then
-                    
-                    XCTAssertEqual(receivedError.domain, error.domain)
-                    XCTAssertEqual(receivedError.code, error.code)
-                    expectation.fulfill()
-                } else {
-                    XCTFail("Expected failure but got success")
-                }
-            }, onFailure: { error in
-                XCTFail("Expected failure but got error: \(error)")
-            })
-            .disposed(by: disposeBag)
+        usecase.execute(
+            currentPage: 0,
+            targetPage: 0,
+            boundaryID: 0
+        )
+        .subscribe(onSuccess: { result in
+            if case .failure(let receivedError as NSError) = result {
+                // Then
+                
+                XCTAssertEqual(receivedError.domain, error.domain)
+                XCTAssertEqual(receivedError.code, error.code)
+                expectation.fulfill()
+            } else {
+                XCTFail("Expected failure but got success")
+            }
+        }, onFailure: { error in
+            XCTFail("Expected failure but got error: \(error)")
+        })
+        .disposed(by: disposeBag)
         
         wait(for: [expectation], timeout: 1.0)
         XCTAssertEqual(fetchRecipeListRepository.fetchRecipeListCallCount, 1)

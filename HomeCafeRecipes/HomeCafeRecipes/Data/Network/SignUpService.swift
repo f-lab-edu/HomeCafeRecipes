@@ -33,7 +33,7 @@ final class SignUpServiceImpl: SignUpService {
         userID: String,
         password: String
     ) -> Single<Void> {
-        let url = makeURL(endpoint: "auth/register")
+        let url = makeURL(endpoint: "auth/signup")
         
         let parameters: [String: Any] = [
             "email": userID,

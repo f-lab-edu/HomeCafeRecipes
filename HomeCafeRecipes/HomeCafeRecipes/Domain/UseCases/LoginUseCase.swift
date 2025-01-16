@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 
 protocol LoginUseCase {
-    func execute(userID: String, password: String) -> Single<Result<User,LoginError>>
+    func execute(userID: String, password: String) -> Single<Result<LoginResponseDTO,LoginError>>
 }
 
 class LoginUseCaseImpl: LoginUseCase {
@@ -20,8 +20,7 @@ class LoginUseCaseImpl: LoginUseCase {
         self.repository = repository
     }
     
-    func execute(userID: String, password: String) -> Single<Result<User, LoginError>> {
-        
+    func execute(userID: String, password: String) -> Single<Result<LoginResponseDTO, LoginError>> {
         guard !userID.isBlank else {
             return .just(.failure(.IDIsEmpty))
         }
@@ -30,9 +29,6 @@ class LoginUseCaseImpl: LoginUseCase {
             return .just(.failure(.passwordIsEmpty))
         }
         
-        return repository.login(userID: userID, password: password)
-            .map{ .success($0) }
-            .catch { .just(.failure(.genericError($0))) }
-            
+        return repository.login(userID: userID, password: password)            
     }
 }

@@ -14,30 +14,43 @@ protocol LoginViewControllerDelegate: AnyObject {
 }
 
 protocol LoginInteractor: AnyObject {
-    func login(userID: String, password: String) -> Single<Result<User, LoginError>>
+    func login(userID: String, password: String) -> Single<Result<Bool, LoginError>>
     func loadUser()
     func didEndEditing(ID: String)
     func didEndEditing(password: String)
 }
 
 final class LoginInteractorImpl: LoginInteractor {
-    
     private var userID: String = ""
     private var password: String = ""
     
     weak var delegate: LoginViewControllerDelegate?
     
     private let loginUseCase: LoginUseCase
+    private let tokenSaveUseCase: TokenSaveUseCase
     
-    init(loginUseCase: LoginUseCase) {
+    init(loginUseCase: LoginUseCase,tokensaveUsecase: TokenSaveUseCase) {
         self.loginUseCase = loginUseCase
+        self.tokenSaveUseCase = tokensaveUsecase
     }
     
-    func login(userID: String, password: String) -> Single<Result<User, LoginError>> {
+    func login(userID: String, password: String) -> Single<Result<Bool, LoginError>> {
         return loginUseCase.execute(
             userID: userID,
             password: password
         )
+        .flatMap{ result in
+            switch result {
+            case .success(let loginResponse):
+                self.tokenSaveUseCase.saveTokens(
+                    accessToken: loginResponse.accessToken,
+                    refreshToken: loginResponse.refreshToken
+                )
+                return .just(.success(true))
+            case .failure(let error):
+                return .just(.failure(error))
+            }
+        }
     }
     
     func loadUser() {

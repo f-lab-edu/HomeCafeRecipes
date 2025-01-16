@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 
 protocol LoginRepository {
-    func login(userID: String, password: String) -> Single<User>
+    func login(userID: String, password: String) -> Single<Result<LoginResponseDTO, LoginError>>
 }
 
 final class LoginRepositoryImpl: LoginRepository {
@@ -21,7 +21,32 @@ final class LoginRepositoryImpl: LoginRepository {
         self.loginService = loginService
     }
     
-    func login(userID: String, password: String) -> Single<User> {
-        return loginService.login(userID: userID,password: password)
+    func login(userID: String, password: String) -> Single<Result<LoginResponseDTO, LoginError>> {
+        return loginService.login(userID: userID, password: password)
+            .catch { error in                
+                if let urlError = error as? URLError {
+                    switch urlError.code {
+                    case .notConnectedToInternet:
+                        return .just(.failure(.genericError(
+                            NSError(
+                                domain: "Network",
+                                code: -1009,
+                                userInfo: [NSLocalizedDescriptionKey: "인터넷 연결이 필요합니다."]
+                            )
+                        )))
+                    case .timedOut:
+                        return .just(.failure(.genericError(
+                            NSError(
+                                domain: "Network",
+                                code: -1001,
+                                userInfo: [NSLocalizedDescriptionKey: "요청 시간이 초과되었습니다."]
+                            )
+                        )))
+                    default:
+                        return .just(.failure(.genericError(urlError)))
+                    }
+                }
+                return .just(.failure(.genericError(error)))
+            }
     }
 }

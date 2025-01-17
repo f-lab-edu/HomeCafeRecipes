@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 
 protocol LoginRepository {
-    func login(userID: String, password: String) -> Single<Result<LoginResponseDTO, LoginError>>
+    func login(userID: String, password: String) -> Single<Result<Token, LoginError>>
 }
 
 final class LoginRepositoryImpl: LoginRepository {
@@ -21,7 +21,7 @@ final class LoginRepositoryImpl: LoginRepository {
         self.loginService = loginService
     }
     
-    func login(userID: String, password: String) -> Single<Result<LoginResponseDTO, LoginError>> {
+    func login(userID: String, password: String) -> Single<Result<Token, LoginError>> {
         return loginService.login(userID: userID, password: password)
             .catch { error in                
                 if let urlError = error as? URLError {

@@ -29,7 +29,7 @@ final class LoginInteractorImpl: LoginInteractor {
     private let loginUseCase: LoginUseCase
     private let tokenSaveUseCase: TokenSaveUseCase
     
-    init(loginUseCase: LoginUseCase,tokensaveUsecase: TokenSaveUseCase) {
+    init(loginUseCase: LoginUseCase, tokensaveUsecase: TokenSaveUseCase) {
         self.loginUseCase = loginUseCase
         self.tokenSaveUseCase = tokensaveUsecase
     }
@@ -42,9 +42,18 @@ final class LoginInteractorImpl: LoginInteractor {
         .flatMap{ result in
             switch result {
             case .success(let loginResponse):
+                guard let refreshToken = loginResponse.refreshToken else {
+                    return .just(.failure(.genericError(
+                        NSError(
+                            domain: "TokenError",
+                            code: -1,
+                            userInfo: [NSLocalizedDescriptionKey: "Missing token"]
+                        )
+                    )))
+                }
                 self.tokenSaveUseCase.saveTokens(
                     accessToken: loginResponse.accessToken,
-                    refreshToken: loginResponse.refreshToken
+                    refreshToken: refreshToken
                 )
                 return .just(.success(true))
             case .failure(let error):

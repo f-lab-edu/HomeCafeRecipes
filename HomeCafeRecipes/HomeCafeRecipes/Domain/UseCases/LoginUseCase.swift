@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 
 protocol LoginUseCase {
-    func execute(userID: String, password: String) -> Single<Result<LoginResponseDTO,LoginError>>
+    func execute(userID: String, password: String) -> Single<Result<Token,LoginError>>
 }
 
 class LoginUseCaseImpl: LoginUseCase {
@@ -20,7 +20,7 @@ class LoginUseCaseImpl: LoginUseCase {
         self.repository = repository
     }
     
-    func execute(userID: String, password: String) -> Single<Result<LoginResponseDTO, LoginError>> {
+    func execute(userID: String, password: String) -> Single<Result<Token, LoginError>> {
         guard !userID.isBlank else {
             return .just(.failure(.IDIsEmpty))
         }

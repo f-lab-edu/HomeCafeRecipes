@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 
 protocol LoginService {
-    func login(userID: String, password: String) -> Single<Result<LoginResponseDTO, LoginError>>
+    func login(userID: String, password: String) -> Single<Result<Token, LoginError>>
 }
 
 final class LoginServiceImpl: LoginService {
@@ -24,7 +24,7 @@ final class LoginServiceImpl: LoginService {
         return APIConfig().baseURL.appendingPathComponent(ednpoint)
     }
     
-    func login(userID: String, password: String) -> Single<Result<LoginResponseDTO, LoginError>> {
+    func login(userID: String, password: String) -> Single<Result<Token, LoginError>> {
         let url = makeURL(ednpoint: "auth/login")
         
         let parameters: [String: Any] = [
@@ -36,10 +36,10 @@ final class LoginServiceImpl: LoginService {
             url: url,
             parameters: parameters,
             responseType: NetworkResponseDTO<LoginResponseDTO>.self
-        )        
+        )
         .map { response in
             if response.statusCode == 200 {
-                return .success(response.data)
+                return .success(response.data.toDomain())
             } else {
                 return .failure(.serverError(response.message))
             }

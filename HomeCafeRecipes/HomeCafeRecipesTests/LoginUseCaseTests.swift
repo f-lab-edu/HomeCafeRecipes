@@ -18,11 +18,16 @@ final class LoginUseCaseTests: XCTestCase {
     
     final class LoginRepositoryMock: LoginRepository {
         var loginCallCount: Int = 0
-        var loginStub: Single<User> = .just(User.dummyUser())
-        func login(
-            userID: String,
-            password: String
-        ) -> Single<User> {
+        var loginStub: Single<Result<Token, LoginError>> = .just(
+            .success(
+                Token(
+                    accessToken: "testAccessToken",
+                    refreshToken: "testRefreshToken"
+                )
+            )
+        )
+        
+        func login(userID: String, password: String) -> Single<Result<Token, LoginError>> {
             loginCallCount += 1
             return loginStub
         }
@@ -33,19 +38,31 @@ final class LoginUseCaseTests: XCTestCase {
         return usecase
     }
     
-    func assertLoginError(_ actual: Error, expectedError: LoginError, file: StaticString = #file, line: UInt = #line) {
-        if let actualError = actual as? LoginError {
-            switch (actualError, expectedError) {
-            case (.IDIsEmpty, .IDIsEmpty),
-                (.passwordIsEmpty, .passwordIsEmpty):
-                return
-            case (.genericError(let actual), .genericError(let expected)):
-                XCTAssertEqual(actual.localizedDescription, expected.localizedDescription, file: file, line: line)
-            default:
-                XCTFail("Expected \(expectedError) but got \(actualError)", file: file, line: line)
-            }
-        } else {
-            XCTFail("Expected \(expectedError) but got \(actual)", file: file, line: line)
+    func assertLoginError(
+        _ actual: Error,
+        equals expectedError: LoginError,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) {
+        guard let actualError = actual as? LoginError else {
+            XCTFail("Expected error of type \(expectedError) but got \(actual)", file: file, line: line)
+            return
+        }
+        
+        switch (actualError, expectedError) {
+        case (.IDIsEmpty, .IDIsEmpty),
+            (.passwordIsEmpty, .passwordIsEmpty):
+            return
+        case (.genericError(let actual), .genericError(let expected)):
+            XCTAssertEqual(
+                actual.localizedDescription,
+                expected.localizedDescription,
+                "Error descriptions do not match",
+                file: file,
+                line: line
+            )
+        default:
+            XCTFail("Expected \(expectedError) but got \(actualError)", file: file, line: line)
         }
     }
     
@@ -71,7 +88,6 @@ extension LoginUseCaseTests {
     
     func test_excute를_호출할때_ID가_비워있으면_IDIsEmptyError을_return합니다() {
         let usecase = createUsecase()
-        
         usecase.execute(
             userID: "",
             password: "testPassword"
@@ -81,7 +97,8 @@ extension LoginUseCaseTests {
             case .success(let loginResult):
                 switch loginResult {
                 case .failure(let error):
-                    self.assertLoginError(error, expectedError: .IDIsEmpty)
+                    XCTAssertEqual(self.loginRepository.loginCallCount, 0)
+                    self.assertLoginError(error, equals: .IDIsEmpty)
                 case .success:
                     XCTFail("Expected failure but got success")
                 }
@@ -104,7 +121,8 @@ extension LoginUseCaseTests {
             case .success(let loginResult):
                 switch loginResult {
                 case .failure(let error):
-                    self.assertLoginError(error, expectedError: .passwordIsEmpty)
+                    XCTAssertEqual(self.loginRepository.loginCallCount, 0)
+                    self.assertLoginError(error, equals: .passwordIsEmpty)
                 case .success:
                     XCTFail("Expected failure but got success")
                 }
@@ -115,19 +133,25 @@ extension LoginUseCaseTests {
         .disposed(by: disposeBag)
     }
     
-    func test_excute를_호출할때_성공할경우_성공한User의_정보를_return합니다() {
+    func test_excute를_호출할때_성공할경우_Token정보를_return합니다() {
         let usecase = createUsecase()
-                
+        let expectedAccessToken = "testAccessToken"
+        let expectedRefreshToken = "testRefreshToken"
+        
         usecase.execute(
             userID: "testId",
             password: "testPassword"
         ).subscribe(onSuccess: { loginResult in
             switch loginResult {
-            case .success(let user):
-                print(user)
-                XCTAssertEqual(user.nickname, "testID")
+                
+            case .success(let tokens):
+                XCTAssertEqual(self.loginRepository.loginCallCount, 1)
+                XCTAssertEqual(tokens.accessToken, expectedAccessToken)
+                XCTAssertEqual(tokens.refreshToken, expectedRefreshToken)
+                
             case .failure:
                 XCTFail("Expected success but got failure")
+                
             }
         }, onFailure: { error in
             XCTFail("Expected success but got failure with error: \(error.localizedDescription)")
@@ -135,32 +159,31 @@ extension LoginUseCaseTests {
         .disposed(by: disposeBag)
     }
     
-    func test_excute를_호출할때_잘못된자격증명으로_실패를_return합니다() {
-        loginRepository.loginStub = .error(NSError(
+    func test_execute를_호출할때_잘못된자격증명으로_실패를_return합니다() {
+        // Given
+        let expectedNSError = NSError(
             domain: "TestErrorDomain",
             code: -1,
             userInfo: [NSLocalizedDescriptionKey: "Invalid credentials"]
-        ))
+        )
+        
+        loginRepository.loginStub = .error(LoginError.genericError(expectedNSError))
         let usecase = createUsecase()
         
+        
+        // When
         usecase.execute(
             userID: "wrongID@test.com",
             password: "wrongPassword"
-        ).subscribe(onSuccess: { loginResult in
-            switch loginResult {
-            case .success:
-                XCTFail("Expected failure but got success")
-            case .failure(let error):
-                self.assertLoginError(error, expectedError: .genericError(
-                    NSError(
-                        domain: "TestErrorDomain",
-                        code: -1,
-                        userInfo: [NSLocalizedDescriptionKey: "Invalid credentials"]
-                    )
-                ))
-            }
+        ).subscribe(onSuccess: { _ in
+            XCTFail("Expected failure but got success")
         }, onFailure: { error in
-            XCTFail("Expected success but got failure with error: \(error.localizedDescription)")
+            // Then
+            XCTAssertEqual(self.loginRepository.loginCallCount, 1)
+            self.assertLoginError(
+                error,
+                equals: .genericError(expectedNSError)
+            )
         })
         .disposed(by: disposeBag)
     }

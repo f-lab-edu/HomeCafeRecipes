@@ -48,7 +48,6 @@
 		1D3523AC2D37E8BD007DD505 /* LoginResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3523AB2D37E8BD007DD505 /* LoginResponseDTO.swift */; };
 		1D3523B02D389B89007DD505 /* KeychainRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3523AF2D389B89007DD505 /* KeychainRepository.swift */; };
 		1D3523B22D390346007DD505 /* TokenSaveUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3523B12D390346007DD505 /* TokenSaveUseCase.swift */; };
-		1D3523B42D391C01007DD505 /* LoginInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3523B32D391C01007DD505 /* LoginInteractorTests.swift */; };
 		1D3972682C44185B00495014 /* RecipeListMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3972672C44185B00495014 /* RecipeListMapper.swift */; };
 		1D39726C2C458CE100495014 /* MultipartFormDataRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D39726B2C458CE100495014 /* MultipartFormDataRequest.swift */; };
 		1D39729C2C45905700495014 /* MultipartFormDataRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D39726B2C458CE100495014 /* MultipartFormDataRequest.swift */; };
@@ -117,6 +116,17 @@
 		1D93B9992CA26EB80094277F /* LoginUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D93B9982CA26EB80094277F /* LoginUseCaseTests.swift */; };
 		1D95A0A62C37C79500F09077 /* RecipeDetailError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D95A0A52C37C79500F09077 /* RecipeDetailError.swift */; };
 		1D96FDAA2C7F55E600EFC657 /* LoginInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D96FDA92C7F55E600EFC657 /* LoginInteractor.swift */; };
+		1DAD9EAB2D39F934001E9F49 /* LoginInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAD9EAA2D39F934001E9F49 /* LoginInteractorTests.swift */; };
+		1DAD9EAC2D39FB43001E9F49 /* TokenSaveUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3523B12D390346007DD505 /* TokenSaveUseCase.swift */; };
+		1DAD9EAD2D39FB49001E9F49 /* LoginInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D96FDA92C7F55E600EFC657 /* LoginInteractor.swift */; };
+		1DAD9EAE2D3A3D98001E9F49 /* LoginResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3523AB2D37E8BD007DD505 /* LoginResponseDTO.swift */; };
+		1DAD9EAF2D3A3DA5001E9F49 /* KeychainRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3523AF2D389B89007DD505 /* KeychainRepository.swift */; };
+		1DAD9EB02D3A3DC3001E9F49 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF0D1A82C7DF9AA00E2C94C /* LoginViewModel.swift */; };
+		1DAD9EB22D3A61AA001E9F49 /* ReissueTokenUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAD9EB12D3A61AA001E9F49 /* ReissueTokenUseCase.swift */; };
+		1DAD9EB42D3A6223001E9F49 /* ReissueTokenRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAD9EB32D3A6223001E9F49 /* ReissueTokenRepository.swift */; };
+		1DAD9EB62D3A6597001E9F49 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAD9EB52D3A6597001E9F49 /* Token.swift */; };
+		1DAD9EB82D3A7203001E9F49 /* ReissueTokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAD9EB72D3A7203001E9F49 /* ReissueTokenService.swift */; };
+		1DAD9EB92D3A84BA001E9F49 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAD9EB52D3A6597001E9F49 /* Token.swift */; };
 		1DBB55062C8418490009E033 /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBB55052C8418490009E033 /* LoginRouter.swift */; };
 		1DBB55082C8421890009E033 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBB55072C8421890009E033 /* SignUpView.swift */; };
 		1DBB550A2C8421920009E033 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBB55092C8421920009E033 /* SignUpViewController.swift */; };
@@ -226,7 +236,6 @@
 		1D3523AB2D37E8BD007DD505 /* LoginResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponseDTO.swift; sourceTree = "<group>"; };
 		1D3523AF2D389B89007DD505 /* KeychainRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainRepository.swift; sourceTree = "<group>"; };
 		1D3523B12D390346007DD505 /* TokenSaveUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenSaveUseCase.swift; sourceTree = "<group>"; };
-		1D3523B32D391C01007DD505 /* LoginInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInteractorTests.swift; sourceTree = "<group>"; };
 		1D3972672C44185B00495014 /* RecipeListMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeListMapper.swift; sourceTree = "<group>"; };
 		1D39726B2C458CE100495014 /* MultipartFormDataRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormDataRequest.swift; sourceTree = "<group>"; };
 		1D39729D2C46C57A00495014 /* FetchRecipeDetailUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchRecipeDetailUseCaseTests.swift; sourceTree = "<group>"; };
@@ -268,6 +277,7 @@
 		1D93B9982CA26EB80094277F /* LoginUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUseCaseTests.swift; sourceTree = "<group>"; };
 		1D95A0A52C37C79500F09077 /* RecipeDetailError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailError.swift; sourceTree = "<group>"; };
 		1D96FDA92C7F55E600EFC657 /* LoginInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInteractor.swift; sourceTree = "<group>"; };
+		1DAD9EAA2D39F934001E9F49 /* LoginInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInteractorTests.swift; sourceTree = "<group>"; };
 		1DBB55052C8418490009E033 /* LoginRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRouter.swift; sourceTree = "<group>"; };
 		1DBB55072C8421890009E033 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		1DBB55092C8421920009E033 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -481,7 +491,7 @@
 				1D5AEF292C64730A00BBD5F0 /* FetchFeedListUseCaseTests.swift */,
 				1D8474552C6C917900323001 /* SearchFeedListUseCaseTests.swift */,
 				1D93B9982CA26EB80094277F /* LoginUseCaseTests.swift */,
-				1D3523B32D391C01007DD505 /* LoginInteractorTests.swift */,
+				1DAD9EAA2D39F934001E9F49 /* LoginInteractorTests.swift */,
 			);
 			path = HomeCafeRecipesTests;
 			sourceTree = "<group>";
@@ -975,8 +985,9 @@
 				1D6958D82C3D5A80008604B3 /* RecipeDeatilInteractorTests.swift in Sources */,
 				1DC373A82CA8169F00B2E831 /* LoginUseCase.swift in Sources */,
 				1D5AEE812C61099900BBD5F0 /* RecipeListInteractorTests.swift in Sources */,
-				1D3523B42D391C01007DD505 /* LoginInteractorTests.swift in Sources */,
+				1DAD9EAB2D39F934001E9F49 /* LoginInteractorTests.swift in Sources */,
 				1D60CC402C3EB76600D08FA3 /* APIConfig.swift in Sources */,
+				1DAD9EB92D3A84BA001E9F49 /* Token.swift in Sources */,
 				1D5AEF3A2C64795900BBD5F0 /* SearchFeedListRepository.swift in Sources */,
 				1DF0D19C2C7B92D600E2C94C /* UserDTO.swift in Sources */,
 				1D5AEF282C646FE600BBD5F0 /* RecipeListInteractor.swift in Sources */,
@@ -992,13 +1003,18 @@
 				1D166D0E2C4AD54E00A50963 /* AddRecipeViewModel.swift in Sources */,
 				1DC373A92CA81AD400B2E831 /* LoginError.swift in Sources */,
 				1D39729C2C45905700495014 /* MultipartFormDataRequest.swift in Sources */,
+				1DAD9EAD2D39FB49001E9F49 /* LoginInteractor.swift in Sources */,
 				1D5AEF332C64790200BBD5F0 /* RecipeUploadDTO.swift in Sources */,
+				1DAD9EAE2D3A3D98001E9F49 /* LoginResponseDTO.swift in Sources */,
 				1DF0D1A22C7B92F800E2C94C /* User.swift in Sources */,
 				1DC373A72CA810BB00B2E831 /* LoginRepository.swift in Sources */,
 				1D2C16FD2BE532B800C04508 /* HomeCafeRecipesTests.swift in Sources */,
 				1D6958E42C3D5EA6008604B3 /* NetworkResponseDTO.swift in Sources */,
 				1D5AEF302C6478D800BBD5F0 /* RecipeFetchService.swift in Sources */,
+				1DAD9EB02D3A3DC3001E9F49 /* LoginViewModel.swift in Sources */,
+				1DAD9EAC2D39FB43001E9F49 /* TokenSaveUseCase.swift in Sources */,
 				1D5AEF362C64791300BBD5F0 /* RecipePageDTO.swift in Sources */,
+				1DAD9EAF2D3A3DA5001E9F49 /* KeychainRepository.swift in Sources */,
 				1D5AEF322C6478FE00BBD5F0 /* RecipePostService.swift in Sources */,
 				1D6958DB2C3D5C91008604B3 /* Recipe.swift in Sources */,
 				1D6958E02C3D5E3D008604B3 /* RecipeDetailError.swift in Sources */,
